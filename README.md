@@ -1,11 +1,10 @@
 # Minesweeper 
-=============================
 High-Quality Programming Code Team Project (May - July 2014)
 
-## Overview
+### Overview
 You are given a C# software project designed to implement some the console-based game **Minesweeper**. The project consists of one or more source code files and sometimes contains other files and is provided as ZIP archive. You need to refactor the project in order to improve its quality following the best practices learned in the course “High-Quality Programming Code” and to implement unit tests that ensure that the code has correct behavior.
 
-## Detailed Assignment Description
+### Detailed Assignment Description
 
 In order to ensure the high quality of the assigned project you need to fulfill the following tasks:
 
@@ -22,17 +21,17 @@ In order to ensure the high quality of the assigned project you need to fulfill 
 4. **Design and implement unit tests** covering the entire project functionality. To ensure the project works correctly according to the requirements and behaves correctly in all possible use cases, design and implement unit tests that cover all use cases and the entire program logic. If needed, first redesign the program logic to make the code testable. Test the normal expected behavior (correct data) and possible expected failures (incorrect data). Put special attention to the border cases. The code coverage of the unit tests should be at least 80%. Use unit testing framework of your choice (e.g. Visual Studio Team Test, NUnit, MbUnit or other).
 5. **Document the refactorings** you have performed in order to improve the quality of the project. Use English or Bulgarian language and follow the sample (see below).
 
-## Deliverables
+### Deliverables
 1. The original source code (project files, .cs files) without executables.
 2. The refactored source code (project files, .cs files) without executables.
 3. The unit tests – source code (project files, .cs files) without executables.
 4. The refactoring documentation.
 
-## Team Work Requirements
+### Team Work Requirements
   - Obligatory use **Git** as source code repository and **GitHub** (http://github.com) as project hosting and team collaboration environment. SVN or TFS are not allowed for this project.
   - **Each team member** should have contributions to the project and commits in the source control repository in 3 different days. We acknowledge that this requirement seems a bit unnatural, but we want to track how the team collaborates over the time and that the project is developed incrementally, not in the “last minute”.
 
-## Other Requirements
+### Other Requirements
   - Pack the project deliverables in a **single ZIP archive**. Be sure to avoid including large unused files in the archives (e.g. compilation binaries). Your archive should be up to 8 MB. Each team member should submit the same archive as a homework.
   - Be prepared as a team to defend your project in front of the course lecturers. You should be able to explain what refactorings have been performed and why. The documentation will definitely help you. Be prepared to demonstrate how the unit tests cover the project’s functionality. Preferably bring your own laptop to reduce the effort to setup your development environment and project workspace.
   - Be prepared to show the commit logs from the source control system to demonstrate how the project development efforts are shared between the team members and over the time.
