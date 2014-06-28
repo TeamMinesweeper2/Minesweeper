@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-// egati koda sym nashatkal!
-
 namespace gyrmeji
 {
     class Telerik
     {
         private static int[,] matrica = new int[5, 10];
-        private static int[] nekviChisla = new int[15];
+
         private static int[,] state = new int[5, 10];
-        private static int[,] open = new int[5, 10];
+        private static bool[,] openedCells = new bool[5, 10];
         private static int[] topCells = new int[5];
         private static string[] topNames = new string[5];
         private static int topCellsCounter = 0;
@@ -45,12 +43,12 @@ namespace gyrmeji
                 int p2 = Convert.ToInt32((p.ElementAt(2)).ToString());
                 Console.WriteLine(p1);
 
-                if (open[p1, p2] == 1)
+                if (openedCells[p1, p2])
                 { Console.WriteLine("Illegal move!"); continue; }
 
-                if (open[p1, p2] == 0)
+                if (!openedCells[p1, p2])
                 {
-                    open[p1, p2] = 1;
+                    openedCells[p1, p2] = true;
                     state[p1, p2] = 1;
                     if (matrica[p1, p2] == 1)
                     {
@@ -76,21 +74,6 @@ namespace gyrmeji
             Console.WriteLine("Good Bye");
         }
 
-        private static bool IsFoundInRandomNumbers(int index, int number)
-        {
-            bool result = false;
-            for (int i = 0; i < index - 1; i++)
-            {
-                if (nekviChisla[i] == number)
-                {
-                    result = true;
-                    break;
-                }
-            }
-
-            return result;
-        }
-
         private static void Initializematrica()
         {
             for (int i = 0; i < 5; i++)
@@ -99,23 +82,23 @@ namespace gyrmeji
                 {
                     matrica[i, j] = 0;
                     state[i, j] = 0;
-                    open[i, j] = 0;
+                    openedCells[i, j] = false;
                 }
             }
 
             Random random = new Random();
+
 
             for (int i = 0; i < 15; i++)
             {
                 int index = random.Next(50);
 
 
-                while (IsFoundInRandomNumbers(i, index))
+                while (matrica[(index / 10), (index % 10)] == 1)
                 {
                     index = random.Next(50);
                 }
 
-                nekviChisla[i] = index;
                 matrica[(index / 10), (index % 10)] = 1;
 
             }
@@ -154,7 +137,7 @@ namespace gyrmeji
                             }
                             else
                             {
-                                if (open[i, j - 2] == 1) Console.Write("{0} ", CountNeighborcell(i, j - 2));
+                                if (openedCells[i, j - 2]) Console.Write("{0} ", CountNeighborcell(i, j - 2));
                                 else Console.Write("- ");
                             }
                         }
@@ -223,7 +206,7 @@ namespace gyrmeji
             for (int i = 0; i < 5; i++)
                 for (int j = 0; j < 10; j++)
                 {
-                    if (open[i, j] == 1)
+                    if (openedCells[i, j])
                         res++;
                 }
             return res;
