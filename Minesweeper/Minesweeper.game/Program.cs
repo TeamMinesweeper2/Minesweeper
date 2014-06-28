@@ -9,11 +9,12 @@ namespace gyrmeji
     {
         private static int[,] matrica = new int[5, 10];
 
-        private static int[,] state = new int[5, 10];
+        //private static int[,] state = new int[5, 10];
         private static bool[,] openedCells = new bool[5, 10];
         private static int[] topCells = new int[5];
         private static string[] topNames = new string[5];
         private static int topCellsCounter = 0;
+        private static bool isAlive = true;
 
         static void Main(string[] argumenti)
         {
@@ -49,12 +50,12 @@ namespace gyrmeji
                 if (!openedCells[p1, p2])
                 {
                     openedCells[p1, p2] = true;
-                    state[p1, p2] = 1;
                     if (matrica[p1, p2] == 1)
                     {
-                        for (int i = 0; i < 5; i++)
-                            for (int j = 0; j < 10; j++)
-                            { state[i, j] = 1; }
+                        //for (int i = 0; i < 5; i++)
+                        //    for (int j = 0; j < 10; j++)
+                        //    { state[i, j] = 1; }
+                        isAlive = false;
                         Displaymatrica();
                         Console.WriteLine("Booooom! You were killed by a mine. You revealed 2 cells without mines.Please enter your name for the top scoreboard:");
                         string str = Console.ReadLine();
@@ -80,8 +81,7 @@ namespace gyrmeji
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    matrica[i, j] = 0;
-                    state[i, j] = 0;
+                    matrica[i, j] = 0;                    
                     openedCells[i, j] = false;
                 }
             }
@@ -125,7 +125,7 @@ namespace gyrmeji
                 {
                     if (2 <= j && j <= 11)
                     {
-                        if (state[i, j - 2] == 0)
+                        if (isAlive && !openedCells[i, j - 2])
                         {
                             Console.Write("? ");
                         }
@@ -137,8 +137,10 @@ namespace gyrmeji
                             }
                             else
                             {
-                                if (openedCells[i, j - 2]) Console.Write("{0} ", CountNeighborcell(i, j - 2));
-                                else Console.Write("- ");
+                                if (openedCells[i, j - 2])
+                                    Console.Write("{0} ", CountNeighborcell(i, j - 2));
+                                else
+                                    Console.Write("- ");
                             }
                         }
                     }
