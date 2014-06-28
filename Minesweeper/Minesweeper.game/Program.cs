@@ -9,9 +9,7 @@ namespace gyrmeji
     {
         private static bool[,] mineField = new bool[5, 10];
         private static bool[,] openedCells = new bool[5, 10];
-        private static int[] topCells = new int[5];
-        private static string[] topNames = new string[5];
-        private static int topCellsCounter = 0;
+        private static SortedDictionary<int, string> topScores = new SortedDictionary<int, string>();
         private static bool isAlive = true;
 
         static void Main()
@@ -45,7 +43,6 @@ namespace gyrmeji
                 if (openedCells[row, col])
                 {
                     Console.WriteLine("Illegal move!");
-                    //continue;
                 }
                 else
                 {
@@ -55,14 +52,13 @@ namespace gyrmeji
                         isAlive = false;
                         DrawGameField();
                         Console.WriteLine("Booooom! You were killed by a mine. You revealed 2 cells without mines.Please enter your name for the top scoreboard:");
-                        string str = Console.ReadLine();
-                        topNames[topCellsCounter % 5] = str;
-                        topCells[topCellsCounter % 5] = CountOpen() - 1;
+                        string name = Console.ReadLine();
+                        topScores.Add(CountOpen() - 1, name);
+                        DisplayHighScores();
                         break;
                     }
                     Console.WriteLine(CountNeighborcell(row, col));
                     DrawGameField();
-                    //continue;
                 }
 
                 Console.WriteLine();
@@ -172,9 +168,11 @@ namespace gyrmeji
         private static void DisplayHighScores()
         {
             Console.WriteLine("Scoreboard:\n");
-            for (int i = 0; i < (topCellsCounter) % 6; i++)
+            var place = 0;
+            foreach (var result in topScores)
             {
-                Console.WriteLine("{0}. {1} --> {2} cells", i, topNames[i], topCells[i]);
+                Console.WriteLine("{0}. {1} --> {2} cells", place, result.Value, result.Key);
+                place++;
             }
         }
 
