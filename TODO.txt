@@ -1,0 +1,13 @@
+Game: Run()
+
+ICommandReader : ReadInput()
+MineField: GameState OpenCell(row, coll) 
+IGameRenderer: ShowMessage() Draw(mineFlied.field, isAlive)
+
+enum GameState { boom, illegal, normal }
+
+Enumeations (messages, symbols, gameState)
+ScoreBoard: DisplayScores()
+ProgramLog
+
+
