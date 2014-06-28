@@ -4,3 +4,9 @@ C:\Users\JR\Dropbox\TelerikAcademy\github\Minesweeper-teamwork\Minesweeper\Mines
 C:\Users\JR\Dropbox\TelerikAcademy\github\Minesweeper-teamwork\Minesweeper\Minesweeper.game\obj\Debug\Minesweeper.game.csprojResolveAssemblyReference.cache
 C:\Users\JR\Dropbox\TelerikAcademy\github\Minesweeper-teamwork\Minesweeper\Minesweeper.game\obj\Debug\Minesweeper.game.exe
 C:\Users\JR\Dropbox\TelerikAcademy\github\Minesweeper-teamwork\Minesweeper\Minesweeper.game\obj\Debug\Minesweeper.game.pdb
+C:\Users\JR\Desktop\Minesweeper\Minesweeper\Minesweeper.game\bin\Debug\Minesweeper.game.exe.config
+C:\Users\JR\Desktop\Minesweeper\Minesweeper\Minesweeper.game\obj\Debug\Minesweeper.game.exe
+C:\Users\JR\Desktop\Minesweeper\Minesweeper\Minesweeper.game\obj\Debug\Minesweeper.game.pdb
+C:\Users\JR\Desktop\Minesweeper\Minesweeper\Minesweeper.game\bin\Debug\Minesweeper.game.exe
+C:\Users\JR\Desktop\Minesweeper\Minesweeper\Minesweeper.game\bin\Debug\Minesweeper.game.pdb
+C:\Users\JR\Desktop\Minesweeper\Minesweeper\Minesweeper.game\obj\Debug\Minesweeper.game.csprojResolveAssemblyReference.cache

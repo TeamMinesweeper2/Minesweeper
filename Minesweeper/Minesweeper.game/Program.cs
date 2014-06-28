@@ -16,6 +16,66 @@ namespace gyrmeji
         private static int[] topCells = new int[5];
         private static string[] topNames = new string[5];
         private static int topCellsCounter = 0;
+
+        static void Main(string[] argumenti)
+        {
+            Console.WriteLine("Welcome to the game “Minesweeper”.\nTry to reveal all cells without mines. Use 'top' to view the scoreboard,\n'restart' to start a new game and 'exit' to quit the game.");
+
+            Initializematrica();
+
+            while (true)
+            {
+                Console.WriteLine("\nEnter row and column: ");
+                string p = (Console.ReadLine());
+
+                if (p.Equals("restart"))
+                { break; }
+
+                if (p.Equals("top"))
+                { DisplayTop(); break; }
+
+                if (p.Equals("exit"))
+                    break;
+
+                // MAIN
+                if (p.Length < 3)
+                { Console.WriteLine("Illegal input"); continue; }
+                int p1 = Convert.ToInt32((p.ElementAt(0)).ToString());
+
+                int p2 = Convert.ToInt32((p.ElementAt(2)).ToString());
+                Console.WriteLine(p1);
+
+                if (open[p1, p2] == 1)
+                { Console.WriteLine("Illegal move!"); continue; }
+
+                if (open[p1, p2] == 0)
+                {
+                    open[p1, p2] = 1;
+                    state[p1, p2] = 1;
+                    if (matrica[p1, p2] == 1)
+                    {
+                        for (int i = 0; i < 5; i++)
+                            for (int j = 0; j < 10; j++)
+                            { state[i, j] = 1; }
+                        Displaymatrica();
+                        Console.WriteLine("Booooom! You were killed by a mine. You revealed 2 cells without mines.Please enter your name for the top scoreboard:");
+                        string str = Console.ReadLine();
+                        topNames[topCellsCounter % 5] = str;
+                        topCells[topCellsCounter % 5] = CountOpen() - 1;
+                        break;
+                    }
+                    Console.WriteLine(CountNeighborcell(p1, p2));
+                    Displaymatrica();
+                    continue;
+                }
+
+                //Console.WriteLine(w==q);
+                Console.WriteLine();
+            }     
+
+            Console.WriteLine("Good Bye");
+        }
+
         private static bool IsFoundInRandomNumbers(int index, int number)
         {
             bool result = false;
@@ -29,9 +89,6 @@ namespace gyrmeji
             }
 
             return result;
-
-
-
         }
 
         private static void Initializematrica()
@@ -58,11 +115,7 @@ namespace gyrmeji
                     index = random.Next(50);
                 }
 
-                // Console.WriteLine("{0},{1},{2}",index,(index/10),(index % 10));
                 nekviChisla[i] = index;
-
-
-
                 matrica[(index / 10), (index % 10)] = 1;
 
             }
@@ -150,24 +203,6 @@ namespace gyrmeji
 
             return counter;
         }
-
-        /*\
-         * 
-         * 
-         * 
-         * 
-         **********************
-         **
-         *****
-         *
-         * 
-         *  tui e nqkvo krasivo
-         * krasotata e hubavo neshto...
-         * 
-         * 
-         * 
-         */
-
         private static void DisplayTop()
         {
             Console.WriteLine("Scoreboard:\n");
@@ -192,92 +227,6 @@ namespace gyrmeji
                         res++;
                 }
             return res;
-        }
-
-        static void Main(string[] argumenti)
-        {
-        //Initializematrica();
-        /* for (int i = 0; i < 15; i++)
-         {
-             Console.WriteLine(1);
-             Console.WriteLine(randomNumbers[i]);
-         }*/
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    for (int j = 0; j < 10; j++)
-        //    {
-        //        Console.Write(matrica[i, j]);
-        //    }
-        //    Console.WriteLine();
-        //}
-
-            //Console.WriteLine("{0}", CountNeighborcell(3,0));
-        //state[1, 3] = 1;
-        //state[2, 4] = 1;
-        //state[0, 0] = 1;
-        //state[2, 1] = 1;
-        //state[1, 0] = 1;
-
-            //Displaymatrica();
-        begin:
-            // tuka skachame kogaot iskame da begin-nem
-
-            Console.WriteLine("Welcome to the game “Minesweeper”.\nTry to reveal all cells without mines. Use 'top' to view the scoreboard,\n'restart' to start a new game and 'exit' to quit the game.");
-
-            Initializematrica();
-        //tui "f:" e adski qko a?
-        f:
-            Console.WriteLine("\nEnter row and column: ");
-            string p = (Console.ReadLine());
-
-            if (p.Equals("restart"))
-            { goto begin; }
-
-            if (p.Equals("top"))
-            { DisplayTop(); goto begin; }
-
-            if (p.Equals("exit"))
-                goto end;
-
-            // MAIN
-            if (p.Length < 3)
-            { Console.WriteLine("Illegal input"); goto f; }
-            int p1 = Convert.ToInt32((p.ElementAt(0)).ToString());
-
-            int p2 = Convert.ToInt32((p.ElementAt(2)).ToString());
-            Console.WriteLine(p1);
-
-            if (open[p1, p2] == 1)
-            { Console.WriteLine("Illegal move!"); goto f; }
-
-            if (open[p1, p2] == 0)
-            {
-                open[p1, p2] = 1;
-                state[p1, p2] = 1;
-                if (matrica[p1, p2] == 1)
-                {
-                    for (int i = 0; i < 5; i++)
-                        for (int j = 0; j < 10; j++)
-                        { state[i, j] = 1; }
-                    Displaymatrica();
-                    Console.WriteLine("Booooom! You were killed by a mine. You revealed 2 cells without mines.Please enter your name for the top scoreboard:");
-                    string str = Console.ReadLine();
-                    topNames[topCellsCounter % 5] = str;
-                    topCells[topCellsCounter % 5] = CountOpen() - 1;
-                    goto begin;
-                }
-                Console.WriteLine(CountNeighborcell(p1, p2));
-                Displaymatrica();
-                goto f;
-            }
-
-
-
-            //Console.WriteLine(w==q);
-            Console.WriteLine();
-
-        end:
-            Console.WriteLine("Good Bye");
         }
     }
 }
