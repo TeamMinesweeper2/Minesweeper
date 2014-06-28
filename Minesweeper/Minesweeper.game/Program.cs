@@ -7,7 +7,7 @@ namespace gyrmeji
 {
     class Telerik
     {
-        private static int[,] matrica = new int[5, 10];
+        private static int[,] mineField = new int[5, 10];
         private static bool[,] openedCells = new bool[5, 10];
         private static int[] topCells = new int[5];
         private static string[] topNames = new string[5];
@@ -18,7 +18,7 @@ namespace gyrmeji
         {
             Console.WriteLine("Welcome to the game “Minesweeper”.\nTry to reveal all cells without mines. Use 'top' to view the scoreboard,\n'restart' to start a new game and 'exit' to quit the game.");
 
-            Initializematrica();
+            AddMines();
 
             while (true)
             {
@@ -29,7 +29,7 @@ namespace gyrmeji
                 { break; }
 
                 if (command.Equals("top"))
-                { DisplayTop(); break; }
+                { DisplayHighScores(); break; }
 
                 if (command.Equals("exit"))
                     break;
@@ -43,15 +43,17 @@ namespace gyrmeji
                 Console.WriteLine(row);
 
                 if (openedCells[row, col])
-                { Console.WriteLine("Illegal move!"); continue; }
-
-                if (!openedCells[row, col])
+                {
+                    Console.WriteLine("Illegal move!");
+                    //continue;
+                }
+                else
                 {
                     openedCells[row, col] = true;
-                    if (matrica[row, col] == 1)
+                    if (mineField[row, col] == 1)
                     {
                         isAlive = false;
-                        Displaymatrica();
+                        DrawGameField();
                         Console.WriteLine("Booooom! You were killed by a mine. You revealed 2 cells without mines.Please enter your name for the top scoreboard:");
                         string str = Console.ReadLine();
                         topNames[topCellsCounter % 5] = str;
@@ -59,8 +61,8 @@ namespace gyrmeji
                         break;
                     }
                     Console.WriteLine(CountNeighborcell(row, col));
-                    Displaymatrica();
-                    continue;
+                    DrawGameField();
+                    //continue;
                 }
 
                 Console.WriteLine();
@@ -69,22 +71,22 @@ namespace gyrmeji
             Console.WriteLine("Good Bye");
         }
 
-        private static void Initializematrica()
+        private static void AddMines()
         {
             Random random = new Random();
             for (int i = 0; i < 15; i++)
             {
                 int index = random.Next(50);
-                while (matrica[(index / 10), (index % 10)] == 1)
+                while (mineField[(index / 10), (index % 10)] == 1)
                 {
                     index = random.Next(50);
                 }
 
-                matrica[(index / 10), (index % 10)] = 1;
+                mineField[(index / 10), (index % 10)] = 1;
             }
         }
 
-        private static void Displaymatrica()
+        private static void DrawGameField()
         {
             Console.Write("    ");
             for (int i = 0; i < 10; i++)
@@ -112,7 +114,7 @@ namespace gyrmeji
                         }
                         else
                         {
-                            if (matrica[i, j - 2] == 1)
+                            if (mineField[i, j - 2] == 1)
                             {
                                 Console.Write("* ");
                             }
@@ -144,9 +146,7 @@ namespace gyrmeji
                 Console.Write("-");
             }
 
-
             Console.WriteLine("");
-
         }
 
         private static int CountNeighborcell(int i, int j)
@@ -160,7 +160,7 @@ namespace gyrmeji
                 {
                     if (j1 == 0 && i1 == 0)
                         continue;
-                    if (proverka(i + i1, j + j1) && matrica[i + i1, j + j1] == 1)
+                    if (IsInsideMatrix(i + i1, j + j1) && mineField[i + i1, j + j1] == 1)
                     {
                         counter++;
                     }
@@ -169,7 +169,7 @@ namespace gyrmeji
 
             return counter;
         }
-        private static void DisplayTop()
+        private static void DisplayHighScores()
         {
             Console.WriteLine("Scoreboard:\n");
             for (int i = 0; i < (topCellsCounter) % 6; i++)
@@ -178,7 +178,7 @@ namespace gyrmeji
             }
         }
 
-        private static bool proverka(int i, int j)
+        private static bool IsInsideMatrix(int i, int j)
         {
             return (0 <= i && i <= 4) && (0 <= j && j <= 9);
         }
