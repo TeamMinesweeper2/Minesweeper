@@ -7,14 +7,14 @@ namespace gyrmeji
 {
     class Telerik
     {
-        private static int[,] mineField = new int[5, 10];
+        private static bool[,] mineField = new bool[5, 10];
         private static bool[,] openedCells = new bool[5, 10];
         private static int[] topCells = new int[5];
         private static string[] topNames = new string[5];
         private static int topCellsCounter = 0;
         private static bool isAlive = true;
 
-        static void Main(string[] argumenti)
+        static void Main()
         {
             Console.WriteLine("Welcome to the game “Minesweeper”.\nTry to reveal all cells without mines. Use 'top' to view the scoreboard,\n'restart' to start a new game and 'exit' to quit the game.");
 
@@ -50,7 +50,7 @@ namespace gyrmeji
                 else
                 {
                     openedCells[row, col] = true;
-                    if (mineField[row, col] == 1)
+                    if (mineField[row, col])
                     {
                         isAlive = false;
                         DrawGameField();
@@ -77,12 +77,12 @@ namespace gyrmeji
             for (int i = 0; i < 15; i++)
             {
                 int index = random.Next(50);
-                while (mineField[(index / 10), (index % 10)] == 1)
+                while (mineField[(index / 10), (index % 10)])
                 {
                     index = random.Next(50);
                 }
 
-                mineField[(index / 10), (index % 10)] = 1;
+                mineField[(index / 10), (index % 10)] = true;
             }
         }
 
@@ -114,7 +114,7 @@ namespace gyrmeji
                         }
                         else
                         {
-                            if (mineField[i, j - 2] == 1)
+                            if (mineField[i, j - 2])
                             {
                                 Console.Write("* ");
                             }
@@ -160,7 +160,7 @@ namespace gyrmeji
                 {
                     if (j1 == 0 && i1 == 0)
                         continue;
-                    if (IsInsideMatrix(i + i1, j + j1) && mineField[i + i1, j + j1] == 1)
+                    if (IsInsideMatrix(i + i1, j + j1) && mineField[i + i1, j + j1])
                     {
                         counter++;
                     }
