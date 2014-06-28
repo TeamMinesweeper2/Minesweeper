@@ -8,8 +8,6 @@ namespace gyrmeji
     class Telerik
     {
         private static int[,] matrica = new int[5, 10];
-
-        //private static int[,] state = new int[5, 10];
         private static bool[,] openedCells = new bool[5, 10];
         private static int[] topCells = new int[5];
         private static string[] topNames = new string[5];
@@ -52,9 +50,6 @@ namespace gyrmeji
                     openedCells[p1, p2] = true;
                     if (matrica[p1, p2] == 1)
                     {
-                        //for (int i = 0; i < 5; i++)
-                        //    for (int j = 0; j < 10; j++)
-                        //    { state[i, j] = 1; }
                         isAlive = false;
                         Displaymatrica();
                         Console.WriteLine("Booooom! You were killed by a mine. You revealed 2 cells without mines.Please enter your name for the top scoreboard:");
@@ -68,7 +63,6 @@ namespace gyrmeji
                     continue;
                 }
 
-                //Console.WriteLine(w==q);
                 Console.WriteLine();
             }     
 
@@ -77,32 +71,19 @@ namespace gyrmeji
 
         private static void Initializematrica()
         {
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    matrica[i, j] = 0;                    
-                    openedCells[i, j] = false;
-                }
-            }
-
             Random random = new Random();
-
-
             for (int i = 0; i < 15; i++)
             {
                 int index = random.Next(50);
-
-
                 while (matrica[(index / 10), (index % 10)] == 1)
                 {
                     index = random.Next(50);
                 }
 
                 matrica[(index / 10), (index % 10)] = 1;
-
             }
         }
+
         private static void Displaymatrica()
         {
             Console.Write("    ");
