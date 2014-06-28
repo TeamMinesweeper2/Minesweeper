@@ -23,32 +23,32 @@ namespace gyrmeji
             while (true)
             {
                 Console.WriteLine("\nEnter row and column: ");
-                string p = (Console.ReadLine());
+                string command = (Console.ReadLine());
 
-                if (p.Equals("restart"))
+                if (command.Equals("restart"))
                 { break; }
 
-                if (p.Equals("top"))
+                if (command.Equals("top"))
                 { DisplayTop(); break; }
 
-                if (p.Equals("exit"))
+                if (command.Equals("exit"))
                     break;
 
                 // MAIN
-                if (p.Length < 3)
+                if (command.Length < 3)
                 { Console.WriteLine("Illegal input"); continue; }
-                int p1 = Convert.ToInt32((p.ElementAt(0)).ToString());
+                int row = int.Parse(command[0].ToString());
 
-                int p2 = Convert.ToInt32((p.ElementAt(2)).ToString());
-                Console.WriteLine(p1);
+                int col = int.Parse(command[2].ToString());
+                Console.WriteLine(row);
 
-                if (openedCells[p1, p2])
+                if (openedCells[row, col])
                 { Console.WriteLine("Illegal move!"); continue; }
 
-                if (!openedCells[p1, p2])
+                if (!openedCells[row, col])
                 {
-                    openedCells[p1, p2] = true;
-                    if (matrica[p1, p2] == 1)
+                    openedCells[row, col] = true;
+                    if (matrica[row, col] == 1)
                     {
                         isAlive = false;
                         Displaymatrica();
@@ -58,7 +58,7 @@ namespace gyrmeji
                         topCells[topCellsCounter % 5] = CountOpen() - 1;
                         break;
                     }
-                    Console.WriteLine(CountNeighborcell(p1, p2));
+                    Console.WriteLine(CountNeighborcell(row, col));
                     Displaymatrica();
                     continue;
                 }
