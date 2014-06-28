@@ -3,14 +3,14 @@
     using System;
     using System.Collections.Generic;
 
-    class MinesweeperGame
+    public class MinesweeperGame
     {
         private static bool[,] mineField = new bool[5, 10];
         private static bool[,] openedCells = new bool[5, 10];
         private static SortedDictionary<int, string> topScores = new SortedDictionary<int, string>();
         private static bool isAlive = true;
 
-        static void Main()
+        public static void Main()
         {
             Console.WriteLine("Welcome to the game “Minesweeper”.\nTry to reveal all cells without mines. Use 'top' to view the scoreboard,\n'restart' to start a new game and 'exit' to quit the game.");
 
@@ -19,7 +19,7 @@
             while (true)
             {
                 Console.WriteLine("\nEnter row and column: ");
-                string command = (Console.ReadLine());
+                string command = Console.ReadLine();
 
                 if (command.Equals("restart"))
                 { 
@@ -64,6 +64,7 @@
                         DisplayHighScores();
                         break;
                     }
+
                     Console.WriteLine(CountNeighborcell(row, col));
                     DrawGameField();
                 }
@@ -97,14 +98,14 @@
                 Console.Write("{0} ", i);
             }
 
-            Console.WriteLine("");
+            Console.WriteLine(string.Empty);
             Console.Write("    ");
             for (int i = 0; i < 21; i++)
             {
                 Console.Write("-");
             }
 
-            Console.WriteLine("");
+            Console.WriteLine();
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 13; j++)
@@ -146,7 +147,7 @@
                     }
                 }
 
-                Console.WriteLine("");
+                Console.WriteLine();
             }
 
             Console.Write("    ");
@@ -155,7 +156,7 @@
                 Console.Write("-");
             }
 
-            Console.WriteLine("");
+            Console.WriteLine();
         }
 
         private static int CountNeighborcell(int i, int j)
@@ -164,7 +165,6 @@
 
             for (int i1 = -1; i1 < 2; i1++)
             {
-
                 for (int j1 = -1; j1 < 2; j1++)
                 {
                     if (j1 == 0 && i1 == 0)
@@ -181,6 +181,7 @@
 
             return counter;
         }
+
         private static void DisplayHighScores()
         {
             Console.WriteLine("Scoreboard:\n");
