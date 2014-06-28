@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace gyrmeji
+﻿namespace Minesweeper
 {
-    class Telerik
+    using System;
+    using System.Collections.Generic;
+
+    class MinesweeperGame
     {
         private static bool[,] mineField = new bool[5, 10];
         private static bool[,] openedCells = new bool[5, 10];
@@ -24,19 +22,28 @@ namespace gyrmeji
                 string command = (Console.ReadLine());
 
                 if (command.Equals("restart"))
-                { break; }
+                { 
+                    break;
+                }
 
                 if (command.Equals("top"))
-                { DisplayHighScores(); break; }
+                { 
+                    DisplayHighScores();
+                    break;
+                }
 
                 if (command.Equals("exit"))
+                {
                     break;
+                }                    
 
-                // MAIN
                 if (command.Length < 3)
-                { Console.WriteLine("Illegal input"); continue; }
-                int row = int.Parse(command[0].ToString());
+                { 
+                    Console.WriteLine("Illegal input");
+                    continue;
+                }
 
+                int row = int.Parse(command[0].ToString());
                 int col = int.Parse(command[2].ToString());
                 Console.WriteLine(row);
 
@@ -89,15 +96,15 @@ namespace gyrmeji
             {
                 Console.Write("{0} ", i);
             }
-            Console.WriteLine("");
 
+            Console.WriteLine("");
             Console.Write("    ");
             for (int i = 0; i < 21; i++)
             {
                 Console.Write("-");
             }
-            Console.WriteLine("");
 
+            Console.WriteLine("");
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 13; j++)
@@ -117,22 +124,28 @@ namespace gyrmeji
                             else
                             {
                                 if (openedCells[i, j - 2])
+                                {
                                     Console.Write("{0} ", CountNeighborcell(i, j - 2));
+                                }                                    
                                 else
+                                {
                                     Console.Write("- ");
+                                }                                    
                             }
                         }
                     }
+
                     if (j == 1 || j == 12)
                     {
                         Console.Write("| ");
                     }
+
                     if (j == 0)
                     {
                         Console.Write("{0} ", i);
                     }
-
                 }
+
                 Console.WriteLine("");
             }
 
@@ -155,7 +168,10 @@ namespace gyrmeji
                 for (int j1 = -1; j1 < 2; j1++)
                 {
                     if (j1 == 0 && i1 == 0)
+                    {
                         continue;
+                    }
+                        
                     if (IsInsideMatrix(i + i1, j + j1) && mineField[i + i1, j + j1])
                     {
                         counter++;
@@ -185,11 +201,16 @@ namespace gyrmeji
         {
             int res = 0;
             for (int i = 0; i < 5; i++)
+            {
                 for (int j = 0; j < 10; j++)
                 {
                     if (openedCells[i, j])
+                    {
                         res++;
+                    }
                 }
+            }
+
             return res;
         }
     }
