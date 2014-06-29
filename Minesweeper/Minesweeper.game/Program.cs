@@ -5,21 +5,20 @@
 
     public class MinesweeperGame
     {
-        private static bool[,] mineField = new bool[5, 10];
+        private static bool[,] minefield = new bool[5, 10];
         private static bool[,] openedCells = new bool[5, 10];
         private static SortedDictionary<int, string> topScores = new SortedDictionary<int, string>();
-        private static bool isAlive = true;
 
         public static void Main()
         {
-            Console.WriteLine("Welcome to the game “Minesweeper”.\nTry to reveal all cells without mines. Use 'top' to view the scoreboard,\n'restart' to start a new game and 'exit' to quit the game.");
+            ConsoleManager.Intro();
+            ConsoleManager.DrawGameField();
 
             AddMines();
 
             while (true)
             {
-                Console.WriteLine("\nEnter row and column: ");
-                string command = Console.ReadLine();
+                string command = ConsoleManager.CommandInput();
 
                 if (command.Equals("restart"))
                 { 
@@ -27,8 +26,8 @@
                 }
 
                 if (command.Equals("top"))
-                { 
-                    DisplayHighScores();
+                {
+                    ConsoleManager.DisplayHighScores(topScores);
                     break;
                 }
 
@@ -38,38 +37,35 @@
                 }                    
 
                 if (command.Length < 3)
-                { 
-                    Console.WriteLine("Illegal input");
+                {
+                    ConsoleManager.ErrorMessage(ErrorType.IllegalInput);
                     continue;
                 }
 
                 int row = int.Parse(command[0].ToString());
                 int col = int.Parse(command[2].ToString());
-                Console.WriteLine(row);
 
                 if (openedCells[row, col])
                 {
-                    Console.WriteLine("Illegal move!");
+                    ConsoleManager.ErrorMessage(ErrorType.IllegalMove);
                 }
                 else
                 {
                     openedCells[row, col] = true;
-                    if (mineField[row, col])
+                    if (minefield[row, col])
                     {
-                        isAlive = false;
-                        DrawGameField();
-                        Console.WriteLine("Booooom! You were killed by a mine. You revealed 2 cells without mines.Please enter your name for the top scoreboard:");
+                        int numberOfOpenedCells = CountOpen() - 1;
+                        ConsoleManager.DrawFinalGameField(minefield, openedCells);
+                        ConsoleManager.Finish(numberOfOpenedCells);
                         string name = Console.ReadLine();
-                        topScores.Add(CountOpen() - 1, name);
-                        DisplayHighScores();
+                        topScores.Add(numberOfOpenedCells, name);
+                        ConsoleManager.DisplayHighScores(topScores);
                         break;
                     }
 
-                    Console.WriteLine(CountNeighborCell(new Position(row, col))); //(row, col));
-                    DrawGameField();
+                    ConsoleManager.OpenCell(row, col, CountNeighborMines(new Position(row, col))); //(row, col));
+                    //DrawGameField();
                 }
-
-                Console.WriteLine();
             }     
 
             Console.WriteLine("Good Bye");
@@ -81,15 +77,16 @@
             for (int i = 0; i < 15; i++)
             {
                 int index = random.Next(50);
-                while (mineField[(index / 10), (index % 10)])
+                while (minefield[(index / 10), (index % 10)])
                 {
                     index = random.Next(50);
                 }
 
-                mineField[(index / 10), (index % 10)] = true;
+                minefield[(index / 10), (index % 10)] = true;
             }
         }
 
+        /*
         private static void DrawGameField()
         {
             Console.Write("    ");
@@ -157,9 +154,9 @@
             }
 
             Console.WriteLine();
-        }
+        }*/
 
-        private static int CountNeighborCell(Position currentPosition) //(int i, int j)
+        private static int CountNeighborMines(Position currentPosition) //(int i, int j)
         {
             int counter = 0;
 
@@ -173,7 +170,7 @@
                     }
 
                     if (IsInsideMatrix(currentPosition.Row + row, currentPosition.Col + col) &&
-                        mineField[currentPosition.Row + row, currentPosition.Col + col])
+                        minefield[currentPosition.Row + row, currentPosition.Col + col])
                     {
                         counter++;
                     }
@@ -182,7 +179,7 @@
 
             return counter;
         }
-
+        /*
         private static void DisplayHighScores()
         {
             Console.WriteLine("Scoreboard:\n");
@@ -192,11 +189,11 @@
                 Console.WriteLine("{0}. {1} --> {2} cells", place, result.Value, result.Key);
                 place++;
             }
-        }
+        }*/
 
-        private static bool IsInsideMatrix(int i, int j)
+        private static bool IsInsideMatrix(int row, int col)
         {
-            return (0 <= i && i <= 4) && (0 <= j && j <= 9);
+            return (0 <= row && row <= 4) && (0 <= col && col <= 9);
         }
 
         private static int CountOpen()

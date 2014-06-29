@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Holds position in the game matrix field by row and column.
+    /// Holds position by row and column.
     /// </summary>
     public class Position
     {
@@ -28,9 +28,9 @@
         }
 
         /// <summary>
-        /// Gets or sets value for position by row field.
+        /// Gets or sets value for position by row.
         /// </summary>
-        /// <value>Position by row in the game field matrix.</value>
+        /// <value>Position by row.</value>
         public int Row
         {
             get
@@ -50,9 +50,9 @@
         }
 
         /// <summary>
-        /// Gets or sets value for position by column field.
+        /// Gets or sets value for position by column.
         /// </summary>
-        /// <value>Position by column in the game field matrix.</value>
+        /// <value>Position by column.</value>
         public int Col
         {
             get
