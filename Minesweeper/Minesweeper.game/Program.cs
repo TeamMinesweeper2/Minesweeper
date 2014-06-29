@@ -65,7 +65,7 @@
                         break;
                     }
 
-                    Console.WriteLine(CountNeighborcell(row, col));
+                    Console.WriteLine(CountNeighborCell(new Position(row, col))); //(row, col));
                     DrawGameField();
                 }
 
@@ -126,7 +126,7 @@
                             {
                                 if (openedCells[row, col - 2])
                                 {
-                                    Console.Write("{0} ", CountNeighborcell(row, col - 2));
+                                    Console.Write("{0} ", CountNeighborCell(new Position(row, col - 2))); //(row, col - 2));
                                 }                                    
                                 else
                                 {
@@ -159,20 +159,21 @@
             Console.WriteLine();
         }
 
-        private static int CountNeighborcell(int i, int j)
+        private static int CountNeighborCell(Position currentPosition) //(int i, int j)
         {
             int counter = 0;
 
-            for (int i1 = -1; i1 < 2; i1++)
+            for (int row = -1; row < 2; row++)
             {
-                for (int j1 = -1; j1 < 2; j1++)
+                for (int col = -1; col < 2; col++)
                 {
-                    if (j1 == 0 && i1 == 0)
+                    if (col == 0 && row == 0)
                     {
                         continue;
                     }
-                        
-                    if (IsInsideMatrix(i + i1, j + j1) && mineField[i + i1, j + j1])
+
+                    if (IsInsideMatrix(currentPosition.Row + row, currentPosition.Col + col) &&
+                        mineField[currentPosition.Row + row, currentPosition.Col + col])
                     {
                         counter++;
                     }
