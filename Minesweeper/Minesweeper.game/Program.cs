@@ -93,40 +93,40 @@
         private static void DrawGameField()
         {
             Console.Write("    ");
-            for (int i = 0; i < 10; i++)
+            for (int col = 0; col < 10; col++)
             {
-                Console.Write("{0} ", i);
+                Console.Write("{0} ", col);
             }
 
             Console.WriteLine(string.Empty);
             Console.Write("    ");
-            for (int i = 0; i < 21; i++)
+            for (int col = 0; col < 21; col++)
             {
                 Console.Write("-");
             }
 
             Console.WriteLine();
-            for (int i = 0; i < 5; i++)
+            for (int row = 0; row < 5; row++)
             {
-                for (int j = 0; j < 13; j++)
+                for (int col = 0; col < 13; col++)
                 {
-                    if (2 <= j && j <= 11)
+                    if (2 <= col && col <= 11)
                     {
-                        if (isAlive && !openedCells[i, j - 2])
+                        if (isAlive && !openedCells[row, col - 2])
                         {
                             Console.Write("? ");
                         }
                         else
                         {
-                            if (mineField[i, j - 2])
+                            if (mineField[row, col - 2])
                             {
                                 Console.Write("* ");
                             }
                             else
                             {
-                                if (openedCells[i, j - 2])
+                                if (openedCells[row, col - 2])
                                 {
-                                    Console.Write("{0} ", CountNeighborcell(i, j - 2));
+                                    Console.Write("{0} ", CountNeighborcell(row, col - 2));
                                 }                                    
                                 else
                                 {
@@ -136,14 +136,14 @@
                         }
                     }
 
-                    if (j == 1 || j == 12)
+                    if (col == 1 || col == 12)
                     {
                         Console.Write("| ");
                     }
 
-                    if (j == 0)
+                    if (col == 0)
                     {
-                        Console.Write("{0} ", i);
+                        Console.Write("{0} ", row);
                     }
                 }
 
@@ -151,7 +151,7 @@
             }
 
             Console.Write("    ");
-            for (int i = 0; i < 21; i++)
+            for (int col = 0; col < 21; col++)
             {
                 Console.Write("-");
             }
