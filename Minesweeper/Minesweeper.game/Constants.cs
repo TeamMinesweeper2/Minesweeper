@@ -14,7 +14,7 @@
         public const string IllegalInputMessage = "Illegal input!";
         public const string IllegalMoveMessage = "Illegal move!";
         public const string PressKeyMessage = "Press any key to continue.";
-        public const string EnterPositionMessage = "Enter row and column: ";
+        public const string EnterCommandMessage = "Enter command: ";
         public const string EnterNameMessage = "Enter your name: ";
         public const string ScoreboardDisplayFormat = "{0}. {1} --> {2} cells";
     }

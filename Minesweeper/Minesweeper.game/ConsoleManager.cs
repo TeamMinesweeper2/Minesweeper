@@ -112,10 +112,10 @@
 
             Console.Write(Constants.PressKeyMessage);
             Console.ReadKey();
-            PrepareForEntry(Constants.EnterPositionMessage);
+            PrepareForEntry(Constants.EnterCommandMessage);
         }
-
-        public void DisplayHighScores(SortedDictionary<int, string> topScores)
+         
+        public void DisplayHighScores(IDictionary<int, string> topScores)
         {
             Console.WriteLine("Scoreboard:\n");
             var place = 0;
@@ -127,7 +127,7 @@
 
             Console.Write(Constants.PressKeyMessage);
             Console.ReadKey();
-            PrepareForEntry(Constants.EnterPositionMessage);
+            PrepareForEntry(Constants.EnterCommandMessage);
         }
 
         public void Reset()
@@ -141,7 +141,7 @@
 
             if (expectedInput == InputType.Command)
             {
-                message = Constants.EnterPositionMessage;
+                message = Constants.EnterCommandMessage;
             } 
             else if (expectedInput == InputType.Name)
             {
@@ -161,7 +161,7 @@
         {
             Console.SetCursorPosition(colOnScreen, rowOnScreen);
             Console.Write(changedValue);
-            PrepareForEntry(Constants.EnterPositionMessage); // TODO: Check Need!
+            PrepareForEntry(Constants.EnterCommandMessage); // TODO: Check Need!
         }
 
         private void PrepareForEntry(string entryMessage)
@@ -173,11 +173,12 @@
 
         private void ClearLinesFromCurrent(int numberOfLines)
         {
-            var  currentCursorPosition = new Position(Console.CursorTop, Console.CursorLeft);
+            int cursorCurrentRow = Console.CursorTop;
+            int cursorCurrentCol = Console.CursorLeft;
             int lineLength = Console.WindowWidth - 1;
             string emptyLine = new string(' ', lineLength * numberOfLines);
             Console.Write(emptyLine);
-            Console.SetCursorPosition(currentCursorPosition.Col, currentCursorPosition.Row);
+            Console.SetCursorPosition(cursorCurrentCol, cursorCurrentRow);
         }
     }
 }
