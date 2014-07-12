@@ -3,7 +3,7 @@
     /// <summary>
     /// Random number provider interface.
     /// </summary>
-    interface IRandomGeneratorProvider
+    public interface IRandomGeneratorProvider
     {
         /// <summary>
         /// Generates random number in range.
@@ -12,5 +12,12 @@
         /// <param name="max">Maximal range.</param>
         /// <returns>Random integer number.</returns>
         int GetRandomNumber(int min, int max);
+
+        /// <summary>
+        /// Overload with min range 0.
+        /// </summary>
+        /// <param name="max">Maximal range.</param>
+        /// <returns>Random integer number.</returns>
+        int GetRandomNumber(int max);
     }
 }

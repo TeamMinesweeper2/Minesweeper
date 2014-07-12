@@ -6,31 +6,74 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class Minefield
+    public class Minefield : IMinefield
     {
-        private static bool[,] mines;
-        private static bool[,] openedCells;
+        private readonly bool[,] mines;
+        private bool[,] openedCells;
 
-        public Minefield(int rows, int columns)
+        public Minefield(int rows, int columns, IRandomGeneratorProvider randomGenerator)
         {
             mines = new bool[rows, columns];
             openedCells = new bool[rows, columns];
-            GenerateMines();
+            GenerateMines(randomGenerator);
         }
 
-        private static void GenerateMines(IRandomGeneratorProvider randomGenerator)
+        public void OpenCell(int row, int column)
         {
-            Random random = new Random();
+            this.openedCells[row, column] = true;
+        }
+
+        public bool IsCellOpened(int row, int column)
+        {
+            return this.openedCells[row, column];
+        }
+
+        public bool IsThereMineInCell(int row, int column)
+        {
+            return this.mines[row, column];
+        }
+
+        private void GenerateMines(IRandomGeneratorProvider randomGenerator)
+        {
             for (int i = 0; i < 15; i++)
             {
-                int index = random.Next(50);
-                while (mines[(index / 10), (index % 10)])
+                int index = randomGenerator.GetRandomNumber(50);
+                while (this.mines[(index / 10), (index % 10)])
                 {
-                    index = random.Next(50);
+                    index = randomGenerator.GetRandomNumber(50);
                 }
 
-                mines[(index / 10), (index % 10)] = true;
+                this.mines[(index / 10), (index % 10)] = true;
             }
+        }
+
+        private int CountNeighborMines(Position currentPosition)
+        {
+            int counter = 0;
+
+            for (int row = -1; row < 2; row++)
+            {
+                for (int col = -1; col < 2; col++)
+                {
+                    if (col == 0 && row == 0)
+                    {
+                        continue;
+                    }
+
+                    if (IsInsideMatrix(currentPosition.Row + row, currentPosition.Col + col) &&
+                        mines[currentPosition.Row + row, currentPosition.Col + col])
+                    {
+                        counter++;
+                    }
+                }
+            }
+
+            return counter;
+        }
+
+        private bool IsInsideMatrix(int row, int col)
+        {
+            return (0 <= row && row <= 4) && (0 <= col && col <= 9);
         }
     }
 }

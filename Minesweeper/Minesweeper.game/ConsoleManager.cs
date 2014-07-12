@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public class ConsoleManager
+    public class ConsoleManager : IConsoleManager
     {
         private readonly IPosition minefieldPositionOnScreen = new Position(Constants.MinefieldPositionOnScreenRow, Constants.MinefieldPositionOnScreenCol);
         private readonly IPosition commandEntryOnScreen = new Position(Constants.CommandEntryOnScreenRow, Constants.CommandEntryOnScreenCol);

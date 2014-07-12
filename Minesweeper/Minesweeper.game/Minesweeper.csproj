@@ -45,6 +45,8 @@
     <Compile Include="Constants.cs" />
     <Compile Include="ErrorType.cs" />
     <Compile Include="GameLogic.cs" />
+    <Compile Include="IConsoleManager.cs" />
+    <Compile Include="IMinefield.cs" />
     <Compile Include="InputType.cs" />
     <Compile Include="IRandomGeneratorProvider.cs" />
     <Compile Include="IPosition.cs" />
