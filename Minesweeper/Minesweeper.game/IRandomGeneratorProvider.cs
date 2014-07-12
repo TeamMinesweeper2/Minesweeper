@@ -1,13 +1,16 @@
 ﻿namespace Minesweeper
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
+    /// <summary>
+    /// Random number provider interface.
+    /// </summary>
     interface IRandomGeneratorProvider
     {
-        int GetRandomNumber();
+        /// <summary>
+        /// Generates random number in range.
+        /// </summary>
+        /// <param name="min">Minimal range.</param>
+        /// <param name="max">Maximal range.</param>
+        /// <returns>Random integer number.</returns>
+        int GetRandomNumber(int min, int max);
     }
 }
