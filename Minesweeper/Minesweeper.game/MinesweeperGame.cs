@@ -5,68 +5,74 @@
 
     public class MinesweeperGame
     {
-        private static bool[,] minefield = new bool[5, 10];
-        private static bool[,] openedCells = new bool[5, 10];
+        private static bool[,] minefield;
+        private static bool[,] openedCells;
         private static SortedDictionary<int, string> topScores = new SortedDictionary<int, string>();
 
         public static void Main()
         {
-            var displayManager = new ConsoleManager();
-            displayManager.WelcomeMessage();
-            displayManager.DrawGameField();
-
-            AddMines();
-
+            var userInteractionManager = new ConsoleManager();
             while (true)
             {
-                string command = displayManager.CommandInput();
+                minefield = new bool[5, 10];
+                openedCells = new bool[5, 10];
+                userInteractionManager.Reset();
+                userInteractionManager.DrawWelcomeMessage();
+                userInteractionManager.DrawGameField();
 
-                if (command.Equals("restart"))
-                { 
-                    break;
-                }
+                AddMines();
 
-                if (command.Equals("top"))
+                while (true)
                 {
-                    displayManager.DisplayHighScores(topScores);
-                    break;
-                }
+                    string command = userInteractionManager.UserInput(InputType.Command);
 
-                if (command.Equals("exit"))
-                {
-                    Environment.Exit(0);
-                }                    
-
-                if (command.Length < 3)
-                {
-                    displayManager.ErrorMessage(ErrorType.IllegalInput);
-                    continue;
-                }
-
-                int row = int.Parse(command[0].ToString());
-                int col = int.Parse(command[2].ToString());
-
-                if (openedCells[row, col])
-                {
-                    displayManager.ErrorMessage(ErrorType.IllegalMove);
-                }
-                else
-                {
-                    openedCells[row, col] = true;
-                    if (minefield[row, col])
+                    if (command.Equals("restart"))
                     {
-                        int numberOfOpenedCells = CountOpen() - 1;
-                        displayManager.DrawFinalGameField(minefield, openedCells);
-                        displayManager.Finish(numberOfOpenedCells);
-                        string name = Console.ReadLine();
-                        topScores.Add(numberOfOpenedCells, name);
-                        displayManager.DisplayHighScores(topScores);
                         break;
                     }
 
-                    displayManager.OpenCell(row, col, CountNeighborMines(new Position(row, col)));
+                    if (command.Equals("top"))
+                    {
+                        userInteractionManager.DisplayHighScores(topScores);
+                        break;
+                    }
+
+                    if (command.Equals("exit"))
+                    {
+                        Environment.Exit(0);
+                    }
+
+                    if (command.Length < 3)
+                    {
+                        userInteractionManager.ErrorMessage(ErrorType.IllegalInput);
+                        continue;
+                    }
+
+                    int row = int.Parse(command[0].ToString());
+                    int col = int.Parse(command[2].ToString());
+
+                    if (openedCells[row, col])
+                    {
+                        userInteractionManager.ErrorMessage(ErrorType.IllegalMove);
+                    }
+                    else
+                    {
+                        openedCells[row, col] = true;
+                        if (minefield[row, col])
+                        {
+                            int numberOfOpenedCells = CountOpen() - 1;
+                            userInteractionManager.DrawFinalGameField(minefield, openedCells);
+                            userInteractionManager.DrawFinishMessage(numberOfOpenedCells);
+                            string name = userInteractionManager.UserInput(InputType.Name);
+                            topScores.Add(numberOfOpenedCells, name);
+                            userInteractionManager.DisplayHighScores(topScores);
+                            break;
+                        }
+
+                        userInteractionManager.OpenCell(row, col, CountNeighborMines(new Position(row, col)));
+                    }
                 }
-            }     
+            }
         }
 
         private static void AddMines()

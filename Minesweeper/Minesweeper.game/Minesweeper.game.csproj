@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ConsoleManager.cs" />
     <Compile Include="ErrorType.cs" />
+    <Compile Include="InputType.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="MinesweeperGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

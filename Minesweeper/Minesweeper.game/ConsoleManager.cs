@@ -10,27 +10,33 @@
         private const int TopLeftMinefieldCellOnScreenRow = 6;
         private const int TopLeftMinefieldCellOnScreenCol = 4;
         private const int CommandEntryOnScreenRow = 13;
-        private const int CommandEntryOnScreenCol = 21;
+        private const int CommandEntryOnScreenCol = 0;
         private const int GameFieldWidth = 21;
         private const int MinefieldWidth = 10;
         private const int MineFieldHeight = 5;
-        private const string TabSpace = "    ";
+        private const int NumberOfLinesToClear = 3;
+        private const string TabSpace = "   ";
         private const string IllegalInputMessage = "Illegal input!";
         private const string IllegalMoveMessage = "Illegal move!";
         private const string PressKeyMessage = "Press any key to continue.";
+        private const string EnterPositionMessage = "Enter row and column: ";
+        private const string EnterNameMessage = "Enter your name: ";
 
-        public void WelcomeMessage()
+        public void DrawWelcomeMessage()
         {
             Console.WriteLine("Welcome to the game “Minesweeper”.");
             Console.WriteLine("Try to reveal all cells without mines. Use 'top' to view the scoreboard,");
             Console.WriteLine("'restart' to start a new game and 'exit' to quit the game.");
         }
 
-        public void Finish(int numberOfOpenedCells)
+        public void DrawFinishMessage(int numberOfOpenedCells)
         {
+            Console.SetCursorPosition(0, 0); // Place cursor in the beggining
+            ClearLines(3);
             Console.WriteLine("Booooom! You were killed by a mine. You revealed {0} cells without mines.", numberOfOpenedCells);
             Console.WriteLine("Please enter your name for the top scoreboard:");
             Console.WriteLine("Good Bye");
+            PrepareForEntry(EnterNameMessage);
         }
 
         public void DrawGameField()
@@ -42,7 +48,7 @@
             gameField.Append(TabSpace);
             for (int col = 0; col < MinefieldWidth; col++)
             {
-                gameField.AppendFormat("{0} ", col);
+                gameField.AppendFormat(" {0}", col);
             }
 
             gameField.AppendLine();
@@ -66,10 +72,8 @@
             // Draw final row.
             gameField.Append(TabSpace);
             gameField.AppendLine(new string('-', GameFieldWidth));
-
             gameField.AppendLine();
 
-            gameField.Append("Enter row and column: ");
             Console.Write(gameField);
         }
 
@@ -103,6 +107,7 @@
         public void ErrorMessage(ErrorType error)
         {
             Console.SetCursorPosition(CommandEntryOnScreenCol, CommandEntryOnScreenRow);
+            ClearLines(NumberOfLinesToClear); 
 
             if (error == ErrorType.IllegalInput)
             {
@@ -119,7 +124,7 @@
 
             Console.Write(PressKeyMessage);
             Console.ReadKey();
-            PrepareForEntry();
+            PrepareForEntry(EnterPositionMessage);
         }
 
         public void DisplayHighScores(SortedDictionary<int, string> topScores)
@@ -131,12 +136,36 @@
                 Console.WriteLine("{0}. {1} --> {2} cells", place, result.Value, result.Key);
                 place++;
             }
+
+            Console.Write(PressKeyMessage);
+            Console.ReadKey();
+            PrepareForEntry(EnterPositionMessage);
         }
 
-        public string CommandInput()
+        public void Reset()
         {
+            Console.Clear();
+        }
+
+        public string UserInput(InputType expectedInput)
+        {
+            string message = string.Empty;
+
+            if (expectedInput == InputType.Command)
+            {
+                message = EnterPositionMessage;
+            } 
+            else if (expectedInput == InputType.Name)
+            {
+                message = EnterNameMessage;
+            }
+            else
+            {
+                throw new ArgumentException("Unknown input type expected!");
+            }
+
+            PrepareForEntry(message);
             string command = Console.ReadLine();
-            PrepareForEntry();
             return command;
         }
 
@@ -144,22 +173,23 @@
         {
             Console.SetCursorPosition(colOnScreen, rowOnScreen);
             Console.Write(changedValue);
-            ResetCursorPosition();
+            PrepareForEntry(EnterPositionMessage); // TODO: Check Need!
         }
 
-        private void PrepareForEntry()
-        {
-            string emptyLine = new string(' ', Console.WindowWidth);
-            Console.Write("\r");
-            Console.Write(emptyLine);
-            ResetCursorPosition();
-            Console.Write(emptyLine);
-            ResetCursorPosition();
-        }
-  
-        private void ResetCursorPosition()
+        private void PrepareForEntry(string entryMessage)
         {
             Console.SetCursorPosition(CommandEntryOnScreenCol, CommandEntryOnScreenRow);
+            ClearLines(NumberOfLinesToClear);
+            Console.Write(entryMessage);
+        }
+
+        private void ClearLines(int numberOfLines)
+        {
+            Position currentCursorPosition = new Position(Console.CursorTop, Console.CursorLeft);
+            int lineLength = Console.WindowWidth - 1;
+            string emptyLine = new string(' ', lineLength * numberOfLines);
+            Console.Write(emptyLine);
+            Console.SetCursorPosition(currentCursorPosition.Col, currentCursorPosition.Row);
         }
     }
 }
