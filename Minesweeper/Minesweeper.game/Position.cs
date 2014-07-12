@@ -5,7 +5,7 @@
     /// <summary>
     /// Holds position by row and column.
     /// </summary>
-    public class Position
+    public class Position : IPosition
     {
         /// <summary>Set property message format.</summary>
         private const string ExceptionMessageFormat = "Value for {0}'s position cannot be negative";
