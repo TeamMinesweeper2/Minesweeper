@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="ConsoleManager.cs" />
     <Compile Include="ErrorType.cs" />
-    <Compile Include="Minefield.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
