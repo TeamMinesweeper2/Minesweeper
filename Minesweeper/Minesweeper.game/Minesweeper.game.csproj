@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoardDrawer.cs" />
     <Compile Include="CommandReader.cs" />
     <Compile Include="Enums\Command.cs" />
     <Compile Include="ConsoleManager.cs" />
