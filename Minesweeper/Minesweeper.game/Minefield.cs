@@ -7,11 +7,14 @@
         private readonly bool[,] mines;
         private readonly bool[,] openedCells;
 
+        private readonly IRandomGeneratorProvider randomGenerator;
+
         // Constructor
-        public Minefield(int rows, int colls)
+        public Minefield(int rows, int colls, IRandomGeneratorProvider rndGenerator)
         {
             this.mines = new bool[rows, colls];
             this.openedCells = new bool[rows, colls];
+            this.randomGenerator = rndGenerator;
             this.AddMines();
         }
 
@@ -111,13 +114,13 @@
         private void AddMines()
         {
             // TODO: make testable (use shuffling)
-            Random random = new Random();
+
             for (int i = 0; i < 15; i++)
             {
-                int index = random.Next(50);
+                int index = randomGenerator.GetRandomNumber(50);
                 while (this.mines[(index / 10), (index % 10)])
                 {
-                    index = random.Next(50);
+                    index = randomGenerator.GetRandomNumber(50);
                 }
 
                 this.mines[(index / 10), (index % 10)] = true;
