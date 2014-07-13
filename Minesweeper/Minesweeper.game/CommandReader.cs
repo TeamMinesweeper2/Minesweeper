@@ -9,9 +9,9 @@
             this.cellToOpen = Cell.Empty;
         }
 
-        public Command ReadCommand()
+        public Command ReadCommand(ConsoleManager consoleManager)
         {
-            string command = ConsoleManager.CommandInput();
+            string command = consoleManager.CommandInput();
 
             if (command.Equals("restart"))
             {

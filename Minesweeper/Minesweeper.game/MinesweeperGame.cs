@@ -9,25 +9,27 @@
         private bool[,] openedCells = new bool[5, 10];
         private SortedDictionary<int, string> topScores = new SortedDictionary<int, string>();
         private bool gameEnded = false;
+        private ConsoleManager consoleManager;
 
         public void Run()
         {
-            ConsoleManager.Intro();
-            ConsoleManager.DrawGameField();
+            consoleManager = new ConsoleManager();
+            consoleManager.Intro();
+            consoleManager.DrawGameField();
             var commandReader = new CommandReader();
 
             AddMines();
 
             while (!gameEnded)
             {
-                var command = commandReader.ReadCommand();
+                var command = commandReader.ReadCommand(consoleManager);
 
                 switch (command)
                 {
                     case Command.Restart:
                         break;
                     case Command.ShowTopScores:
-                        ConsoleManager.DisplayHighScores(topScores);
+                        consoleManager.DisplayHighScores(topScores);
                         break;
                     case Command.Exit:
                         break;
@@ -36,7 +38,7 @@
                         OpenNewCell(cell);
                         break;
                     case Command.Invalid:
-                        ConsoleManager.ErrorMessage(ErrorType.IllegalInput);
+                        consoleManager.ErrorMessage(ErrorType.IllegalInput);
                         break;
                     default:
                         throw new ArgumentException("Unrecognized command!");
@@ -50,7 +52,7 @@
         {
             if (openedCells[cell.Row, cell.Col])
             {
-                ConsoleManager.ErrorMessage(ErrorType.IllegalMove);
+                consoleManager.ErrorMessage(ErrorType.IllegalMove);
             }
             else
             {
@@ -58,16 +60,16 @@
                 if (minefield[cell.Row, cell.Col])
                 {
                     int numberOfOpenedCells = CountOpen() - 1;
-                    ConsoleManager.DrawFinalGameField(minefield, openedCells);
-                    ConsoleManager.Finish(numberOfOpenedCells);
+                    consoleManager.DrawFinalGameField(minefield, openedCells);
+                    consoleManager.Finish(numberOfOpenedCells);
                     string name = Console.ReadLine();
                     topScores.Add(numberOfOpenedCells, name);
-                    ConsoleManager.DisplayHighScores(topScores);
+                    consoleManager.DisplayHighScores(topScores);
                     gameEnded = true;
                 }
 
                 int neighborMinesCount = CountNeighborMines(cell);
-                ConsoleManager.OpenCell(cell.Row, cell.Col, neighborMinesCount);
+                consoleManager.OpenCell(cell.Row, cell.Col, neighborMinesCount);
             }
         }
 

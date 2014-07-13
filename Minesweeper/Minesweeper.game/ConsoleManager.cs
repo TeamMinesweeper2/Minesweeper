@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public static class ConsoleManager
+    public  class ConsoleManager
     {
         private const int TopLeftMinefieldCellOnScreenRow = 6;
         private const int TopLeftMinefieldCellOnScreenCol = 4;
@@ -19,21 +19,21 @@
         private const string IllegalMoveMessage = "Illegal move!";
         private const string PressKeyMessage = "Press any key to continue.";
 
-        public static void Intro()
+        public  void Intro()
         {
             Console.WriteLine("Welcome to the game “Minesweeper”.");
             Console.WriteLine("Try to reveal all cells without mines. Use 'top' to view the scoreboard,");
             Console.WriteLine("'restart' to start a new game and 'exit' to quit the game.");
         }
 
-        public static void Finish(int numberOfOpenedCells)
+        public  void Finish(int numberOfOpenedCells)
         {
             Console.WriteLine("Booooom! You were killed by a mine. You revealed {0} cells without mines.", numberOfOpenedCells);
             Console.WriteLine("Please enter your name for the top scoreboard:");
             Console.WriteLine("Good Bye");
         }
 
-        public static void DrawGameField()
+        public  void DrawGameField()
         {
             var gameField = new StringBuilder();
             gameField.AppendLine();
@@ -73,14 +73,14 @@
             Console.Write(gameField);
         }
 
-        public static void OpenCell(int rowOnField, int colOnField, int neighborMinesCount)
+        public  void OpenCell(int rowOnField, int colOnField, int neighborMinesCount)
         {
             int rowOnScreen = TopLeftMinefieldCellOnScreenRow + rowOnField;
             int colOnScreen = TopLeftMinefieldCellOnScreenCol + colOnField * 2;
             DrawChange(rowOnScreen, colOnScreen, neighborMinesCount.ToString());
         }
 
-        public static void DrawFinalGameField(bool[,] minefield, bool[,] openedCells)
+        public  void DrawFinalGameField(bool[,] minefield, bool[,] openedCells)
         {
             for (int row = 0; row < minefield.GetLength(0); row++)
             {
@@ -100,7 +100,7 @@
             }
         }
 
-        public static void ErrorMessage(ErrorType error)
+        public  void ErrorMessage(ErrorType error)
         {
             Console.SetCursorPosition(CommandEntryOnScreenCol, CommandEntryOnScreenRow);
 
@@ -122,7 +122,7 @@
             PrepareForEntry();
         }
 
-        public static void DisplayHighScores(SortedDictionary<int, string> topScores)
+        public  void DisplayHighScores(SortedDictionary<int, string> topScores)
         {
             Console.WriteLine("Scoreboard:\n");
             var place = 0;
@@ -133,21 +133,21 @@
             }
         }
 
-        public static string CommandInput()
+        public  string CommandInput()
         {
             string command = Console.ReadLine();
             PrepareForEntry();
             return command;
         }
 
-        private static void DrawChange(int rowOnScreen, int colOnScreen, string changedValue)
+        private  void DrawChange(int rowOnScreen, int colOnScreen, string changedValue)
         {
             Console.SetCursorPosition(colOnScreen, rowOnScreen);
             Console.Write(changedValue);
             ResetCursorPosition();
         }
 
-        private static void PrepareForEntry()
+        private  void PrepareForEntry()
         {
             string emptyLine = new string(' ', Console.WindowWidth);
             Console.Write("\r");
@@ -157,7 +157,7 @@
             ResetCursorPosition();
         }
   
-        private static void ResetCursorPosition()
+        private  void ResetCursorPosition()
         {
             Console.SetCursorPosition(CommandEntryOnScreenCol, CommandEntryOnScreenRow);
         }
