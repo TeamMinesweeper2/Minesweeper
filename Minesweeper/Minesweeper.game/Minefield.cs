@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Minesweeper
+﻿namespace Minesweeper
 {
-    class Minefield
+    using System;
+
+    internal class Minefield
     {
         private bool[,] mines;
         private bool[,] openedCells;
@@ -11,8 +10,8 @@ namespace Minesweeper
         // Constructor
         public Minefield(int rows, int colls)
         {
-            mines = new bool[rows, colls];
-            openedCells = new bool[rows, colls];
+            this.mines = new bool[rows, colls];
+            this.openedCells = new bool[rows, colls];
             this.AddMines();
         }
 
@@ -42,15 +41,15 @@ namespace Minesweeper
                 return MinefieldState.OutOfRange;
             }
 
-            if (openedCells[cell.Row, cell.Col])
+            if (this.openedCells[cell.Row, cell.Col])
             {
                 return MinefieldState.AlreadyOpened;
             }
             else
             {
-                openedCells[cell.Row, cell.Col] = true;
+                this.openedCells[cell.Row, cell.Col] = true;
 
-                if (mines[cell.Row, cell.Col])
+                if (this.mines[cell.Row, cell.Col])
                 {
                     return MinefieldState.Boom;
                 }
@@ -59,23 +58,7 @@ namespace Minesweeper
             }
         }
 
-        private void AddMines()
-        {
-            // TODO: make testable (perhaps extract a method to return 15 random nums between 0 and 50)
-            Random random = new Random();
-            for (int i = 0; i < 15; i++)
-            {
-                int index = random.Next(50);
-                while (mines[(index / 10), (index % 10)])
-                {
-                    index = random.Next(50);
-                }
-
-                mines[(index / 10), (index % 10)] = true;
-            }
-        }
-
-        public int CountNeighborMines(Cell currentPosition) //(int i, int j)
+        public int CountNeighborMines(Cell currentPosition)
         {
             int counter = 0;
 
@@ -88,8 +71,8 @@ namespace Minesweeper
                         continue;
                     }
 
-                    if (IsInsideMatrix(currentPosition.Row + row, currentPosition.Col + col) &&
-                        mines[currentPosition.Row + row, currentPosition.Col + col])
+                    if (this.IsInsideMatrix(currentPosition.Row + row, currentPosition.Col + col) &&
+                        this.mines[currentPosition.Row + row, currentPosition.Col + col])
                     {
                         counter++;
                     }
@@ -99,11 +82,6 @@ namespace Minesweeper
             return counter;
         }
 
-        private bool IsInsideMatrix(int row, int col)
-        {
-            return (0 <= row && row <= 4) && (0 <= col && col <= 9);
-        }
-
         public int CountOpen()
         {
             int res = 0;
@@ -111,7 +89,7 @@ namespace Minesweeper
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    if (openedCells[i, j])
+                    if (this.openedCells[i, j])
                     {
                         res++;
                     }
@@ -119,6 +97,27 @@ namespace Minesweeper
             }
 
             return res;
+        }
+
+        private bool IsInsideMatrix(int row, int col)
+        {
+            return (0 <= row && row <= 4) && (0 <= col && col <= 9);
+        }
+
+        private void AddMines()
+        {
+            // TODO: make testable (perhaps extract a method to return 15 random nums between 0 and 50)
+            Random random = new Random();
+            for (int i = 0; i < 15; i++)
+            {
+                int index = random.Next(50);
+                while (this.mines[(index / 10), (index % 10)])
+                {
+                    index = random.Next(50);
+                }
+
+                this.mines[(index / 10), (index % 10)] = true;
+            }
         }
     }
 }

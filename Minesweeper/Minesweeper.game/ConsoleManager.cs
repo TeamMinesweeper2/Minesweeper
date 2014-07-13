@@ -28,7 +28,7 @@
         {
             this.mineFieldRows = minefieldRows;
             this.minefieldCols = mineFieldCols;
-            this.gameFieldWidth = mineFieldCols * 2 - 1;
+            this.gameFieldWidth = (mineFieldCols * 2) - 1;
             this.commandEntryOnScreenRow = 8 + minefieldRows;
             this.commandEntryOnScreenCol = EnterRowColPrompt.Length;  
         }
@@ -63,7 +63,7 @@
 
             // Draw second row.
             gameField.Append(TabSpace);
-            gameField.AppendLine(new string('-', gameFieldWidth));
+            gameField.AppendLine(new string('-', this.gameFieldWidth));
 
             // Draw minefield rows.
             for (int row = 0; row < this.mineFieldRows; row++)
@@ -79,7 +79,7 @@
 
             // Draw final row.
             gameField.Append(TabSpace);
-            gameField.AppendLine(new string('-', gameFieldWidth));
+            gameField.AppendLine(new string('-', this.gameFieldWidth));
 
             gameField.AppendLine();
 
@@ -90,8 +90,8 @@
         public void DrawOpenCell(int rowOnField, int colOnField, int neighborMinesCount)
         {
             int rowOnScreen = TopLeftMinefieldCellOnScreenRow + rowOnField;
-            int colOnScreen = TopLeftMinefieldCellOnScreenCol + colOnField * 2;
-            DrawCell(rowOnScreen, colOnScreen, neighborMinesCount.ToString());
+            int colOnScreen = TopLeftMinefieldCellOnScreenCol + (colOnField * 2);
+            this.DrawCell(rowOnScreen, colOnScreen, neighborMinesCount.ToString());
         }
 
         public void DrawFinalGameField(bool[,] minefield, bool[,] openedCells)
@@ -101,14 +101,14 @@
                 for (int col = 0; col < minefield.GetLength(1); col++)
                 {
                     int rowOnScreen = TopLeftMinefieldCellOnScreenRow + row;
-                    int colOnScreen = TopLeftMinefieldCellOnScreenCol + col * 2;
+                    int colOnScreen = TopLeftMinefieldCellOnScreenCol + (col * 2);
                     if (minefield[row, col])
                     {
-                        DrawCell(rowOnScreen, colOnScreen, "*");
+                        this.DrawCell(rowOnScreen, colOnScreen, "*");
                     }
                     else if (!openedCells[row, col])
                     {
-                        DrawCell(rowOnScreen, colOnScreen, "-");
+                        this.DrawCell(rowOnScreen, colOnScreen, "-");
                     }
                 }
             }
@@ -116,7 +116,7 @@
 
         public void ErrorMessage(ErrorType error)
         {
-            Console.SetCursorPosition(commandEntryOnScreenCol, commandEntryOnScreenRow);
+            Console.SetCursorPosition(this.commandEntryOnScreenCol, this.commandEntryOnScreenRow);
 
             switch (error)
             {
@@ -135,7 +135,7 @@
 
             Console.Write(PressKeyMessage);
             Console.ReadKey();
-            PrepareForEntry();
+            this.PrepareForEntry();
         }
 
         public void DisplayHighScores(SortedDictionary<int, string> topScores)
@@ -152,7 +152,7 @@
         public string ReadInput()
         {
             string command = Console.ReadLine();
-            PrepareForEntry();
+            this.PrepareForEntry();
             return command;
         }
 
@@ -160,7 +160,7 @@
         {
             Console.SetCursorPosition(colOnScreen, rowOnScreen);
             Console.Write(cellValue);
-            ResetCursorPosition();
+            this.ResetCursorPosition();
         }
 
         private void PrepareForEntry()
@@ -168,14 +168,14 @@
             string emptyLine = new string(' ', Console.WindowWidth);
             Console.Write("\r");
             Console.Write(emptyLine);
-            ResetCursorPosition();
+            this.ResetCursorPosition();
             Console.Write(emptyLine);
-            ResetCursorPosition();
+            this.ResetCursorPosition();
         }
 
         private void ResetCursorPosition()
         {
-            Console.SetCursorPosition(commandEntryOnScreenCol, commandEntryOnScreenRow);
+            Console.SetCursorPosition(this.commandEntryOnScreenCol, this.commandEntryOnScreenRow);
         }
     }
 }

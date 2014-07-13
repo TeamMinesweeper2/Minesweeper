@@ -1,13 +1,11 @@
 ﻿namespace Minesweeper
 {
-    class CommandReader
+    internal class CommandReader
     {
-        // TODO: add constants for all commands ("top", "restart"...)
-
+        //// TODO: add constants for all commands ("top", "restart"...)
 
         public CommandReader()
         {
-            //
         }
 
         public Command ReadCommand(ConsoleManager consoleManager, out Cell cellToOpen)

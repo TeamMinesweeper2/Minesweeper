@@ -19,32 +19,32 @@
             int minefieldRows = 5;
             int minefieldCols = 10;
 
-            minefield = new Minefield(minefieldRows, minefieldCols);
-            consoleManager = new ConsoleManager(minefieldRows, minefieldCols);
+            this.minefield = new Minefield(minefieldRows, minefieldCols);
+            this.consoleManager = new ConsoleManager(minefieldRows, minefieldCols);
 
-            consoleManager.Intro();
-            consoleManager.DrawInitialGameField();
+            this.consoleManager.Intro();
+            this.consoleManager.DrawInitialGameField();
 
             var commandReader = new CommandReader();
-            while (!gameEnded)
+            while (!this.gameEnded)
             {
                 Cell cellToOpen;
-                var command = commandReader.ReadCommand(consoleManager, out cellToOpen);
+                var command = commandReader.ReadCommand(this.consoleManager, out cellToOpen);
 
                 switch (command)
                 {
                     case Command.Restart:
                         break;
                     case Command.ShowTopScores:
-                        consoleManager.DisplayHighScores(topScores);
+                        this.consoleManager.DisplayHighScores(this.topScores);
                         break;
                     case Command.Exit:
                         break;
                     case Command.Invalid:
-                        consoleManager.ErrorMessage(ErrorType.IvalidCommand);
+                        this.consoleManager.ErrorMessage(ErrorType.IvalidCommand);
                         break;
                     case Command.OpenCell:
-                        OpenCell(cellToOpen);
+                        this.OpenCell(cellToOpen);
                         break;
                     default:
                         throw new ArgumentException("Unrecognized command!");
@@ -56,22 +56,22 @@
 
         private void OpenCell(Cell cell)
         {
-            var result = minefield.OpenNewCell(cell);
+            var result = this.minefield.OpenNewCell(cell);
 
             switch (result)
             {
                 case MinefieldState.OutOfRange:
-                    consoleManager.ErrorMessage(ErrorType.CellOutOfRange);
+                    this.consoleManager.ErrorMessage(ErrorType.CellOutOfRange);
                     break;
                 case MinefieldState.AlreadyOpened:
-                    consoleManager.ErrorMessage(ErrorType.AlreadyOpened);
+                    this.consoleManager.ErrorMessage(ErrorType.AlreadyOpened);
                     break;
                 case MinefieldState.Boom:
-                    MineBoomed();
+                    this.MineBoomed();
                     break;
                 case MinefieldState.Normal:
-                    int neighborMinesCount = minefield.CountNeighborMines(cell);
-                    consoleManager.DrawOpenCell(cell.Row, cell.Col, neighborMinesCount);
+                    int neighborMinesCount = this.minefield.CountNeighborMines(cell);
+                    this.consoleManager.DrawOpenCell(cell.Row, cell.Col, neighborMinesCount);
                     break;
                 default:
                     break;
@@ -81,15 +81,15 @@
         private void MineBoomed()
         {
             // subtract the boomed mine that was opened
-            int numberOfOpenedCells = minefield.CountOpen() - 1;
+            int numberOfOpenedCells = this.minefield.CountOpen() - 1;
 
-            consoleManager.DrawFinalGameField(minefield.Mines, minefield.OpenedCells);
-            consoleManager.Finish(numberOfOpenedCells);
+            this.consoleManager.DrawFinalGameField(this.minefield.Mines, this.minefield.OpenedCells);
+            this.consoleManager.Finish(numberOfOpenedCells);
 
             string name = Console.ReadLine();
-            topScores.Add(numberOfOpenedCells, name);
-            consoleManager.DisplayHighScores(topScores);
-            gameEnded = true;
+            this.topScores.Add(numberOfOpenedCells, name);
+            this.consoleManager.DisplayHighScores(this.topScores);
+            this.gameEnded = true;
         }
     }
 }

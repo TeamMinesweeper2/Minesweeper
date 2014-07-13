@@ -7,6 +7,11 @@
     /// </summary>
     public struct Cell
     {
+        /// <summary>
+        /// Represents a cell that has Row and Col values set to zero.
+        /// </summary>
+        public static readonly Cell Empty = new Cell(0, 0);
+
         /// <summary>Set property message format.</summary>
         private const string ExceptionMessageFormat = "Value for {0}'s position cannot be negative";
 
@@ -15,11 +20,6 @@
 
         /// <summary>Private field for position by column.</summary>
         private int col;
-
-        /// <summary>
-        /// Represents a cell that has Row and Col values set to zero.
-        /// </summary>
-        public static readonly Cell Empty = new Cell(0,0);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Cell"/> class.
