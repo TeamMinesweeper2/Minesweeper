@@ -40,7 +40,7 @@
             }
         }
 
-        public MinefieldState OpenNewCell(Cell cell)
+        public MinefieldState OpenNewCell(CellPos cell)
         {
             var isInside = this.IsInsideMatrix(cell.Row, cell.Col);
             if (!isInside)
@@ -65,7 +65,7 @@
             }
         }
 
-        public int CountNeighborMines(Cell currentPosition)
+        public int CountNeighborMines(CellPos currentPosition)
         {
             int counter = 0;
 

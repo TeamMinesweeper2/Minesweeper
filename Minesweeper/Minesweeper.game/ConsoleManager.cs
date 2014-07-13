@@ -29,7 +29,7 @@
             this.gameFieldWidth = (mineFieldCols * 2) - 1;
             this.cmdLineRow = 8 + minefieldRows;
             this.cmdLineCol = EnterRowColPrompt.Length;
-            Cell minefieldTopLeft = new Cell(6, 4);
+            CellPos minefieldTopLeft = new CellPos(6, 4);
             this.boardDrawer = new BoardDrawer(minefieldRows, minefieldCols, minefieldTopLeft);
         }
 
@@ -46,6 +46,22 @@
             Console.WriteLine("Please enter your name for the top scoreboard:");
             Console.WriteLine("Good Bye");
         }      
+
+        public void GoodBye()
+        {
+            Console.WriteLine("Good Bye");
+        }
+
+        public void DisplayHighScores(SortedDictionary<int, string> topScores)
+        {
+            Console.WriteLine("Scoreboard:\n");
+            var place = 0;
+            foreach (var result in topScores)
+            {
+                Console.WriteLine("{0}. {1} --> {2} cells", place, result.Value, result.Key);
+                place++;
+            }
+        }
 
         public void ErrorMessage(ErrorType error)
         {
@@ -71,23 +87,6 @@
             this.PrepareForEntry();
         }
 
-        public void DisplayHighScores(SortedDictionary<int, string> topScores)
-        {
-            Console.WriteLine("Scoreboard:\n");
-            var place = 0;
-            foreach (var result in topScores)
-            {
-                Console.WriteLine("{0}. {1} --> {2} cells", place, result.Value, result.Key);
-                place++;
-            }
-        }
-
-        public void GoodBye()
-        {
-            Console.WriteLine("Good Bye");
-        }
-
-
 
         public string ReadInput()
         {
@@ -95,8 +94,6 @@
             this.PrepareForEntry();
             return command;
         }
-
-
 
         public void DrawInitialGameField()
         {

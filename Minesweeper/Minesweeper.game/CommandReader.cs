@@ -8,10 +8,10 @@
         {
         }
 
-        public Command ReadCommand(IUserInputReader consoleManager, out Cell cellToOpen)
+        public Command ReadCommand(IUserInputReader consoleManager, out CellPos cellToOpen)
         {
             string command = consoleManager.ReadInput();
-            cellToOpen = Cell.Empty;
+            cellToOpen = CellPos.Empty;
 
             if (command.Equals("restart"))
             {

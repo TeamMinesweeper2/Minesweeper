@@ -14,9 +14,9 @@ namespace Minesweeper
         private int minefieldCols;
         private int mineFieldRows;
         private int gameFieldWidth;
-        private Cell topLeft;
+        private CellPos topLeft;
 
-        public BoardDrawer(int minefieldRows, int mineFieldCols, Cell topLeft)
+        public BoardDrawer(int minefieldRows, int mineFieldCols, CellPos topLeft)
         {
             this.mineFieldRows = minefieldRows;
             this.minefieldCols = mineFieldCols;
@@ -94,7 +94,6 @@ namespace Minesweeper
         {
             Console.SetCursorPosition(colOnScreen, rowOnScreen);
             Console.Write(cellValue);
-            //this.ResetCursorPosition();
         }
     }
 }

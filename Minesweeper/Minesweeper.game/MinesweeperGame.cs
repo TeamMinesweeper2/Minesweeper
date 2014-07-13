@@ -28,7 +28,7 @@
             var commandReader = new CommandReader();
             while (!this.gameEnded)
             {
-                Cell cellToOpen;
+                CellPos cellToOpen;
                 var command = commandReader.ReadCommand(this.consoleManager, out cellToOpen);
 
                 switch (command)
@@ -52,7 +52,7 @@
             }            
         }
 
-        private void OpenCell(Cell cell)
+        private void OpenCell(CellPos cell)
         {
             var result = this.minefield.OpenNewCell(cell);
 
