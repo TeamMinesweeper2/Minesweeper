@@ -69,7 +69,7 @@
                 }
 
                 int neighborMinesCount = CountNeighborMines(cell);
-                consoleManager.OpenCell(cell.Row, cell.Col, neighborMinesCount);
+                consoleManager.DrawOpenCell(cell.Row, cell.Col, neighborMinesCount);
             }
         }
 

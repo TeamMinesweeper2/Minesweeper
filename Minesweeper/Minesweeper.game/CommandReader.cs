@@ -11,7 +11,7 @@
 
         public Command ReadCommand(ConsoleManager consoleManager)
         {
-            string command = consoleManager.CommandInput();
+            string command = consoleManager.ReadInput();
 
             if (command.Equals("restart"))
             {

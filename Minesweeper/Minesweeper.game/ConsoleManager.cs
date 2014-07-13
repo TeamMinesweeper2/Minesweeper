@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public  class ConsoleManager
+    public class ConsoleManager
     {
         private const int TopLeftMinefieldCellOnScreenRow = 6;
         private const int TopLeftMinefieldCellOnScreenCol = 4;
@@ -19,21 +19,21 @@
         private const string IllegalMoveMessage = "Illegal move!";
         private const string PressKeyMessage = "Press any key to continue.";
 
-        public  void Intro()
+        public void Intro()
         {
             Console.WriteLine("Welcome to the game “Minesweeper”.");
             Console.WriteLine("Try to reveal all cells without mines. Use 'top' to view the scoreboard,");
             Console.WriteLine("'restart' to start a new game and 'exit' to quit the game.");
         }
 
-        public  void Finish(int numberOfOpenedCells)
+        public void Finish(int numberOfOpenedCells)
         {
             Console.WriteLine("Booooom! You were killed by a mine. You revealed {0} cells without mines.", numberOfOpenedCells);
             Console.WriteLine("Please enter your name for the top scoreboard:");
             Console.WriteLine("Good Bye");
         }
 
-        public  void DrawGameField()
+        public void DrawGameField()
         {
             var gameField = new StringBuilder();
             gameField.AppendLine();
@@ -56,10 +56,10 @@
             {
                 gameField.AppendFormat("{0} | ", row);
                 for (int col = 0; col < MinefieldWidth; col++)
-                {                 
-                     gameField.Append("? ");
+                {
+                    gameField.Append("? ");
                 }
-                
+
                 gameField.AppendLine();
             }
 
@@ -73,14 +73,14 @@
             Console.Write(gameField);
         }
 
-        public  void OpenCell(int rowOnField, int colOnField, int neighborMinesCount)
+        public void DrawOpenCell(int rowOnField, int colOnField, int neighborMinesCount)
         {
             int rowOnScreen = TopLeftMinefieldCellOnScreenRow + rowOnField;
             int colOnScreen = TopLeftMinefieldCellOnScreenCol + colOnField * 2;
-            DrawChange(rowOnScreen, colOnScreen, neighborMinesCount.ToString());
+            DrawCell(rowOnScreen, colOnScreen, neighborMinesCount.ToString());
         }
 
-        public  void DrawFinalGameField(bool[,] minefield, bool[,] openedCells)
+        public void DrawFinalGameField(bool[,] minefield, bool[,] openedCells)
         {
             for (int row = 0; row < minefield.GetLength(0); row++)
             {
@@ -90,17 +90,17 @@
                     int colOnScreen = TopLeftMinefieldCellOnScreenCol + col * 2;
                     if (minefield[row, col])
                     {
-                        DrawChange(rowOnScreen, colOnScreen, "*");
+                        DrawCell(rowOnScreen, colOnScreen, "*");
                     }
                     else if (!openedCells[row, col])
                     {
-                        DrawChange(rowOnScreen, colOnScreen, "-");
+                        DrawCell(rowOnScreen, colOnScreen, "-");
                     }
                 }
             }
         }
 
-        public  void ErrorMessage(ErrorType error)
+        public void ErrorMessage(ErrorType error)
         {
             Console.SetCursorPosition(CommandEntryOnScreenCol, CommandEntryOnScreenRow);
 
@@ -122,7 +122,7 @@
             PrepareForEntry();
         }
 
-        public  void DisplayHighScores(SortedDictionary<int, string> topScores)
+        public void DisplayHighScores(SortedDictionary<int, string> topScores)
         {
             Console.WriteLine("Scoreboard:\n");
             var place = 0;
@@ -133,21 +133,21 @@
             }
         }
 
-        public  string CommandInput()
+        public string ReadInput()
         {
             string command = Console.ReadLine();
             PrepareForEntry();
             return command;
         }
 
-        private  void DrawChange(int rowOnScreen, int colOnScreen, string changedValue)
+        private void DrawCell(int rowOnScreen, int colOnScreen, string cellValue)
         {
             Console.SetCursorPosition(colOnScreen, rowOnScreen);
-            Console.Write(changedValue);
+            Console.Write(cellValue);
             ResetCursorPosition();
         }
 
-        private  void PrepareForEntry()
+        private void PrepareForEntry()
         {
             string emptyLine = new string(' ', Console.WindowWidth);
             Console.Write("\r");
@@ -156,8 +156,8 @@
             Console.Write(emptyLine);
             ResetCursorPosition();
         }
-  
-        private  void ResetCursorPosition()
+
+        private void ResetCursorPosition()
         {
             Console.SetCursorPosition(CommandEntryOnScreenCol, CommandEntryOnScreenRow);
         }
