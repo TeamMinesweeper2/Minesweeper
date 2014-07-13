@@ -2,32 +2,34 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class MinesweeperGame
     {
-        private readonly SortedDictionary<int, string> topScores = new SortedDictionary<int, string>();
+        private readonly List<KeyValuePair<string, int>> topScores = new List<KeyValuePair<string, int>>();
         private bool gameEnded = false;
         private ConsoleManager consoleManager;
         private Minefield minefield;
         private IDictionary<ErrorType, string> errorMessages;
         private IDictionary<UserMsg, string> userMessages;
 
+        private int minefieldRows;
+        private int minefieldCols;
+
         public MinesweeperGame()
         {
+            this.minefieldRows = 5;
+            this.minefieldCols = 10;
             this.InitializeMessages();
         }
 
         public void Run()
         {
-            int minefieldRows = 5;
-            int minefieldCols = 10;
-
-            this.minefield = new Minefield(minefieldRows, minefieldCols);
             int cmdLineCol = this.userMessages[UserMsg.EnterRowCol].Length;
-            this.consoleManager = new ConsoleManager(minefieldRows, minefieldCols, cmdLineCol);
-
+            this.consoleManager = new ConsoleManager(this.minefieldRows, this.minefieldCols, cmdLineCol);
             this.consoleManager.DisplayIntro(this.userMessages[UserMsg.Intro]);
-            this.consoleManager.DrawInitialGameField(this.userMessages[UserMsg.EnterRowCol]);
+
+            this.MakeNewMinefield();
 
             var commandReader = new CommandReader();
             while (!this.gameEnded)
@@ -38,11 +40,13 @@
                 switch (command)
                 {
                     case Command.Restart:
+                        this.MakeNewMinefield();
                         break;
                     case Command.ShowTopScores:
-                        this.consoleManager.DisplayHighScores(this.topScores);
+                        this.ShowScores();
                         break;
                     case Command.Exit:
+                        this.EndGame();
                         break;
                     case Command.Invalid:
                         this.consoleManager.DisplayError(this.errorMessages[ErrorType.IvalidCommand]);
@@ -54,6 +58,12 @@
                         throw new ArgumentException("Unrecognized command!");
                 }
             }
+        }
+
+        private void MakeNewMinefield()
+        {
+            this.consoleManager.DrawInitialGameField(this.userMessages[UserMsg.EnterRowCol]);
+            this.minefield = new Minefield(this.minefieldRows, this.minefieldCols);
         }
 
         private void OpenCell(CellPos cell)
@@ -91,8 +101,16 @@
             this.consoleManager.DisplayEnd(this.userMessages[UserMsg.Boom], numberOfOpenedCells);
 
             string name = this.consoleManager.ReadName();
-            this.topScores.Add(numberOfOpenedCells, name);
-            this.consoleManager.DisplayHighScores(this.topScores);
+            this.topScores.Add(new KeyValuePair<string, int>(name, numberOfOpenedCells));
+
+            this.ShowScores();
+
+            //this.EndGame();
+            this.MakeNewMinefield();
+        }
+
+        private void EndGame()
+        {
             this.consoleManager.GoodBye(this.userMessages[UserMsg.Bye]);
             this.gameEnded = true;
         }
@@ -114,6 +132,12 @@
                 { UserMsg.Boom, "Booooom! You were killed by a mine. You opened {0} cells without mines.\nPlease enter your name for the top scoreboard: "},
                 { UserMsg.Bye, "Good bye!" }
             };
+        }
+
+        private void ShowScores()
+        {
+            var sorted = topScores.OrderBy(kvp => -kvp.Value);
+            this.consoleManager.DisplayHighScores(sorted);
         }
     }
 }

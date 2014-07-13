@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class ConsoleManager : IUserInputReader
     {
@@ -41,14 +42,14 @@
             Console.WriteLine(goodByeMsg);
         }
 
-        public void DisplayHighScores(SortedDictionary<int, string> topScores)
+        public void DisplayHighScores(IEnumerable<KeyValuePair<string, int>> topScores)
         {
             Console.SetCursorPosition(0, this.cmdLineRow + 4);
             Console.WriteLine("Scoreboard:");
             var place = 0;
             foreach (var result in topScores)
             {
-                Console.WriteLine("{0}. {1} --> {2} cells", place, result.Value, result.Key);
+                Console.WriteLine("{0}. {1} --> {2} cells", place, result.Key, result.Value);
                 place++;
             }
         }
@@ -82,6 +83,7 @@
 
         public void DrawInitialGameField(string enterRowColPrompt)
         {
+            Console.SetCursorPosition(0, 3);
             this.boardDrawer.DrawInitialGameField();
             Console.Write(enterRowColPrompt);
         }
@@ -98,7 +100,7 @@
 
         private void ClearCommandLine()
         {
-            string emptyLine = new string(' ', 2 * Console.WindowWidth);
+            string emptyLine = new string(' ', 3 * Console.WindowWidth);
             Console.SetCursorPosition(this.cmdLineCol, this.cmdLineRow);
             Console.Write(emptyLine);
             Console.SetCursorPosition(this.cmdLineCol, this.cmdLineRow);
