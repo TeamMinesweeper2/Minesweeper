@@ -2,7 +2,11 @@
 {
     internal class CommandReader
     {
-        //// TODO: add constants for all commands ("top", "restart"...)
+        //// TODO: add constants for all commands ("top", "restart"...) - DONE
+        private const string Restart = "restart";
+        private const string Top = "top";
+        private const string Exit = "exit";
+        private const int MinCommandLength = 3;
 
         public CommandReader()
         {
@@ -13,22 +17,22 @@
             string command = consoleManager.ReadInput();
             cellToOpen = CellPos.Empty;
 
-            if (command.Equals("restart"))
+            if (command.Equals(Restart))
             {
                 return Command.Restart;
             }
 
-            if (command.Equals("top"))
+            if (command.Equals(Top))
             {
                 return Command.ShowTopScores;
             }
 
-            if (command.Equals("exit"))
+            if (command.Equals(Exit))
             {
                 return Command.Exit;
             }
 
-            if (command.Length < 3)
+            if (command.Length < MinCommandLength)
             {
                 return Command.Invalid;
             }

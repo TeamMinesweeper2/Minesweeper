@@ -6,7 +6,6 @@
 
     public class Cell : ICell
     {
-        //Commiting testing number 3
         private int row;
         private int col;
         private bool isOpened;

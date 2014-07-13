@@ -50,7 +50,7 @@
     <Compile Include="Enums\ErrorType.cs" />
     <Compile Include="Enums\MinefieldState.cs" />
     <Compile Include="Interfaces\ICell.cs" />
-    <Compile Include="IUserInputReader.cs" />
+    <Compile Include="Interfaces\IUserInputReader.cs" />
     <Compile Include="Minefield.cs" />
     <Compile Include="MinesweeperGame.cs" />
     <Compile Include="Program.cs" />
