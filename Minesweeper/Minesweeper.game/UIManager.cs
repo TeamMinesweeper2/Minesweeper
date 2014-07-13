@@ -4,18 +4,20 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class ConsoleManager : IUserInputReader
+    public class UIManager : IUserInputReader
     {
         private int minefieldCols;
         private int mineFieldRows;
         private int gameFieldWidth;
         private int cmdLineRow;
         private int cmdLineCol;
+        private readonly IRenderer renderer;
 
         private BoardDrawer boardDrawer;
 
-        public ConsoleManager(int minefieldRows, int mineFieldCols, int cmdLineCol)
+        public UIManager(int minefieldRows, int mineFieldCols, int cmdLineCol)
         {
+            this.renderer = new ConsoleRenderer();
             this.mineFieldRows = minefieldRows;
             this.minefieldCols = mineFieldCols;
             this.gameFieldWidth = (mineFieldCols * 2) - 1;
@@ -27,37 +29,36 @@
 
         public void DisplayIntro(string msg)
         {
-            Console.WriteLine(msg);
+            this.renderer.WriteLine(msg);
         }
 
         public void DisplayEnd(string msg, int numberOfOpenedCells)
         {
-            Console.SetCursorPosition(0, this.cmdLineRow + 1);
-            Console.Write(msg, numberOfOpenedCells);
+            this.renderer.WriteAt(0, this.cmdLineRow + 1, msg, numberOfOpenedCells);
         }      
 
         public void GoodBye(string goodByeMsg)
         {
-            Console.WriteLine();
-            Console.WriteLine(goodByeMsg);
+            this.renderer.WriteLine();
+            this.renderer.WriteLine(goodByeMsg);
         }
 
         public void DisplayHighScores(IEnumerable<KeyValuePair<string, int>> topScores)
         {
-            Console.SetCursorPosition(0, this.cmdLineRow + 4);
-            Console.WriteLine("Scoreboard:");
+            this.renderer.WriteAt(0, this.cmdLineRow + 4, "Scoreboard:");
+            this.renderer.WriteLine();
+
             var place = 0;
             foreach (var result in topScores)
             {
-                Console.WriteLine("{0}. {1} --> {2} cells", place, result.Key, result.Value);
+                this.renderer.WriteLine("{0}. {1} --> {2} cells", place, result.Key, result.Value);
                 place++;
             }
         }
 
         public void DisplayError(string errorMsg)
         {
-            Console.SetCursorPosition(this.cmdLineCol, this.cmdLineRow);
-            Console.WriteLine(errorMsg);
+            this.renderer.WriteAt(this.cmdLineCol, this.cmdLineRow, errorMsg);
         }
 
         public void WaitForKey(string promptMsg)
@@ -85,7 +86,8 @@
         {
             Console.SetCursorPosition(0, 3);
             this.boardDrawer.DrawInitialGameField();
-            Console.Write(enterRowColPrompt);
+
+            this.renderer.Write(enterRowColPrompt);
         }
 
         public void DrawOpenCell(int rowOnField, int colOnField, int neighborMinesCount)
@@ -101,8 +103,9 @@
         private void ClearCommandLine()
         {
             string emptyLine = new string(' ', 3 * Console.WindowWidth);
-            Console.SetCursorPosition(this.cmdLineCol, this.cmdLineRow);
-            Console.Write(emptyLine);
+
+            this.renderer.WriteAt(this.cmdLineCol, this.cmdLineRow, emptyLine);
+
             Console.SetCursorPosition(this.cmdLineCol, this.cmdLineRow);
         }
     }
