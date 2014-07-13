@@ -5,12 +5,14 @@ namespace Minesweeper
 {
     class Minefield
     {
-        private bool[,] mines = new bool[5, 10];
-        private bool[,] openedCells = new bool[5, 10];
+        private bool[,] mines;
+        private bool[,] openedCells;
 
         // Constructor
-        public Minefield()
+        public Minefield(int rows, int colls)
         {
+            mines = new bool[rows, colls];
+            openedCells = new bool[rows, colls];
             this.AddMines();
         }
 

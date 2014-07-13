@@ -2,16 +2,18 @@
 {
     class CommandReader
     {
-        private Cell cellToOpen;
+        // TODO: add constants for all commands ("top", "restart"...)
+
 
         public CommandReader()
         {
-            this.cellToOpen = Cell.Empty;
+            //
         }
 
-        public Command ReadCommand(ConsoleManager consoleManager)
+        public Command ReadCommand(ConsoleManager consoleManager, out Cell cellToOpen)
         {
             string command = consoleManager.ReadInput();
+            cellToOpen = Cell.Empty;
 
             if (command.Equals("restart"))
             {
@@ -34,15 +36,10 @@
             }
 
             // TODO: TryParse !!!!
-            this.cellToOpen.Row = int.Parse(command[0].ToString());
-            this.cellToOpen.Col = int.Parse(command[2].ToString());
+            cellToOpen.Row = int.Parse(command[0].ToString());
+            cellToOpen.Col = int.Parse(command[2].ToString());
 
             return Command.OpenCell;
-        }
-
-        public Cell GetCellToOpen()
-        {
-            return cellToOpen;
         }
     }
 }

@@ -16,7 +16,7 @@
 
         public void Run()
         {
-            minefield = new Minefield();
+            minefield = new Minefield(5, 10);
 
             consoleManager = new ConsoleManager();
             consoleManager.Intro();
@@ -25,7 +25,8 @@
             var commandReader = new CommandReader();
             while (!gameEnded)
             {
-                var command = commandReader.ReadCommand(consoleManager);
+                Cell cellToOpen;
+                var command = commandReader.ReadCommand(consoleManager, out cellToOpen);
 
                 switch (command)
                 {
@@ -40,8 +41,7 @@
                         consoleManager.ErrorMessage(ErrorType.IvalidCommand);
                         break;
                     case Command.OpenCell:
-                        var cell = commandReader.GetCellToOpen();
-                        OpenCell(cell);
+                        OpenCell(cellToOpen);
                         break;
                     default:
                         throw new ArgumentException("Unrecognized command!");
