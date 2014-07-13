@@ -8,7 +8,7 @@
         {
         }
 
-        public Command ReadCommand(ConsoleManager consoleManager, out Cell cellToOpen)
+        public Command ReadCommand(IUserInputReader consoleManager, out Cell cellToOpen)
         {
             string command = consoleManager.ReadInput();
             cellToOpen = Cell.Empty;

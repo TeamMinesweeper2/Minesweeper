@@ -49,9 +49,7 @@
                     default:
                         throw new ArgumentException("Unrecognized command!");
                 }
-            }
-
-            Console.WriteLine("Good Bye");
+            }            
         }
 
         private void OpenCell(Cell cell)
@@ -89,6 +87,7 @@
             string name = Console.ReadLine();
             this.topScores.Add(numberOfOpenedCells, name);
             this.consoleManager.DisplayHighScores(this.topScores);
+            this.consoleManager.GoodBye();
             this.gameEnded = true;
         }
     }

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public class ConsoleManager
+    public class ConsoleManager : IUserInputReader
     {
         // const
         private const int TopLeftMinefieldCellOnScreenRow = 6;
@@ -147,6 +147,11 @@
                 Console.WriteLine("{0}. {1} --> {2} cells", place, result.Value, result.Key);
                 place++;
             }
+        }
+
+        public void GoodBye()
+        {
+            Console.WriteLine("Good Bye");
         }
 
         public string ReadInput()
