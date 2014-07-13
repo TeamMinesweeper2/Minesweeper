@@ -1,20 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Minesweeper
 {
     class Minefield
     {
-        private bool[,] minefield = new bool[5, 10];
+        private bool[,] mines = new bool[5, 10];
         private bool[,] openedCells = new bool[5, 10];
-        private SortedDictionary<int, string> topScores = new SortedDictionary<int, string>();
 
+        // Constructor
         public Minefield()
         {
             this.AddMines();
+        }
+
+        public bool[,] Mines
+        { 
+            get
+            {
+                // TODO: return copy
+                return this.mines;
+            }
+        }
+
+        public bool[,] OpenedCells 
+        {
+            get
+            {
+                // TODO: return copy
+                return this.openedCells;
+            }
         }
 
         public MinefieldState OpenNewCell(Cell cell)
@@ -33,7 +48,7 @@ namespace Minesweeper
             {
                 openedCells[cell.Row, cell.Col] = true;
 
-                if (minefield[cell.Row, cell.Col])
+                if (mines[cell.Row, cell.Col])
                 {
                     return MinefieldState.Boom;
                 }
@@ -42,40 +57,22 @@ namespace Minesweeper
             }
         }
 
-        public void EmptyCellOpened(Cell cell, ConsoleManager consoleManager)
-        {
-            int neighborMinesCount = this.CountNeighborMines(cell);
-            consoleManager.DrawOpenCell(cell.Row, cell.Col, neighborMinesCount);
-        }
-
-        public void MineBoomed(ConsoleManager consoleManager)
-        {
-            int numberOfOpenedCells = this.CountOpen() - 1;
-
-            consoleManager.DrawFinalGameField(minefield, openedCells);
-            consoleManager.Finish(numberOfOpenedCells);
-
-            string name = Console.ReadLine();
-            topScores.Add(numberOfOpenedCells, name);
-            consoleManager.DisplayHighScores(topScores);
-        }
-
         private void AddMines()
         {
             Random random = new Random();
             for (int i = 0; i < 15; i++)
             {
                 int index = random.Next(50);
-                while (minefield[(index / 10), (index % 10)])
+                while (mines[(index / 10), (index % 10)])
                 {
                     index = random.Next(50);
                 }
 
-                minefield[(index / 10), (index % 10)] = true;
+                mines[(index / 10), (index % 10)] = true;
             }
         }
 
-        private int CountNeighborMines(Cell currentPosition) //(int i, int j)
+        public int CountNeighborMines(Cell currentPosition) //(int i, int j)
         {
             int counter = 0;
 
@@ -89,7 +86,7 @@ namespace Minesweeper
                     }
 
                     if (IsInsideMatrix(currentPosition.Row + row, currentPosition.Col + col) &&
-                        minefield[currentPosition.Row + row, currentPosition.Col + col])
+                        mines[currentPosition.Row + row, currentPosition.Col + col])
                     {
                         counter++;
                     }
@@ -104,7 +101,7 @@ namespace Minesweeper
             return (0 <= row && row <= 4) && (0 <= col && col <= 9);
         }
 
-        private int CountOpen()
+        public int CountOpen()
         {
             int res = 0;
             for (int i = 0; i < 5; i++)
