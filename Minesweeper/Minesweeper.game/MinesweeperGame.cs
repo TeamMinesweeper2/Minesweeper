@@ -17,22 +17,6 @@
             this.InitializeMessages();
         }
 
-        private void InitializeMessages()
-        {
-            this.errorMessages = new Dictionary<ErrorType, string>()
-            {
-                { ErrorType.IvalidCommand, "Ivalid command!" },
-                { ErrorType.AlreadyOpened, "Cell already opened!" },
-                { ErrorType.CellOutOfRange, "Cell is out of range of the minefield!"}
-            };
-
-            this.userMessages = new Dictionary<string, string>()
-            {
-                { "PressAnyKey", "Press any key to continue."},
-                { "EnterRowCol", "Enter row and column: " }
-            };
-        }
-
         public void Run()
         {
             int minefieldRows = 5;
@@ -111,6 +95,22 @@
             this.consoleManager.DisplayHighScores(this.topScores);
             this.consoleManager.GoodBye();
             this.gameEnded = true;
+        }
+
+        private void InitializeMessages()
+        {
+            this.errorMessages = new Dictionary<ErrorType, string>()
+            {
+                { ErrorType.IvalidCommand, "Ivalid command!" },
+                { ErrorType.AlreadyOpened, "Cell already opened!" },
+                { ErrorType.CellOutOfRange, "Cell is out of range of the minefield!"}
+            };
+
+            this.userMessages = new Dictionary<string, string>()
+            {
+                { "PressAnyKey", "Press any key to continue."},
+                { "EnterRowCol", "Enter row and column: " }
+            };
         }
     }
 }
