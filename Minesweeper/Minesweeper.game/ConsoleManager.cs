@@ -6,14 +6,6 @@
 
     public class ConsoleManager : IUserInputReader
     {
-        // strings
-        private const string TabSpace = "    ";
-        private const string IvalidCommandMsg = "Ivalid command!";
-        private const string AlreadyOpenedMsg = "Cell already opened!";
-        private const string CellOutOfRangeMsg = "Cell is out of range of the minefield!";
-        private const string PressKeyMessage = "Press any key to continue.";
-        private const string EnterRowColPrompt = "Enter row and column: ";
-
         private int minefieldCols;
         private int mineFieldRows;
         private int gameFieldWidth;
@@ -22,13 +14,13 @@
 
         private BoardDrawer boardDrawer;
 
-        public ConsoleManager(int minefieldRows, int mineFieldCols)
+        public ConsoleManager(int minefieldRows, int mineFieldCols, int cmdLineCol)
         {
             this.mineFieldRows = minefieldRows;
             this.minefieldCols = mineFieldCols;
             this.gameFieldWidth = (mineFieldCols * 2) - 1;
             this.cmdLineRow = 8 + minefieldRows;
-            this.cmdLineCol = EnterRowColPrompt.Length;
+            this.cmdLineCol = cmdLineCol;
             CellPos minefieldTopLeft = new CellPos(6, 4);
             this.boardDrawer = new BoardDrawer(minefieldRows, minefieldCols, minefieldTopLeft);
         }
@@ -63,30 +55,18 @@
             }
         }
 
-        public void ErrorMessage(ErrorType error)
+        public void DisplayError(string errorMsg)
         {
             Console.SetCursorPosition(this.cmdLineCol, this.cmdLineRow);
+            Console.WriteLine(errorMsg);
+        }
 
-            switch (error)
-            {
-                case ErrorType.CellOutOfRange:
-                    Console.WriteLine(CellOutOfRangeMsg);
-                    break;
-                case ErrorType.AlreadyOpened:
-                    Console.WriteLine(AlreadyOpenedMsg);
-                    break;
-                case ErrorType.IvalidCommand:
-                    Console.WriteLine(IvalidCommandMsg);
-                    break;
-                default:
-                    throw new ArgumentException("Unknown error message!");
-            }
-
-            Console.Write(PressKeyMessage);
+        public void WaitForKey(string promptMsg)
+        {
+            Console.Write(promptMsg);
             Console.ReadKey();
             this.PrepareForEntry();
         }
-
 
         public string ReadInput()
         {
@@ -95,10 +75,10 @@
             return command;
         }
 
-        public void DrawInitialGameField()
+        public void DrawInitialGameField(string enterRowColPrompt)
         {
             this.boardDrawer.DrawInitialGameField();
-            Console.Write(EnterRowColPrompt);
+            Console.Write(enterRowColPrompt);
         }
 
         public void DrawOpenCell(int rowOnField, int colOnField, int neighborMinesCount)

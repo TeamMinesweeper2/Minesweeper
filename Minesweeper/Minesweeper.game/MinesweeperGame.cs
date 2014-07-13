@@ -9,9 +9,28 @@
         private bool gameEnded = false;
         private ConsoleManager consoleManager;
         private Minefield minefield;
+        private IDictionary<ErrorType, string> errorMessages;
+        private IDictionary<string, string> userMessages;
 
         public MinesweeperGame()
         {
+            this.InitializeMessages();
+        }
+
+        private void InitializeMessages()
+        {
+            this.errorMessages = new Dictionary<ErrorType, string>()
+            {
+                { ErrorType.IvalidCommand, "Ivalid command!" },
+                { ErrorType.AlreadyOpened, "Cell already opened!" },
+                { ErrorType.CellOutOfRange, "Cell is out of range of the minefield!"}
+            };
+
+            this.userMessages = new Dictionary<string, string>()
+            {
+                { "PressAnyKey", "Press any key to continue."},
+                { "EnterRowCol", "Enter row and column: " }
+            };
         }
 
         public void Run()
@@ -20,10 +39,11 @@
             int minefieldCols = 10;
 
             this.minefield = new Minefield(minefieldRows, minefieldCols);
-            this.consoleManager = new ConsoleManager(minefieldRows, minefieldCols);
+            int cmdLineCol = this.userMessages["EnterRowCol"].Length;
+            this.consoleManager = new ConsoleManager(minefieldRows, minefieldCols, cmdLineCol);
 
             this.consoleManager.Intro();
-            this.consoleManager.DrawInitialGameField();
+            this.consoleManager.DrawInitialGameField(this.userMessages["EnterRowCol"]);
 
             var commandReader = new CommandReader();
             while (!this.gameEnded)
@@ -41,7 +61,7 @@
                     case Command.Exit:
                         break;
                     case Command.Invalid:
-                        this.consoleManager.ErrorMessage(ErrorType.IvalidCommand);
+                        this.consoleManager.DisplayError(this.errorMessages[ErrorType.IvalidCommand]);
                         break;
                     case Command.OpenCell:
                         this.OpenCell(cellToOpen);
@@ -49,7 +69,7 @@
                     default:
                         throw new ArgumentException("Unrecognized command!");
                 }
-            }            
+            }
         }
 
         private void OpenCell(CellPos cell)
@@ -59,10 +79,12 @@
             switch (result)
             {
                 case MinefieldState.OutOfRange:
-                    this.consoleManager.ErrorMessage(ErrorType.CellOutOfRange);
+                    this.consoleManager.DisplayError(this.errorMessages[ErrorType.CellOutOfRange]);
+                    this.consoleManager.WaitForKey(this.userMessages["PressAnyKey"]);
                     break;
                 case MinefieldState.AlreadyOpened:
-                    this.consoleManager.ErrorMessage(ErrorType.AlreadyOpened);
+                    this.consoleManager.DisplayError(this.errorMessages[ErrorType.AlreadyOpened]);
+                    this.consoleManager.WaitForKey(this.userMessages["PressAnyKey"]);
                     break;
                 case MinefieldState.Boom:
                     this.MineBoomed();
