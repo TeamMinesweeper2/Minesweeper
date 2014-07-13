@@ -33,6 +33,7 @@
                 return Command.Invalid;
             }
 
+            // TODO: TryParse !!!!
             this.cellToOpen.Row = int.Parse(command[0].ToString());
             this.cellToOpen.Col = int.Parse(command[2].ToString());
 

@@ -46,6 +46,8 @@
     <Compile Include="ConsoleManager.cs" />
     <Compile Include="Enums\ErrorType.cs" />
     <Compile Include="Cell.cs" />
+    <Compile Include="Enums\MinefieldState.cs" />
+    <Compile Include="Minefield.cs" />
     <Compile Include="MinesweeperGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

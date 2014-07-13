@@ -2,7 +2,8 @@
 {
     public enum ErrorType
     {
-        IllegalMove,
-        IllegalInput
+        CellOutOfRange,
+        AlreadyOpened,
+        IvalidCommand
     }
 }

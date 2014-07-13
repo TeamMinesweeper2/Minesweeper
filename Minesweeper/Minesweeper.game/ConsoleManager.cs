@@ -15,8 +15,9 @@
         private const int MinefieldWidth = 10;
         private const int MineFieldHeight = 5;
         private const string TabSpace = "    ";
-        private const string IllegalInputMessage = "Illegal input!";
-        private const string IllegalMoveMessage = "Illegal move!";
+        private const string IvalidCommandMsg = "Ivalid command!";
+        private const string AlreadyOpenedMsg = "Cell already opened!";
+        private const string CellOutOfRangeMsg = "Cell is out of range of the minefield!";
         private const string PressKeyMessage = "Press any key to continue.";
 
         public void Intro()
@@ -33,7 +34,7 @@
             Console.WriteLine("Good Bye");
         }
 
-        public void DrawGameField()
+        public void DrawInitialGameField()
         {
             var gameField = new StringBuilder();
             gameField.AppendLine();
@@ -104,17 +105,19 @@
         {
             Console.SetCursorPosition(CommandEntryOnScreenCol, CommandEntryOnScreenRow);
 
-            if (error == ErrorType.IllegalInput)
+            switch (error)
             {
-                Console.WriteLine(IllegalInputMessage);
-            }
-            else if (error == ErrorType.IllegalMove)
-            {
-                Console.WriteLine(IllegalMoveMessage);
-            }
-            else
-            {
-                throw new ArgumentException("Unknown error message!");
+                case ErrorType.CellOutOfRange:
+                    Console.WriteLine(CellOutOfRangeMsg);
+                    break;
+                case ErrorType.AlreadyOpened:
+                    Console.WriteLine(AlreadyOpenedMsg);
+                    break;
+                case ErrorType.IvalidCommand:
+                    Console.WriteLine(IvalidCommandMsg);
+                    break;
+                default:
+                    throw new ArgumentException("Unknown error message!");
             }
 
             Console.Write(PressKeyMessage);
