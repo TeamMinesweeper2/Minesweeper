@@ -40,9 +40,11 @@
             // TODO: split string and TryParse !!!! - DONE
             var splitedCommands = command.Split(' ');
 
+            //check if the input for rows and cols is more/less than 2
             if (splitedCommands.Length == 2)
             {
                 int parseCommandInteger;
+                //if the parsing was successful assign the parsed integer value to cellToOpen.Row
                 if (int.TryParse(splitedCommands[0], out parseCommandInteger))
                 {
                     cellToOpen.Row = parseCommandInteger;
@@ -63,6 +65,7 @@
             }
             else
             {
+                //if there are more/less than 2 input values the command is invalid
                 return Command.Invalid;
             }
 
