@@ -20,7 +20,7 @@
 
             if (command.Equals("top"))
             {
-                return Command.ShowScores;
+                return Command.ShowTopScores;
             }
 
             if (command.Equals("exit"))

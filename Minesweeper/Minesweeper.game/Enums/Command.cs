@@ -3,7 +3,7 @@
     public enum Command
     {
         Restart,
-        ShowScores,
+        ShowTopScores,
         Exit,
         OpenCell,
         Invalid

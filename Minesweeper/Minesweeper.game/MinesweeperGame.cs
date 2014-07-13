@@ -26,7 +26,7 @@
                 {
                     case Command.Restart:
                         break;
-                    case Command.ShowScores:
+                    case Command.ShowTopScores:
                         ConsoleManager.DisplayHighScores(topScores);
                         break;
                     case Command.Exit:
