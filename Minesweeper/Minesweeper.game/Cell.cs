@@ -6,12 +6,13 @@
 
     public class Cell : ICell
     {
-        private int row;
-        private int col;
         private bool isOpened;
         private bool isFlagged;
         private bool isMined;
 
+        /// <summary>
+        /// Constructor of the class Cell
+        /// </summary>
         public Cell()
         {
             this.IsOpened = false;
@@ -19,42 +20,9 @@
             this.IsMined = false;
         }
 
-        public int Row
-        {
-            get
-            {
-                return this.row;
-            }
-
-            private set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException("The value of the cell's row can not be negative");
-                }
-
-                this.row = value;
-            }
-        }
-
-        public int Col
-        {
-            get
-            {
-                return this.col;
-            }
-
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException("The value of the cell's col can not be negative");
-                }
-
-                this.col = value;
-            }
-        }
-
+        /// <summary>
+        /// Checks if the current cell is opened
+        /// </summary>
         public bool IsOpened
         {
             get
@@ -68,6 +36,9 @@
             }
         }
 
+        /// <summary>
+        /// Checks if the current cell is flagged
+        /// </summary>
         public bool IsFlagged
         {
             get
@@ -81,6 +52,9 @@
             }
         }
 
+        /// <summary>
+        /// Checks whether the current cell is mined
+        /// </summary>
         public bool IsMined
         {
             get
@@ -94,6 +68,9 @@
             }
         }
 
+        /// <summary>
+        /// Marks the current cell as opened and removes flages
+        /// </summary>
         public void OpenCell()
         {
             if (!this.IsOpened)
@@ -104,6 +81,9 @@
 
         }
 
+        /// <summary>
+        /// Changes the state of the flag
+        /// </summary>
         public void ToggleFlag()
         {
             if (this.IsFlagged)
@@ -116,6 +96,9 @@
             }
         }
 
+        /// <summary>
+        /// Marks the current cell as mined
+        /// </summary>
         public void AddMine()
         {
             if (!this.IsMined)
