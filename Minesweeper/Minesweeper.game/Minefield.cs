@@ -61,6 +61,7 @@ namespace Minesweeper
 
         private void AddMines()
         {
+            // TODO: make testable (perhaps extract a method to return 15 random nums between 0 and 50)
             Random random = new Random();
             for (int i = 0; i < 15; i++)
             {

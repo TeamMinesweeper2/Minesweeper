@@ -35,7 +35,7 @@
                 return Command.Invalid;
             }
 
-            // TODO: TryParse !!!!
+            // TODO: split string and TryParse !!!!
             cellToOpen.Row = int.Parse(command[0].ToString());
             cellToOpen.Col = int.Parse(command[2].ToString());
 
