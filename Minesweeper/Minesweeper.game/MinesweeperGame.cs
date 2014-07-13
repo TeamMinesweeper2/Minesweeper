@@ -16,9 +16,12 @@
 
         public void Run()
         {
-            minefield = new Minefield(5, 10);
+            int minefieldRows = 5;
+            int minefieldCols = 10;
 
-            consoleManager = new ConsoleManager();
+            minefield = new Minefield(minefieldRows, minefieldCols);
+            consoleManager = new ConsoleManager(minefieldRows, minefieldCols);
+
             consoleManager.Intro();
             consoleManager.DrawInitialGameField();
 

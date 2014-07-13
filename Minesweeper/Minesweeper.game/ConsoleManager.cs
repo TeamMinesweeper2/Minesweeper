@@ -6,18 +6,32 @@
 
     public class ConsoleManager
     {
+        // const
         private const int TopLeftMinefieldCellOnScreenRow = 6;
-        private const int TopLeftMinefieldCellOnScreenCol = 4;
-        private const int CommandEntryOnScreenRow = 13;
-        private const int CommandEntryOnScreenCol = 22;
-        private const int GameFieldWidth = 21;
-        private const int MinefieldWidth = 10;
-        private const int MineFieldHeight = 5;
+        private const int TopLeftMinefieldCellOnScreenCol = 4;          
+
+        // strings
         private const string TabSpace = "    ";
         private const string IvalidCommandMsg = "Ivalid command!";
         private const string AlreadyOpenedMsg = "Cell already opened!";
         private const string CellOutOfRangeMsg = "Cell is out of range of the minefield!";
         private const string PressKeyMessage = "Press any key to continue.";
+        private const string EnterRowColPrompt = "Enter row and column: ";
+
+        private int minefieldCols;
+        private int mineFieldRows;
+        private int gameFieldWidth;
+        private int commandEntryOnScreenRow;
+        private int commandEntryOnScreenCol;      
+
+        public ConsoleManager(int minefieldRows, int mineFieldCols)
+        {
+            this.mineFieldRows = minefieldRows;
+            this.minefieldCols = mineFieldCols;
+            this.gameFieldWidth = mineFieldCols * 2 - 1;
+            this.commandEntryOnScreenRow = 8 + minefieldRows;
+            this.commandEntryOnScreenCol = EnterRowColPrompt.Length;  
+        }
 
         public void Intro()
         {
@@ -40,7 +54,7 @@
 
             // Draw first row 
             gameField.Append(TabSpace);
-            for (int col = 0; col < MinefieldWidth; col++)
+            for (int col = 0; col < this.minefieldCols; col++)
             {
                 gameField.AppendFormat("{0} ", col);
             }
@@ -49,13 +63,13 @@
 
             // Draw second row.
             gameField.Append(TabSpace);
-            gameField.AppendLine(new string('-', GameFieldWidth));
+            gameField.AppendLine(new string('-', gameFieldWidth));
 
             // Draw minefield rows.
-            for (int row = 0; row < MineFieldHeight; row++)
+            for (int row = 0; row < this.mineFieldRows; row++)
             {
                 gameField.AppendFormat("{0} | ", row);
-                for (int col = 0; col < MinefieldWidth; col++)
+                for (int col = 0; col < this.minefieldCols; col++)
                 {
                     gameField.Append("? ");
                 }
@@ -65,11 +79,11 @@
 
             // Draw final row.
             gameField.Append(TabSpace);
-            gameField.AppendLine(new string('-', GameFieldWidth));
+            gameField.AppendLine(new string('-', gameFieldWidth));
 
             gameField.AppendLine();
 
-            gameField.Append("Enter row and column: ");
+            gameField.Append(EnterRowColPrompt);
             Console.Write(gameField);
         }
 
@@ -102,7 +116,7 @@
 
         public void ErrorMessage(ErrorType error)
         {
-            Console.SetCursorPosition(CommandEntryOnScreenCol, CommandEntryOnScreenRow);
+            Console.SetCursorPosition(commandEntryOnScreenCol, commandEntryOnScreenRow);
 
             switch (error)
             {
@@ -161,7 +175,7 @@
 
         private void ResetCursorPosition()
         {
-            Console.SetCursorPosition(CommandEntryOnScreenCol, CommandEntryOnScreenRow);
+            Console.SetCursorPosition(commandEntryOnScreenCol, commandEntryOnScreenRow);
         }
     }
 }
