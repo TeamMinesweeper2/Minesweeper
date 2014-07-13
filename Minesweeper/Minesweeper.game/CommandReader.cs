@@ -1,4 +1,6 @@
-﻿namespace Minesweeper
+﻿using System.Linq;
+
+namespace Minesweeper
 {
     internal class CommandReader
     {
@@ -32,13 +34,14 @@
                 return Command.Exit;
             }
 
-            if (command.Length < MinCommandLength)
-            {
-                return Command.Invalid;
-            }
+            //if (command.Length < MinCommandLength)
+            //{
+            //    return Command.Invalid;
+            //}
 
             // TODO: split string and TryParse !!!! - DONE
             var splitedCommands = command.Split(' ');
+            splitedCommands =  splitedCommands.Where(x => !string.IsNullOrEmpty(x)).ToArray();
 
             //check if the input for rows and cols is more/less than 2
             if (splitedCommands.Length == 2)
