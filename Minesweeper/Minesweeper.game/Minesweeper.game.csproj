@@ -42,12 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoardDrawer.cs" />
+    <Compile Include="Cell.cs" />
     <Compile Include="CellPos.cs" />
     <Compile Include="CommandReader.cs" />
     <Compile Include="Enums\Command.cs" />
     <Compile Include="ConsoleManager.cs" />
     <Compile Include="Enums\ErrorType.cs" />
     <Compile Include="Enums\MinefieldState.cs" />
+    <Compile Include="Interfaces\ICell.cs" />
     <Compile Include="IUserInputReader.cs" />
     <Compile Include="Minefield.cs" />
     <Compile Include="MinesweeperGame.cs" />

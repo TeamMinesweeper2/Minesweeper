@@ -14,11 +14,57 @@
 
         public Cell(int row, int col)
         {
-            this.row = row;
-            this.col = col;
-            this.isOpened = false;
+            this.Row = row;
+            this.Col = col;
+            this.IsOpened = false;
             this.IsFlagged = false;
-            this.isMine = false;
+            this.IsMine = false;
+        }
+
+        public int Row
+        {
+            get
+            {
+                return this.row;
+            }
+            private set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("The value of the cell's row can not be negative");
+                }
+
+                this.row = value;
+            }
+        }
+
+        public int Col
+        {
+            get
+            {
+                return this.col;
+            }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("The value of the cell's col can not be negative");
+                }
+
+                this.col = value;
+            }
+        }
+
+        public bool IsOpened
+        {
+            get
+            {
+                return this.isOpened;
+            }
+            set
+            {
+                this.isOpened = value;
+            }
         }
 
         public bool IsFlagged
@@ -33,13 +79,29 @@
             }
         }
 
-        public void OpenCell()
+        public bool IsMine
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            get
+            {
+                return this.isMine;
+            }
+            set
+            {
+                this.isMine = value;
+            }
         }
 
-        public bool ToggleFlag()
+        public void OpenCell()
+        {
+            if (!isOpened)
+            {
+                this.IsOpened = true;
+                this.IsFlagged = false;
+            }
+
+        }
+
+        public void ToggleFlag()
         {
             if (IsFlagged)
             {
@@ -49,14 +111,13 @@
             {
                 this.IsFlagged = true;
             }
-
-            // TODO: Implement this method
-            throw new NotImplementedException();
         }
         public void AddMine()
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            if (!IsMine)
+            {
+                this.IsMine = true;
+            }
         }
     }
 }
