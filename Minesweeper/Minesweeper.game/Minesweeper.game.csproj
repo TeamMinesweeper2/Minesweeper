@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandReader.cs" />
+    <Compile Include="Enums\Command.cs" />
     <Compile Include="ConsoleManager.cs" />
-    <Compile Include="ErrorType.cs" />
-    <Compile Include="Position.cs" />
+    <Compile Include="Enums\ErrorType.cs" />
+    <Compile Include="Cell.cs" />
     <Compile Include="MinesweeperGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

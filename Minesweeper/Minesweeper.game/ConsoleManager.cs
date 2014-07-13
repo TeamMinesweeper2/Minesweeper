@@ -10,7 +10,7 @@
         private const int TopLeftMinefieldCellOnScreenRow = 6;
         private const int TopLeftMinefieldCellOnScreenCol = 4;
         private const int CommandEntryOnScreenRow = 13;
-        private const int CommandEntryOnScreenCol = 21;
+        private const int CommandEntryOnScreenCol = 22;
         private const int GameFieldWidth = 21;
         private const int MinefieldWidth = 10;
         private const int MineFieldHeight = 5;
