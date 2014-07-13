@@ -32,11 +32,6 @@
                 return Command.Exit;
             }
 
-            if (command.Length < MinCommandLength)
-            {
-                return Command.Invalid;
-            }
-
             // TODO: split string and TryParse !!!! - DONE
             var splitedCommands = command.Split(' ');
 
