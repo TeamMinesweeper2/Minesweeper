@@ -5,12 +5,12 @@
     /// <summary>
     /// Holds position by row and column.
     /// </summary>
-    public struct Cell
+    public struct CellPos
     {
         /// <summary>
         /// Represents a cell that has Row and Col values set to zero.
         /// </summary>
-        public static readonly Cell Empty = new Cell(0, 0);
+        public static readonly CellPos Empty = new CellPos(0, 0);
 
         /// <summary>Set property message format.</summary>
         private const string ExceptionMessageFormat = "Value for {0}'s position cannot be negative";
@@ -22,11 +22,11 @@
         private int col;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Cell"/> class.
+        /// Initializes a new instance of the <see cref="CellPos"/> class.
         /// </summary>
         /// <param name="initialRow">Position by row.</param>
         /// <param name="initialCol">Position by column.</param>
-        public Cell(int initialRow, int initialCol)
+        public CellPos(int initialRow, int initialCol)
             : this()
         {
             this.Row = initialRow;
