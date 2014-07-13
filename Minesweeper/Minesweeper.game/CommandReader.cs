@@ -37,9 +37,34 @@
                 return Command.Invalid;
             }
 
-            // TODO: split string and TryParse !!!!
-            cellToOpen.Row = int.Parse(command[0].ToString());
-            cellToOpen.Col = int.Parse(command[2].ToString());
+            // TODO: split string and TryParse !!!! - DONE
+            var splitedCommands = command.Split(' ');
+
+            if (splitedCommands.Length == 2)
+            {
+                int parseCommandInteger;
+                if (int.TryParse(splitedCommands[0], out parseCommandInteger))
+                {
+                    cellToOpen.Row = parseCommandInteger;
+                }
+                else
+                {
+                    return Command.Invalid;
+                }
+
+                if (int.TryParse(splitedCommands[1], out parseCommandInteger))
+                {
+                    cellToOpen.Col = parseCommandInteger;
+                }
+                else
+                {
+                    return Command.Invalid;
+                }
+            }
+            else
+            {
+                return Command.Invalid;
+            }
 
             return Command.OpenCell;
         }
