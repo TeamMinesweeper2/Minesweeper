@@ -8,7 +8,7 @@
     {
         private readonly List<KeyValuePair<string, int>> topScores = new List<KeyValuePair<string, int>>();
         private bool gameEnded = false;
-        private ConsoleManager consoleManager;
+        private UIManager consoleManager;
         private Minefield minefield;
         private IDictionary<ErrorType, string> errorMessages;
         private IDictionary<UserMsg, string> userMessages;
@@ -26,7 +26,7 @@
         public void Run()
         {
             int cmdLineCol = this.userMessages[UserMsg.EnterRowCol].Length;
-            this.consoleManager = new ConsoleManager(this.minefieldRows, this.minefieldCols, cmdLineCol);
+            this.consoleManager = new UIManager(this.minefieldRows, this.minefieldCols, cmdLineCol);
             this.consoleManager.DisplayIntro(this.userMessages[UserMsg.Intro]);
 
             this.MakeNewMinefield();
