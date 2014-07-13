@@ -4,8 +4,8 @@
 
     internal class Minefield
     {
-        private bool[,] mines;
-        private bool[,] openedCells;
+        private readonly bool[,] mines;
+        private readonly bool[,] openedCells;
 
         // Constructor
         public Minefield(int rows, int colls)
@@ -19,8 +19,10 @@
         { 
             get
             {
-                // TODO: return copy
-                return this.mines;
+                // TODO: return copy - DONE
+                bool[,] minesToReturn = new bool[this.mines.GetLength(0), this.mines.GetLength(1)];
+                Array.Copy(this.mines, minesToReturn, this.mines.GetLength(0) * this.mines.GetLength(1));
+                return minesToReturn;
             }
         }
 
@@ -28,8 +30,10 @@
         {
             get
             {
-                // TODO: return copy
-                return this.openedCells;
+                // TODO: return copy - DONE
+                bool[,] openedCellsToReturn = new bool[this.mines.GetLength(0), this.mines.GetLength(1)];
+                Array.Copy(this.openedCells, openedCellsToReturn, this.openedCells.GetLength(0) * this.openedCells.GetLength(1));
+                return openedCellsToReturn;
             }
         }
 
