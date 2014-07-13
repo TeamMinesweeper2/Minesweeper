@@ -1,42 +1,51 @@
 ﻿namespace Minesweeper
 {
     using System;
+    using Minesweeper.Interfaces;
 
     internal class Minefield
     {
-        private readonly bool[,] mines;
-        private readonly bool[,] openedCells;
-
+        private readonly ICell[] cells;
         private readonly IRandomGeneratorProvider randomGenerator;
+        private readonly int columns;
+        private readonly int rows;
+        private readonly int numberOfMines;
+
+        private int openedCellsCount;
 
         // Constructor
-        public Minefield(int rows, int colls, IRandomGeneratorProvider rndGenerator)
+        public Minefield(int rows, int cols, int numberOfMines, IRandomGeneratorProvider rndGenerator)
         {
-            this.mines = new bool[rows, colls];
-            this.openedCells = new bool[rows, colls];
+            this.cells = new ICell[rows * cols];
+            this.rows = rows;
+            this.columns = cols;
+            this.numberOfMines = numberOfMines;
+            this.openedCellsCount = 0;
             this.randomGenerator = rndGenerator;
             this.AddMines();
         }
 
         public bool[,] Mines
-        { 
-            get
-            {
-                // TODO: return copy - DONE
-                bool[,] minesToReturn = new bool[this.mines.GetLength(0), this.mines.GetLength(1)];
-                Array.Copy(this.mines, minesToReturn, this.mines.GetLength(0) * this.mines.GetLength(1));
-                return minesToReturn;
-            }
-        }
-
-        public bool[,] OpenedCells 
         {
             get
             {
-                // TODO: return copy - DONE
-                bool[,] openedCellsToReturn = new bool[this.mines.GetLength(0), this.mines.GetLength(1)];
-                Array.Copy(this.openedCells, openedCellsToReturn, this.openedCells.GetLength(0) * this.openedCells.GetLength(1));
-                return openedCellsToReturn;
+                bool[,] mines;
+
+                mines = GetValueCount(x => x.IsMined());
+
+                return mines;
+            }
+        }
+
+        public bool[,] OpenedCells
+        {
+            get
+            {
+                bool[,] openedCells;
+
+                openedCells = GetValueCount(x => x.IsOpened());
+
+                return openedCells;
             }
         }
 
@@ -48,15 +57,16 @@
                 return MinefieldState.OutOfRange;
             }
 
-            if (this.openedCells[cell.Row, cell.Col])
+            if (this.cells[cell.Row * this.columns + cell.Col].IsOpened())
             {
                 return MinefieldState.AlreadyOpened;
             }
             else
             {
-                this.openedCells[cell.Row, cell.Col] = true;
+                this.cells[cell.Row * this.columns + cell.Col].OpenCell();
+                this.openedCellsCount += 1; // Counts opened cells.
 
-                if (this.mines[cell.Row, cell.Col])
+                if (this.cells[cell.Row * this.columns + cell.Col].IsMined())
                 {
                     return MinefieldState.Boom;
                 }
@@ -78,10 +88,13 @@
                         continue;
                     }
 
-                    if (this.IsInsideMatrix(currentPosition.Row + row, currentPosition.Col + col) &&
-                        this.mines[currentPosition.Row + row, currentPosition.Col + col])
+                    int currentIndex = (currentPosition.Row + row) * this.columns + (currentPosition.Col + col);
+                    if (this.IsInsideMatrix(currentPosition.Row + row, currentPosition.Col + col))
                     {
-                        counter++;
+                        if (this.cells[currentIndex].IsMined())
+                        {
+                            counter++;
+                        }
                     }
                 }
             }
@@ -91,40 +104,49 @@
 
         public int CountOpen()
         {
-            int res = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    if (this.openedCells[i, j])
-                    {
-                        res++;
-                    }
-                }
-            }
-
-            return res;
+            return this.openedCellsCount;
         }
 
         private bool IsInsideMatrix(int row, int col)
         {
-            return (0 <= row && row <= 4) && (0 <= col && col <= 9);
+            return (0 <= row && row <= this.rows) && (0 <= col && col <= this.columns);
         }
 
         private void AddMines()
         {
-            // TODO: make testable (use shuffling)
-
-            for (int i = 0; i < 15; i++)
+            // Add mines.
+            for (int index = 0; index < this.numberOfMines; index++)
             {
-                int index = randomGenerator.GetRandomNumber(50);
-                while (this.mines[(index / 10), (index % 10)])
-                {
-                    index = randomGenerator.GetRandomNumber(50);
-                }
-
-                this.mines[(index / 10), (index % 10)] = true;
+                this.cells[index].AddMine();
             }
+
+            // Shuffle mines.
+            Shuffle(this.cells);
+        }
+
+        private void Shuffle<T>(T[] array)
+        {
+            int n = array.Length;
+            while (n > 1)
+            {
+                int k = randomGenerator.GetRandomNumber(n);
+                n = n - 1;
+                T temp = array[n];
+                array[n] = array[k];
+                array[k] = temp;
+            }
+        }
+
+        private bool[,] GetValueCount(Func<ICell, bool> filter)
+        {
+            bool[,] result = new bool[this.rows, this.columns];
+
+            for (int index = 0; index < this.cells.Length; index++)
+            {
+                result[index / this.columns, index % this.columns] = filter(this.cells[index]);
+            }
+
+            return result;
         }
     }
 }

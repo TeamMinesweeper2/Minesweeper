@@ -10,5 +10,9 @@
         void ToggleFlag();
 
         void AddMine();
+
+        bool IsOpened();
+
+        bool IsMined();
     }
 }
