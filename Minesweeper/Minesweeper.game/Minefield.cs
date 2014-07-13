@@ -110,7 +110,7 @@
 
         private bool IsInsideMatrix(int row, int col)
         {
-            return (0 <= row && row <= this.rows) && (0 <= col && col <= this.columns);
+            return (0 <= row && row < this.rows) && (0 <= col && col < this.columns);
         }
 
         private void Initialize()
@@ -135,7 +135,7 @@
 
         private void Shuffle<T>(T[] array)
         {
-            int n = array.Length;
+            int n = array.Length - 1;
             while (n > 1)
             {
                 int k = randomGenerator.GetRandomNumber(n);
