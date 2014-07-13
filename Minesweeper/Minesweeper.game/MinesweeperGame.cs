@@ -10,7 +10,7 @@
         private ConsoleManager consoleManager;
         private Minefield minefield;
         private IDictionary<ErrorType, string> errorMessages;
-        private IDictionary<string, string> userMessages;
+        private IDictionary<UserMsg, string> userMessages;
 
         public MinesweeperGame()
         {
@@ -23,11 +23,11 @@
             int minefieldCols = 10;
 
             this.minefield = new Minefield(minefieldRows, minefieldCols);
-            int cmdLineCol = this.userMessages["EnterRowCol"].Length;
+            int cmdLineCol = this.userMessages[UserMsg.EnterRowCol].Length;
             this.consoleManager = new ConsoleManager(minefieldRows, minefieldCols, cmdLineCol);
 
-            this.consoleManager.Intro();
-            this.consoleManager.DrawInitialGameField(this.userMessages["EnterRowCol"]);
+            this.consoleManager.DisplayIntro(this.userMessages[UserMsg.Intro]);
+            this.consoleManager.DrawInitialGameField(this.userMessages[UserMsg.EnterRowCol]);
 
             var commandReader = new CommandReader();
             while (!this.gameEnded)
@@ -64,11 +64,11 @@
             {
                 case MinefieldState.OutOfRange:
                     this.consoleManager.DisplayError(this.errorMessages[ErrorType.CellOutOfRange]);
-                    this.consoleManager.WaitForKey(this.userMessages["PressAnyKey"]);
+                    this.consoleManager.WaitForKey(this.userMessages[UserMsg.PressAnyKey]);
                     break;
                 case MinefieldState.AlreadyOpened:
                     this.consoleManager.DisplayError(this.errorMessages[ErrorType.AlreadyOpened]);
-                    this.consoleManager.WaitForKey(this.userMessages["PressAnyKey"]);
+                    this.consoleManager.WaitForKey(this.userMessages[UserMsg.PressAnyKey]);
                     break;
                 case MinefieldState.Boom:
                     this.MineBoomed();
@@ -88,12 +88,12 @@
             int numberOfOpenedCells = this.minefield.CountOpen() - 1;
 
             this.consoleManager.DrawFinalGameField(this.minefield.Mines, this.minefield.OpenedCells);
-            this.consoleManager.Finish(numberOfOpenedCells);
+            this.consoleManager.DisplayEnd(this.userMessages[UserMsg.Boom], numberOfOpenedCells);
 
-            string name = Console.ReadLine();
+            string name = this.consoleManager.ReadName();
             this.topScores.Add(numberOfOpenedCells, name);
             this.consoleManager.DisplayHighScores(this.topScores);
-            this.consoleManager.GoodBye();
+            this.consoleManager.GoodBye(this.userMessages[UserMsg.Bye]);
             this.gameEnded = true;
         }
 
@@ -106,10 +106,13 @@
                 { ErrorType.CellOutOfRange, "Cell is out of range of the minefield!"}
             };
 
-            this.userMessages = new Dictionary<string, string>()
+            this.userMessages = new Dictionary<UserMsg, string>()
             {
-                { "PressAnyKey", "Press any key to continue."},
-                { "EnterRowCol", "Enter row and column: " }
+                { UserMsg.PressAnyKey, "Press any key to continue."},
+                { UserMsg.EnterRowCol, "Enter row and column: " },
+                { UserMsg.Intro, "Welcome to the game “Minesweeper”.\nTry to open all cells without mines. Use 'top' to view the scoreboard,\n'restart' to start a new game and 'exit' to quit the game." },
+                { UserMsg.Boom, "Booooom! You were killed by a mine. You opened {0} cells without mines.\nPlease enter your name for the top scoreboard: "},
+                { UserMsg.Bye, "Good bye!" }
             };
         }
     }

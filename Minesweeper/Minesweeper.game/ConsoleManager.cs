@@ -25,28 +25,27 @@
             this.boardDrawer = new BoardDrawer(minefieldRows, minefieldCols, minefieldTopLeft);
         }
 
-        public void Intro()
+        public void DisplayIntro(string msg)
         {
-            Console.WriteLine("Welcome to the game “Minesweeper”.");
-            Console.WriteLine("Try to reveal all cells without mines. Use 'top' to view the scoreboard,");
-            Console.WriteLine("'restart' to start a new game and 'exit' to quit the game.");
+            Console.WriteLine(msg);
         }
 
-        public void Finish(int numberOfOpenedCells)
+        public void DisplayEnd(string msg, int numberOfOpenedCells)
         {
-            Console.WriteLine("Booooom! You were killed by a mine. You revealed {0} cells without mines.", numberOfOpenedCells);
-            Console.WriteLine("Please enter your name for the top scoreboard:");
-            Console.WriteLine("Good Bye");
+            Console.SetCursorPosition(0, this.cmdLineRow + 1);
+            Console.Write(msg, numberOfOpenedCells);
         }      
 
-        public void GoodBye()
+        public void GoodBye(string goodByeMsg)
         {
-            Console.WriteLine("Good Bye");
+            Console.WriteLine();
+            Console.WriteLine(goodByeMsg);
         }
 
         public void DisplayHighScores(SortedDictionary<int, string> topScores)
         {
-            Console.WriteLine("Scoreboard:\n");
+            Console.SetCursorPosition(0, this.cmdLineRow + 4);
+            Console.WriteLine("Scoreboard:");
             var place = 0;
             foreach (var result in topScores)
             {
@@ -65,14 +64,21 @@
         {
             Console.Write(promptMsg);
             Console.ReadKey();
-            this.PrepareForEntry();
+            this.ClearCommandLine();
         }
 
         public string ReadInput()
         {
+            Console.SetCursorPosition(this.cmdLineCol, this.cmdLineRow);
             string command = Console.ReadLine();
-            this.PrepareForEntry();
+            this.ClearCommandLine();
             return command;
+        }
+
+        public string ReadName()
+        {
+            string name = Console.ReadLine();
+            return name;
         }
 
         public void DrawInitialGameField(string enterRowColPrompt)
@@ -84,7 +90,6 @@
         public void DrawOpenCell(int rowOnField, int colOnField, int neighborMinesCount)
         {
             this.boardDrawer.DrawOpenCell(rowOnField, colOnField, neighborMinesCount);
-            this.ResetCursorPosition();
         }
 
         public void DrawFinalGameField(bool[,] minefield, bool[,] openedCells)
@@ -92,18 +97,11 @@
             this.boardDrawer.DrawFinalGameField(minefield, openedCells);
         }
 
-        private void PrepareForEntry()
+        private void ClearCommandLine()
         {
-            string emptyLine = new string(' ', Console.WindowWidth);
-            Console.Write("\r");
+            string emptyLine = new string(' ', 2 * Console.WindowWidth);
+            Console.SetCursorPosition(this.cmdLineCol, this.cmdLineRow);
             Console.Write(emptyLine);
-            this.ResetCursorPosition();
-            Console.Write(emptyLine);
-            this.ResetCursorPosition();
-        }
-
-        private void ResetCursorPosition()
-        {
             Console.SetCursorPosition(this.cmdLineCol, this.cmdLineRow);
         }
     }
