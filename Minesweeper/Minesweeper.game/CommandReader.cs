@@ -34,11 +34,14 @@ namespace Minesweeper
                 return Command.Exit;
             }
 
+<<<<<<< HEAD
             //if (command.Length < MinCommandLength)
             //{
             //    return Command.Invalid;
             //}
 
+=======
+>>>>>>> origin/master
             // TODO: split string and TryParse !!!! - DONE
             var splitedCommands = command.Split(' ');
             splitedCommands =  splitedCommands.Where(x => !string.IsNullOrEmpty(x)).ToArray();

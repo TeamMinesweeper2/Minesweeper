@@ -50,6 +50,7 @@
                         break;
                     case Command.Invalid:
                         this.consoleManager.DisplayError(this.errorMessages[ErrorType.IvalidCommand]);
+                        this.consoleManager.WaitForKey(this.userMessages[UserMsg.PressAnyKey]);
                         break;
                     case Command.OpenCell:
                         this.OpenCell(cellToOpen);
