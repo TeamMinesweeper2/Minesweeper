@@ -19,5 +19,9 @@
         /// Adds mine to the current cell
         /// </summary>
         void AddMine();
+
+        bool IsOpened();
+
+        bool IsMined();
     }
 }
