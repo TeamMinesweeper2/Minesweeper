@@ -86,76 +86,6 @@
             }
         }
 
-        /*
-        private static void DrawGameField()
-        {
-            Console.Write("    ");
-            for (int col = 0; col < 10; col++)
-            {
-                Console.Write("{0} ", col);
-            }
-
-            Console.WriteLine(string.Empty);
-            Console.Write("    ");
-            for (int col = 0; col < 21; col++)
-            {
-                Console.Write("-");
-            }
-
-            Console.WriteLine();
-            for (int row = 0; row < 5; row++)
-            {
-                for (int col = 0; col < 13; col++)
-                {
-                    if (2 <= col && col <= 11)
-                    {
-                        if (isAlive && !openedCells[row, col - 2])
-                        {
-                            Console.Write("? ");
-                        }
-                        else
-                        {
-                            if (mineField[row, col - 2])
-                            {
-                                Console.Write("* ");
-                            }
-                            else
-                            {
-                                if (openedCells[row, col - 2])
-                                {
-                                    Console.Write("{0} ", CountNeighborCell(new Position(row, col - 2))); //(row, col - 2));
-                                }                                    
-                                else
-                                {
-                                    Console.Write("- ");
-                                }                                    
-                            }
-                        }
-                    }
-
-                    if (col == 1 || col == 12)
-                    {
-                        Console.Write("| ");
-                    }
-
-                    if (col == 0)
-                    {
-                        Console.Write("{0} ", row);
-                    }
-                }
-
-                Console.WriteLine();
-            }
-
-            Console.Write("    ");
-            for (int col = 0; col < 21; col++)
-            {
-                Console.Write("-");
-            }
-
-            Console.WriteLine();
-        }*/
-
         private static int CountNeighborMines(Position currentPosition) //(int i, int j)
         {
             int counter = 0;
@@ -179,17 +109,6 @@
 
             return counter;
         }
-        /*
-        private static void DisplayHighScores()
-        {
-            Console.WriteLine("Scoreboard:\n");
-            var place = 0;
-            foreach (var result in topScores)
-            {
-                Console.WriteLine("{0}. {1} --> {2} cells", place, result.Value, result.Key);
-                place++;
-            }
-        }*/
 
         private static bool IsInsideMatrix(int row, int col)
         {
