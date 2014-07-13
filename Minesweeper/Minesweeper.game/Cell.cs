@@ -10,15 +10,13 @@
         private int col;
         private bool isOpened;
         private bool isFlagged;
-        private bool isMine;
+        private bool isMined;
 
-        public Cell(int row, int col)
+        public Cell()
         {
-            this.Row = row;
-            this.Col = col;
             this.IsOpened = false;
             this.IsFlagged = false;
-            this.IsMine = false;
+            this.IsMined = false;
         }
 
         public int Row
@@ -27,6 +25,7 @@
             {
                 return this.row;
             }
+
             private set
             {
                 if (value < 0)
@@ -44,6 +43,7 @@
             {
                 return this.col;
             }
+
             set
             {
                 if (value < 0)
@@ -61,7 +61,8 @@
             {
                 return this.isOpened;
             }
-            set
+
+            private set
             {
                 this.isOpened = value;
             }
@@ -73,27 +74,29 @@
             {
                 return this.isFlagged;
             }
-            set
+
+            private set
             {
                 this.isFlagged = value;
             }
         }
 
-        public bool IsMine
+        public bool IsMined
         {
             get
             {
-                return this.isMine;
+                return this.isMined;
             }
-            set
+
+            private set
             {
-                this.isMine = value;
+                this.isMined = value;
             }
         }
 
         public void OpenCell()
         {
-            if (!isOpened)
+            if (!this.IsOpened)
             {
                 this.IsOpened = true;
                 this.IsFlagged = false;
@@ -103,7 +106,7 @@
 
         public void ToggleFlag()
         {
-            if (IsFlagged)
+            if (this.IsFlagged)
             {
                 this.IsFlagged = false;
             }
@@ -112,11 +115,12 @@
                 this.IsFlagged = true;
             }
         }
+
         public void AddMine()
         {
-            if (!IsMine)
+            if (!this.IsMined)
             {
-                this.IsMine = true;
+                this.IsMined = true;
             }
         }
     }

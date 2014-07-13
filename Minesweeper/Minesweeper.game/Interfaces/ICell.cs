@@ -20,8 +20,19 @@
         /// </summary>
         void AddMine();
 
-        bool IsOpened();
+        bool IsOpened
+        {
+            get;
+        }
 
-        bool IsMined();
+        bool IsMined
+        {
+            get;
+        }
+
+        bool IsFlagged
+        {
+            get;
+        }
     }
 }

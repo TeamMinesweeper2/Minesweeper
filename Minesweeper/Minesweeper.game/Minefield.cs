@@ -16,7 +16,8 @@
         // Constructor
         public Minefield(int rows, int cols, int numberOfMines, IRandomGeneratorProvider rndGenerator)
         {
-            this.cells = new ICell[rows * cols];
+            this.cells = new Cell[rows * cols];
+            this.Initialize();
             this.rows = rows;
             this.columns = cols;
             this.numberOfMines = numberOfMines;
@@ -31,7 +32,7 @@
             {
                 bool[,] mines;
 
-                mines = GetValueCount(x => x.IsMined());
+                mines = GetValueCount(x => x.IsMined);
 
                 return mines;
             }
@@ -43,7 +44,7 @@
             {
                 bool[,] openedCells;
 
-                openedCells = GetValueCount(x => x.IsOpened());
+                openedCells = GetValueCount(x => x.IsOpened);
 
                 return openedCells;
             }
@@ -57,7 +58,7 @@
                 return MinefieldState.OutOfRange;
             }
 
-            if (this.cells[cell.Row * this.columns + cell.Col].IsOpened())
+            if (this.cells[cell.Row * this.columns + cell.Col].IsOpened)
             {
                 return MinefieldState.AlreadyOpened;
             }
@@ -66,7 +67,7 @@
                 this.cells[cell.Row * this.columns + cell.Col].OpenCell();
                 this.openedCellsCount += 1; // Counts opened cells.
 
-                if (this.cells[cell.Row * this.columns + cell.Col].IsMined())
+                if (this.cells[cell.Row * this.columns + cell.Col].IsMined)
                 {
                     return MinefieldState.Boom;
                 }
@@ -91,7 +92,7 @@
                     int currentIndex = (currentPosition.Row + row) * this.columns + (currentPosition.Col + col);
                     if (this.IsInsideMatrix(currentPosition.Row + row, currentPosition.Col + col))
                     {
-                        if (this.cells[currentIndex].IsMined())
+                        if (this.cells[currentIndex].IsMined)
                         {
                             counter++;
                         }
@@ -110,6 +111,14 @@
         private bool IsInsideMatrix(int row, int col)
         {
             return (0 <= row && row <= this.rows) && (0 <= col && col <= this.columns);
+        }
+
+        private void Initialize()
+        {
+            for (int index = 0; index < this.cells.Length; index++)
+            {
+                this.cells[index] = new Cell();
+            }
         }
 
         private void AddMines()
