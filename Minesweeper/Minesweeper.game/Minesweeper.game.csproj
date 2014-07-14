@@ -42,15 +42,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoardDrawer.cs" />
+    <Compile Include="Commands\CmdEndGame.cs" />
+    <Compile Include="Commands\CmdInvalid.cs" />
+    <Compile Include="Commands\CmdShowScores.cs" />
+    <Compile Include="Commands\CmdBoom.cs" />
+    <Compile Include="Commands\CmdOpenCell.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="CommandExecutor.cs" />
     <Compile Include="CommandReader.cs" />
+    <Compile Include="Commands\CmdRestart.cs" />
     <Compile Include="Enums\CellImage.cs" />
     <Compile Include="Enums\Command.cs" />
+    <Compile Include="MinesweeperGame.cs" />
     <Compile Include="UIManager.cs" />
     <Compile Include="Enums\ErrorType.cs" />
     <Compile Include="Enums\MinefieldState.cs" />
     <Compile Include="Enums\UserMsg.cs" />
     <Compile Include="Minefield.cs" />
-    <Compile Include="MinesweeperGame.cs" />
+    <Compile Include="Engine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

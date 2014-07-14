@@ -4,8 +4,8 @@
     {
         public static void Main()
         {
-            var game = new MinesweeperGame();
-            game.Run();
+            var gameEngine = new Engine();
+            gameEngine.Run();
         }       
     }
 }

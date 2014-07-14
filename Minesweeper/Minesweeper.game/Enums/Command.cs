@@ -1,6 +1,6 @@
 ﻿namespace Minesweeper
 {
-    public enum Command
+    public enum CommandType
     {
         Restart,
         ShowTopScores,

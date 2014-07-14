@@ -6,23 +6,23 @@
 
     internal class CommandReader
     {
-        private readonly Dictionary<string, Command> commands = new Dictionary<string, Command>()
+        private readonly Dictionary<string, CommandType> commands = new Dictionary<string, CommandType>()
         {
-            { "restart", Command.Restart },
-            { "top", Command.ShowTopScores },
-            { "exit", Command.Exit },
-            { "boom", Command.Boom }
+            { "restart", CommandType.Restart },
+            { "top", CommandType.ShowTopScores },
+            { "exit", CommandType.Exit },
+            { "boom", CommandType.Boom }
         };
 
         public CommandReader()
         {
         }
 
-        public Command ExtractCommand(string input, out CellPos cellToOpen)
+        public CommandType ExtractCommand(string input, out CellPos cellToOpen)
         {
             cellToOpen = CellPos.Empty;
 
-            Command command;
+            CommandType command;
             if (commands.TryGetValue(input, out command))
             {
                 return command;
@@ -33,7 +33,7 @@
 
             if (tokens.Length != 2)
             {
-                return Command.Invalid;
+                return CommandType.Invalid;
             }
 
             int parseCommandInteger;
@@ -44,7 +44,7 @@
             }
             else
             {
-                return Command.Invalid;
+                return CommandType.Invalid;
             }
 
             if (int.TryParse(tokens[1], out parseCommandInteger))
@@ -53,11 +53,11 @@
             }
             else
             {
-                return Command.Invalid;
+                return CommandType.Invalid;
             }
 
             // Parsing was successful, the parsed integers are assigned to the out parameter cellToOpen
-            return Command.OpenCell;
+            return CommandType.OpenCell;
         }
     }
 }

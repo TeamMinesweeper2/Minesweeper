@@ -68,11 +68,7 @@
 
         public string ReadInput()
         {
-            // set the cursor at the command line
-            this.renderer.WriteAt(this.cmdLineCol, this.cmdLineRow, "");
-            string input = this.inputReader.ReadLine();
-            this.ClearCommandLine();
-            return input;
+            return this.inputReader.ReadLine();
         }
 
         public string ReadName()
@@ -90,7 +86,7 @@
             this.renderer.Write(enterRowColPrompt);
         }
 
-        private void ClearCommandLine()
+        public void ClearCommandLine()
         {
             this.renderer.ClearLines(this.cmdLineCol, this.cmdLineRow, 3);
         }
