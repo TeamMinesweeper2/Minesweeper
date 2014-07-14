@@ -1,13 +1,10 @@
-Game: Run()
+- add game end when all cells are opened
+- add validation to all public methods
 
-ICommandReader : ReadInput()
-MineField: GameState OpenCell(row, coll) 
-IGameRenderer: ShowMessage() Draw(mineFlied.field, isAlive)
+- run StyleCop
+- add unit testing
+- add source code documentation
+- add refactoring documentation
 
-enum GameState { boom, illegal, normal }
-
-Enumeations (messages, symbols, gameState)
-ScoreBoard: DisplayScores()
-ProgramLog
 
 
