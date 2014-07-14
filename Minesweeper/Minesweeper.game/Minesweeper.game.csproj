@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BoardDrawer.cs" />
     <Compile Include="CommandReader.cs" />
+    <Compile Include="Enums\CellImage.cs" />
     <Compile Include="Enums\Command.cs" />
     <Compile Include="UIManager.cs" />
     <Compile Include="Enums\ErrorType.cs" />

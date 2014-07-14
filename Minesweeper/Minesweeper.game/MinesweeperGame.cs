@@ -9,22 +9,20 @@
     {
         private readonly List<KeyValuePair<string, int>> topScores = new List<KeyValuePair<string, int>>();
         private bool gameEnded = false;
-        private UIManager uiManager;        
+        private UIManager uiManager;
         private Minefield minefield;
         private IDictionary<ErrorType, string> errorMessages;
         private IDictionary<UserMsg, string> userMessages;
 
         private const float MinesCountCoeficient = 0.3F;
-        private const int MinefieldRows = 5;
-        private const int MinefieldColumns = 10;
 
         private int minefieldRows;
         private int minefieldCols;
 
         public MinesweeperGame()
         {
-            this.minefieldRows = MinefieldRows;
-            this.minefieldCols = MinefieldColumns;
+            this.minefieldRows = 5;
+            this.minefieldCols = 10;
             this.InitializeMessages();
         }
 
@@ -32,7 +30,7 @@
         {
             int cmdLineCol = this.userMessages[UserMsg.EnterRowCol].Length;
             this.uiManager = new UIManager(this.minefieldRows, this.minefieldCols, cmdLineCol);
-            this.uiManager.DisplayIntro(this.userMessages[UserMsg.Intro]);            
+            this.uiManager.DisplayIntro(this.userMessages[UserMsg.Intro]);
 
             this.MakeNewMinefield();
 
@@ -42,7 +40,7 @@
                 CellPos cellToOpen;
 
                 var input = this.uiManager.ReadInput();
-                var command = commandReader.ExtractCommand(input, out cellToOpen);                
+                var command = commandReader.ExtractCommand(input, out cellToOpen);
 
                 switch (command)
                 {

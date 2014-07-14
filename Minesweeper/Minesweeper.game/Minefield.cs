@@ -7,7 +7,7 @@
     {
         private readonly ICell[] cells;
         private readonly IRandomGeneratorProvider randomGenerator;
-        private readonly int columns;
+        private readonly int cols;
         private readonly int rows;
         private readonly int numberOfMines;
 
@@ -19,7 +19,7 @@
             this.cells = new Cell[rows * cols];
             this.Initialize();
             this.rows = rows;
-            this.columns = cols;
+            this.cols = cols;
             this.numberOfMines = numberOfMines;
             this.openedCellsCount = 0;
             this.randomGenerator = rndGenerator;
@@ -50,6 +50,14 @@
             }
         }
 
+        public bool[,] FlaggedCells
+        {
+            get
+            {
+                return GetValueCount(x => x.IsFlagged);
+            }
+        }
+
         public MinefieldState OpenNewCell(CellPos cell)
         {
             var isInside = this.IsInsideMatrix(cell.Row, cell.Col);
@@ -58,22 +66,40 @@
                 return MinefieldState.OutOfRange;
             }
 
-            if (this.cells[cell.Row * this.columns + cell.Col].IsOpened)
+            if (this.cells[cell.Row * this.cols + cell.Col].IsOpened)
             {
                 return MinefieldState.AlreadyOpened;
             }
             else
             {
-                this.cells[cell.Row * this.columns + cell.Col].OpenCell();
+                this.cells[cell.Row * this.cols + cell.Col].OpenCell();
                 this.openedCellsCount += 1; // Counts opened cells.
 
-                if (this.cells[cell.Row * this.columns + cell.Col].IsMined)
+                if (this.cells[cell.Row * this.cols + cell.Col].IsMined)
                 {
                     return MinefieldState.Boom;
                 }
 
                 return MinefieldState.Normal;
             }
+        }
+
+        public MinefieldState FlagCell(CellPos cell)
+        {
+            var isInside = this.IsInsideMatrix(cell.Row, cell.Col);
+
+            if (!isInside)
+            {
+                return MinefieldState.OutOfRange;
+            }
+
+            if (this.cells[cell.Row * this.cols + cell.Col].IsOpened)
+            {
+                return MinefieldState.AlreadyOpened;
+            }
+
+            this.cells[cell.Row * this.cols + cell.Col].ToggleFlag();
+            return MinefieldState.Normal;
         }
 
         public int CountNeighborMines(CellPos currentPosition)
@@ -89,7 +115,7 @@
                         continue;
                     }
 
-                    int currentIndex = (currentPosition.Row + row) * this.columns + (currentPosition.Col + col);
+                    int currentIndex = (currentPosition.Row + row) * this.cols + (currentPosition.Col + col);
                     if (this.IsInsideMatrix(currentPosition.Row + row, currentPosition.Col + col))
                     {
                         if (this.cells[currentIndex].IsMined)
@@ -108,9 +134,49 @@
             return this.openedCellsCount;
         }
 
+        /// <summary>
+        /// Gets an 'image' of the minefield as a matrix of type CellImage
+        /// </summary>
+        /// <param name="gameEnded">True if game has ended (will reveal all mines)</param>
+        /// <returns>A matrix of cells of type CellImage.</returns>
+        public CellImage[,] GetImage(bool gameEnded)
+        {
+            var opened = this.OpenedCells;
+            var mines = this.Mines;
+            var flagged = this.FlaggedCells;
+
+            var image = new CellImage[this.rows, this.cols];
+            for (int row = 0; row < this.rows; row++)
+            {
+                for (int col = 0; col < this.cols; col++)
+                {
+                    if (opened[row, col])
+                    {
+                        // Num
+                        image[row, col] = CellImage.Num;
+                    }
+                    else
+                    {
+                        if (gameEnded)
+                        {
+                            // Bomb, NoBomb
+                            image[row, col] = mines[row, col] ? CellImage.Bomb : CellImage.NoBomb;
+                        }
+                        else
+                        {
+                            // Flagged, NotFlagged
+                            image[row, col] = flagged[row, col] ? CellImage.Flagged : CellImage.NotFlagged;
+                        }
+                    }
+                }
+            }
+
+            return image;
+        }
+
         private bool IsInsideMatrix(int row, int col)
         {
-            return (0 <= row && row < this.rows) && (0 <= col && col < this.columns);
+            return (0 <= row && row < this.rows) && (0 <= col && col < this.cols);
         }
 
         private void Initialize()
@@ -148,11 +214,11 @@
 
         private bool[,] GetValueCount(Func<ICell, bool> filter)
         {
-            bool[,] result = new bool[this.rows, this.columns];
+            bool[,] result = new bool[this.rows, this.cols];
 
             for (int index = 0; index < this.cells.Length; index++)
             {
-                result[index / this.columns, index % this.columns] = filter(this.cells[index]);
+                result[index / this.cols, index % this.cols] = filter(this.cells[index]);
             }
 
             return result;
