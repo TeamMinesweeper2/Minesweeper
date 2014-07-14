@@ -37,7 +37,7 @@
             }
 
             int parseCommandInteger;
-            //if the parsing was successful assign the parsed integer value to cellToOpen.Row
+
             if (int.TryParse(tokens[0], out parseCommandInteger))
             {
                 cellToOpen.Row = parseCommandInteger;

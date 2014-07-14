@@ -96,6 +96,7 @@
                     this.MineBoomed();
                     break;
                 case MinefieldState.Normal:
+                    // TODO: end game when all cells are opened !!!
                     this.RedrawMinefield(false);
                     break;
                 default:
