@@ -1,38 +1,42 @@
 ﻿namespace Minesweeper
 {
-    using System;
     using System.Text;
     using Minesweeper.Lib;
+    using System.Collections.Generic;
 
     public class BoardDrawer
     {
-        // strings
-        private const string TabSpace = "    ";
-        private const string CellBomb = "*"; // bomb -> "\u000f";
-        private const string CellNoBomb = "-";
-        private const string CellClosed = "?";
-        private const string CellMarked = "!";
-
         private int minefieldCols;
         private int mineFieldRows;
-        private int gameFieldWidth;
-        private CellPos topLeft;
+        private CellPos boardTopLeft;
+        private readonly IRenderer renderer;
 
-        public BoardDrawer(int minefieldRows, int mineFieldCols, CellPos topLeft)
+        private readonly Dictionary<CellImage, string> symbols = new Dictionary<CellImage, string>() 
+        {
+            { CellImage.Bomb, "*"},
+            { CellImage.NoBomb, "-"},
+            { CellImage.NotFlagged, "?"},
+            { CellImage.Flagged, "!"},
+        };
+
+        public BoardDrawer(IRenderer renderer, int minefieldRows, int mineFieldCols, CellPos topLeft)
         {
             this.mineFieldRows = minefieldRows;
             this.minefieldCols = mineFieldCols;
-            this.gameFieldWidth = (mineFieldCols * 2) - 1;
-            this.topLeft = topLeft;
+            this.boardTopLeft = topLeft;
+            this.renderer = renderer;
         }
 
-        public void DrawInitialGameField(int left, int top)
+        public void DrawTable(int left, int top)
         {
             var gameField = new StringBuilder();
             gameField.AppendLine();
 
+            string tabSpace = "    ";
+            int gameFieldWidth = (this.minefieldCols * 2) - 1;
+
             // Draw first row 
-            gameField.Append(TabSpace);
+            gameField.Append(tabSpace);
             for (int col = 0; col < this.minefieldCols; col++)
             {
                 gameField.AppendFormat("{0} ", col);
@@ -41,62 +45,52 @@
             gameField.AppendLine();
 
             // Draw second row.
-            gameField.Append(TabSpace);
-            gameField.AppendLine(new string('-', this.gameFieldWidth));
+            gameField.Append(tabSpace);
+            gameField.AppendLine(new string('-', gameFieldWidth));
 
             // Draw minefield rows.
             for (int row = 0; row < this.mineFieldRows; row++)
             {
                 gameField.AppendFormat("{0} | ", row);
-                for (int col = 0; col < this.minefieldCols; col++)
-                {
-                    gameField.Append(CellClosed + " ");
-                }
-
                 gameField.AppendLine();
             }
 
             // Draw final row.
-            gameField.Append(TabSpace);
-            gameField.AppendLine(new string('-', this.gameFieldWidth));
+            gameField.Append(tabSpace);
+            gameField.AppendLine(new string('-', gameFieldWidth));
 
             gameField.AppendLine();
 
-            Console.SetCursorPosition(left, top);
-            Console.Write(gameField);
+            this.renderer.WriteAt(left, top, gameField.ToString());
         }
 
-        public void DrawOpenCell(int rowOnField, int colOnField, int neighborMinesCount)
-        {
-            int rowOnScreen = topLeft.Row + rowOnField;
-            int colOnScreen = topLeft.Col + (colOnField * 2);
-            this.DrawCell(rowOnScreen, colOnScreen, neighborMinesCount.ToString());
-        }
-
-        public void DrawFinalGameField(bool[,] minefield, bool[,] openedCells)
+        public void DrawGameField(CellImage[,] minefield, int[,] neighborMines)
         {
             for (int row = 0; row < minefield.GetLength(0); row++)
             {
                 for (int col = 0; col < minefield.GetLength(1); col++)
                 {
-                    int rowOnScreen = topLeft.Row + row;
-                    int colOnScreen = topLeft.Col + (col * 2);
-                    if (minefield[row, col])
+                    int rowOnScreen = boardTopLeft.Row + 3 + row;
+                    int colOnScreen = boardTopLeft.Col + 4 + (col * 2);
+
+                    string symbol;
+                    if (minefield[row, col] == CellImage.Num)
                     {
-                        this.DrawCell(rowOnScreen, colOnScreen, CellBomb);
+                        symbol = neighborMines[row, col].ToString();
                     }
-                    else if (!openedCells[row, col])
+                    else
                     {
-                        this.DrawCell(rowOnScreen, colOnScreen, CellNoBomb);
+                        symbol = this.symbols[minefield[row, col]];
                     }
+
+                    this.DrawCell(rowOnScreen, colOnScreen, symbol);
                 }
             }
         }
 
         private void DrawCell(int rowOnScreen, int colOnScreen, string cellValue)
         {
-            Console.SetCursorPosition(colOnScreen, rowOnScreen);
-            Console.Write(cellValue);
+            this.renderer.WriteAt(colOnScreen, rowOnScreen, cellValue);
         }
     }
 }

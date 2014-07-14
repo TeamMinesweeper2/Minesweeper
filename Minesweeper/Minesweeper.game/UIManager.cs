@@ -1,14 +1,13 @@
 ﻿namespace Minesweeper
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Minesweeper.Lib;
+    using System.Collections.Generic;
 
     public class UIManager
     {
         private int cmdLineRow;
         private int cmdLineCol;
+        private CellPos minefieldTopLeft;
         private readonly IRenderer renderer;
         private readonly IUserInputReader inputReader;
 
@@ -21,8 +20,8 @@
 
             this.cmdLineRow = 8 + minefieldRows;
             this.cmdLineCol = cmdLineCol;
-            CellPos minefieldTopLeft = new CellPos(6, 4);
-            this.boardDrawer = new BoardDrawer(minefieldRows, minefieldCols, minefieldTopLeft);            
+            this.minefieldTopLeft = new CellPos(3, 0);
+            this.boardDrawer = new BoardDrawer(renderer, minefieldRows, minefieldCols, this.minefieldTopLeft);            
         }
 
         public void DisplayIntro(string msg)
@@ -83,27 +82,22 @@
             return name;
         }
 
-        public void DrawInitialGameField(string enterRowColPrompt)
+        public void DrawTable(string enterRowColPrompt)
         {
-            int left = 0;
-            int top = 3;
-            this.boardDrawer.DrawInitialGameField(left, top);
+            int left = this.minefieldTopLeft.Col;
+            int top = this.minefieldTopLeft.Row;
+            this.boardDrawer.DrawTable(left, top);
             this.renderer.Write(enterRowColPrompt);
-        }
-
-        public void DrawOpenCell(int rowOnField, int colOnField, int neighborMinesCount)
-        {
-            this.boardDrawer.DrawOpenCell(rowOnField, colOnField, neighborMinesCount);
-        }
-
-        public void DrawFinalGameField(bool[,] minefield, bool[,] openedCells)
-        {
-            this.boardDrawer.DrawFinalGameField(minefield, openedCells);
         }
 
         private void ClearCommandLine()
         {
             this.renderer.ClearLines(this.cmdLineCol, this.cmdLineRow, 3);
+        }
+
+        public void DrawGameField(CellImage[,] minefield, int[,] neighborMines)
+        {
+            this.boardDrawer.DrawGameField(minefield, neighborMines);
         }
     }
 }

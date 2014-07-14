@@ -10,6 +10,7 @@
         private readonly int cols;
         private readonly int rows;
         private readonly int numberOfMines;
+        private readonly int[,] allNeighborMines;
 
         private int openedCellsCount;
 
@@ -24,37 +25,18 @@
             this.openedCellsCount = 0;
             this.randomGenerator = rndGenerator;
             this.AddMines();
+            this.allNeighborMines = this.CalcNeighborMines();
         }
 
-        public bool[,] Mines
+        /// <summary>
+        /// Gets the number of neighbor mines for each cell.
+        /// </summary>
+        public int[,] AllNeighborMines
         {
             get
             {
-                bool[,] mines;
-
-                mines = GetValueCount(x => x.IsMined);
-
-                return mines;
-            }
-        }
-
-        public bool[,] OpenedCells
-        {
-            get
-            {
-                bool[,] openedCells;
-
-                openedCells = GetValueCount(x => x.IsOpened);
-
-                return openedCells;
-            }
-        }
-
-        public bool[,] FlaggedCells
-        {
-            get
-            {
-                return GetValueCount(x => x.IsFlagged);
+                var copy = (int[,])this.allNeighborMines.Clone();
+                return copy;
             }
         }
 
@@ -72,14 +54,17 @@
             }
             else
             {
-                this.cells[cell.Row * this.cols + cell.Col].OpenCell();
-                this.openedCellsCount += 1; // Counts opened cells.
+                int index = cell.Row * this.cols + cell.Col;
 
-                if (this.cells[cell.Row * this.cols + cell.Col].IsMined)
+                if (this.cells[index].IsMined)
                 {
+                    // Cells with bombs are not counted as open
                     return MinefieldState.Boom;
                 }
 
+                // Open cell
+                this.cells[index].OpenCell();
+                this.openedCellsCount += 1; // Counts opened cells.
                 return MinefieldState.Normal;
             }
         }
@@ -102,33 +87,6 @@
             return MinefieldState.Normal;
         }
 
-        public int CountNeighborMines(CellPos currentPosition)
-        {
-            int counter = 0;
-
-            for (int row = -1; row < 2; row++)
-            {
-                for (int col = -1; col < 2; col++)
-                {
-                    if (col == 0 && row == 0)
-                    {
-                        continue;
-                    }
-
-                    int currentIndex = (currentPosition.Row + row) * this.cols + (currentPosition.Col + col);
-                    if (this.IsInsideMatrix(currentPosition.Row + row, currentPosition.Col + col))
-                    {
-                        if (this.cells[currentIndex].IsMined)
-                        {
-                            counter++;
-                        }
-                    }
-                }
-            }
-
-            return counter;
-        }
-
         public int CountOpen()
         {
             return this.openedCellsCount;
@@ -137,13 +95,13 @@
         /// <summary>
         /// Gets an 'image' of the minefield as a matrix of type CellImage
         /// </summary>
-        /// <param name="gameEnded">True if game has ended (will reveal all mines)</param>
+        /// <param name="showAll">Set to 'true' to uncover all mines.</param>
         /// <returns>A matrix of cells of type CellImage.</returns>
-        public CellImage[,] GetImage(bool gameEnded)
+        public CellImage[,] GetImage(bool showAll)
         {
-            var opened = this.OpenedCells;
-            var mines = this.Mines;
-            var flagged = this.FlaggedCells;
+            var opened = this.OpenedCells();
+            var mines = this.Mines();
+            var flagged = this.FlaggedCells();
 
             var image = new CellImage[this.rows, this.cols];
             for (int row = 0; row < this.rows; row++)
@@ -157,7 +115,7 @@
                     }
                     else
                     {
-                        if (gameEnded)
+                        if (showAll)
                         {
                             // Bomb, NoBomb
                             image[row, col] = mines[row, col] ? CellImage.Bomb : CellImage.NoBomb;
@@ -212,16 +170,78 @@
             }
         }
 
-        private bool[,] GetValueCount(Func<ICell, bool> filter)
+        private bool[,] GetValueCount(Func<ICell, bool> func)
         {
             bool[,] result = new bool[this.rows, this.cols];
 
             for (int index = 0; index < this.cells.Length; index++)
             {
-                result[index / this.cols, index % this.cols] = filter(this.cells[index]);
+                result[index / this.cols, index % this.cols] = func(this.cells[index]);
             }
 
             return result;
+        }
+
+        private bool[,] Mines()
+        {
+            return GetValueCount(x => x.IsMined);
+        }
+
+        private bool[,] OpenedCells()
+        {
+            return GetValueCount(x => x.IsOpened);
+        }
+
+        private bool[,] FlaggedCells()
+        {
+            return GetValueCount(x => x.IsFlagged);
+        }
+
+        /// <summary>
+        /// Calculates the number of neighbor mines for each cell.
+        /// </summary>
+        private int[,] CalcNeighborMines()
+        {
+            var arr = new int[rows, cols];
+            for (int row = 0; row < rows; row++)
+            {
+                for (int col = 0; col < cols; col++)
+                {
+                    arr[row, col] = this.CountNeighborMines(new CellPos(row, col));
+                }
+            }
+
+            return arr;
+        }
+
+        /// <summary>
+        /// Calculates the number of neighbor mines for a the specified cell.
+        /// </summary>
+        private int CountNeighborMines(CellPos currentPosition)
+        {
+            int counter = 0;
+
+            for (int row = -1; row < 2; row++)
+            {
+                for (int col = -1; col < 2; col++)
+                {
+                    if (col == 0 && row == 0)
+                    {
+                        continue;
+                    }
+
+                    int currentIndex = (currentPosition.Row + row) * this.cols + (currentPosition.Col + col);
+                    if (this.IsInsideMatrix(currentPosition.Row + row, currentPosition.Col + col))
+                    {
+                        if (this.cells[currentIndex].IsMined)
+                        {
+                            counter++;
+                        }
+                    }
+                }
+            }
+
+            return counter;
         }
     }
 }

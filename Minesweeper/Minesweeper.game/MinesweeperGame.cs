@@ -31,8 +31,9 @@
             int cmdLineCol = this.userMessages[UserMsg.EnterRowCol].Length;
             this.uiManager = new UIManager(this.minefieldRows, this.minefieldCols, cmdLineCol);
             this.uiManager.DisplayIntro(this.userMessages[UserMsg.Intro]);
+            this.uiManager.DrawTable(this.userMessages[UserMsg.EnterRowCol]);
 
-            this.MakeNewMinefield();
+            this.GenerateMinefield();
 
             var commandReader = new CommandReader();
             while (!this.gameEnded)
@@ -45,7 +46,7 @@
                 switch (command)
                 {
                     case Command.Restart:
-                        this.MakeNewMinefield();
+                        this.GenerateMinefield();
                         break;
                     case Command.ShowTopScores:
                         this.ShowScores();
@@ -68,12 +69,15 @@
             }
         }
 
-        private void MakeNewMinefield()
+        private void GenerateMinefield()
         {
-            this.uiManager.DrawInitialGameField(this.userMessages[UserMsg.EnterRowCol]);
+            // Create new minefield
             int minesCount = (int)(this.minefieldRows * this.minefieldCols * MinesCountCoeficient);
             var randomNumberProvider = RandomGeneratorProvider.GetInstance();
             this.minefield = new Minefield(this.minefieldRows, this.minefieldCols, minesCount, randomNumberProvider);
+
+            // Show minefield
+            this.RedrawMinefield(false);
         }
 
         private void OpenCell(CellPos cell)
@@ -92,8 +96,7 @@
                     this.MineBoomed();
                     break;
                 case MinefieldState.Normal:
-                    int neighborMinesCount = this.minefield.CountNeighborMines(cell);
-                    this.uiManager.DrawOpenCell(cell.Row, cell.Col, neighborMinesCount);
+                    this.RedrawMinefield(false);
                     break;
                 default:
                     break;
@@ -102,10 +105,10 @@
 
         private void MineBoomed()
         {
-            // subtract the boomed mine that was opened
-            int numberOfOpenedCells = this.minefield.CountOpen() - 1;
+            // The boomed mine does not have an OPEN state, so CountOpen() is correct
+            int numberOfOpenedCells = this.minefield.CountOpen();
 
-            this.uiManager.DrawFinalGameField(this.minefield.Mines, this.minefield.OpenedCells);
+            this.RedrawMinefield(true);
             this.uiManager.DisplayEnd(this.userMessages[UserMsg.Boom], numberOfOpenedCells);
 
             string name = this.uiManager.ReadName();
@@ -114,7 +117,7 @@
             this.ShowScores();
 
             //this.EndGame();
-            this.MakeNewMinefield();
+            this.GenerateMinefield();
         }
 
         private void EndGame()
@@ -146,6 +149,13 @@
         {
             var sorted = topScores.OrderBy(kvp => -kvp.Value);
             this.uiManager.DisplayHighScores(sorted);
+        }
+
+        private void RedrawMinefield(bool showAll)
+        {
+            var minefield = this.minefield.GetImage(showAll);
+            var neighborMines = this.minefield.AllNeighborMines;
+            this.uiManager.DrawGameField(minefield, neighborMines);
         }
     }
 }

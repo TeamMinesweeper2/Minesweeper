@@ -1,7 +1,6 @@
-﻿using System.Linq;
-
-namespace Minesweeper
+﻿namespace Minesweeper
 {
+    using System.Linq;
     using Minesweeper.Lib;
 
     internal class CommandReader
