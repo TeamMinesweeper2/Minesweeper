@@ -4,21 +4,25 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class UIManager : IUserInputReader
+    public class UIManager
     {
         private int cmdLineRow;
         private int cmdLineCol;
         private readonly IRenderer renderer;
+        private readonly IUserInputReader inputReader;
 
         private BoardDrawer boardDrawer;
 
         public UIManager(int minefieldRows, int minefieldCols, int cmdLineCol)
         {
             this.renderer = new ConsoleRenderer();
+            this.inputReader = new ConsoleReader();
+
             this.cmdLineRow = 8 + minefieldRows;
             this.cmdLineCol = cmdLineCol;
             CellPos minefieldTopLeft = new CellPos(6, 4);
             this.boardDrawer = new BoardDrawer(minefieldRows, minefieldCols, minefieldTopLeft);
+            
         }
 
         public void DisplayIntro(string msg)
@@ -58,22 +62,23 @@
 
         public void WaitForKey(string promptMsg)
         {
-            Console.Write(promptMsg);
-            Console.ReadKey();
+            this.renderer.Write(promptMsg);
+            this.inputReader.WaitForKey();
             this.ClearCommandLine();
         }
 
         public string ReadInput()
         {
-            Console.SetCursorPosition(this.cmdLineCol, this.cmdLineRow);
-            string command = Console.ReadLine();
+            // set the cursor at the command line
+            this.renderer.WriteAt(this.cmdLineCol, this.cmdLineRow, "");
+            string input = this.inputReader.ReadLine();
             this.ClearCommandLine();
-            return command;
+            return input;
         }
 
         public string ReadName()
         {
-            string name = Console.ReadLine();
+            string name = this.inputReader.ReadLine();
             this.ClearCommandLine();
             return name;
         }

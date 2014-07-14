@@ -2,6 +2,8 @@
 {
     public interface IUserInputReader
     {
-        string ReadInput();
+        string ReadLine();
+
+        void WaitForKey();
     }
 }

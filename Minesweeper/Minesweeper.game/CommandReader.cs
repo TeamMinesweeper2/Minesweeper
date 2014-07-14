@@ -14,9 +14,8 @@ namespace Minesweeper
         {
         }
 
-        public Command ReadCommand(IUserInputReader consoleManager, out CellPos cellToOpen)
+        public Command ExtractCommand(string command, out CellPos cellToOpen)
         {
-            string command = consoleManager.ReadInput();
             cellToOpen = CellPos.Empty;
 
             if (command.Equals(Restart))

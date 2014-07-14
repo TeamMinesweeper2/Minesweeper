@@ -8,7 +8,7 @@
     {
         private readonly List<KeyValuePair<string, int>> topScores = new List<KeyValuePair<string, int>>();
         private bool gameEnded = false;
-        private UIManager uiManager;
+        private UIManager uiManager;        
         private Minefield minefield;
         private IDictionary<ErrorType, string> errorMessages;
         private IDictionary<UserMsg, string> userMessages;
@@ -31,7 +31,7 @@
         {
             int cmdLineCol = this.userMessages[UserMsg.EnterRowCol].Length;
             this.uiManager = new UIManager(this.minefieldRows, this.minefieldCols, cmdLineCol);
-            this.uiManager.DisplayIntro(this.userMessages[UserMsg.Intro]);
+            this.uiManager.DisplayIntro(this.userMessages[UserMsg.Intro]);            
 
             this.MakeNewMinefield();
 
@@ -39,7 +39,9 @@
             while (!this.gameEnded)
             {
                 CellPos cellToOpen;
-                var command = commandReader.ReadCommand(this.uiManager, out cellToOpen);
+
+                var input = this.uiManager.ReadInput();
+                var command = commandReader.ExtractCommand(input, out cellToOpen);                
 
                 switch (command)
                 {
