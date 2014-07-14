@@ -9,7 +9,6 @@
     public class MinesweeperGame
     {
         private readonly List<KeyValuePair<string, int>> topScores = new List<KeyValuePair<string, int>>();
-        //private bool gameEnded = false;
         private UIManager uiManager;
         private Minefield minefield;
         private IDictionary<ErrorType, string> errorMessages;

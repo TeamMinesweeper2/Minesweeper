@@ -3,9 +3,9 @@
     // The 'Invoker' class
     class CommandExecutor
     {
-        public void ExecuteCommand(ICommand cmd)
+        public bool ExecuteCommand(ICommand cmd)
         {
-            cmd.Execute();
+            return cmd.Execute();
         }
     }
 }

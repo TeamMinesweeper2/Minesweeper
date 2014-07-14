@@ -13,9 +13,10 @@
             this.cellToOpen = cellToOpen;
         }
 
-        public void Execute()
+        public bool Execute()
         {
             this.game.OpenCell(this.cellToOpen);
+            return true;
         }
     }
 }

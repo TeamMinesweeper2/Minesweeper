@@ -9,9 +9,10 @@
             this.game = game;
         }
 
-        public void Execute()
+        public bool Execute()
         {
             this.game.EndGame();
+            return false;
         }
     }
 }

@@ -6,23 +6,34 @@
 
     internal class CommandParser
     {
-        private readonly Dictionary<string, CommandType> commands = new Dictionary<string, CommandType>()
-        {
-            { "restart", CommandType.Restart },
-            { "top", CommandType.ShowTopScores },
-            { "exit", CommandType.Exit },
-            { "boom", CommandType.Boom }
-        };
+        private readonly Dictionary<string, ICommand> commands;
+        private MinesweeperGame game;
 
-        public CommandParser()
+        public CommandParser(MinesweeperGame game)
         {
+            this.game = game;
+            // Create commands
+            ICommand cmdRestart = new CmdRestart(game);
+            ICommand cmdBoom = new CmdBoom(game);
+            ICommand cmdShowScores = new CmdShowScores(game);
+            ICommand cmdEndGame = new CmdEndGame(game);
+            ICommand cmdInvalid = new CmdInvalid(game);
+
+            this.commands = new Dictionary<string, ICommand>()
+            {
+                { "restart", cmdRestart },
+                { "top", cmdShowScores },
+                { "exit", cmdEndGame },
+                { "boom", cmdBoom },
+                { "invalid", cmdInvalid }
+            };
         }
 
-        public CommandType ParseCommand(string input, out CellPos cellToOpen)
+        public ICommand ParseCommand(string input)
         {
-            cellToOpen = CellPos.Empty;
+            CellPos cellToOpen = CellPos.Empty;
 
-            CommandType command;
+            ICommand command;
             if (commands.TryGetValue(input, out command))
             {
                 return command;
@@ -33,7 +44,7 @@
 
             if (tokens.Length != 2)
             {
-                return CommandType.Invalid;
+                return this.commands["invalid"];
             }
 
             int parseCommandInteger;
@@ -44,7 +55,7 @@
             }
             else
             {
-                return CommandType.Invalid;
+                return this.commands["invalid"];
             }
 
             if (int.TryParse(tokens[1], out parseCommandInteger))
@@ -53,11 +64,12 @@
             }
             else
             {
-                return CommandType.Invalid;
+                return this.commands["invalid"];
             }
 
             // Parsing was successful, the parsed integers are assigned to the out parameter cellToOpen
-            return CommandType.OpenCell;
+            ICommand cmdOpenCell = new CmdOpenCell(this.game, cellToOpen);
+            return cmdOpenCell;
         }
     }
 }

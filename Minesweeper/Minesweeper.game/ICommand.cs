@@ -3,6 +3,6 @@
     // The 'Command' interface
     public interface ICommand
     {
-        void Execute();
+        bool Execute();
     }
 }
