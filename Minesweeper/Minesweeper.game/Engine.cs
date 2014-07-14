@@ -8,8 +8,9 @@
         public void Run()
         {
             MinesweeperGame game = new MinesweeperGame();
-            CommandExecutor cmdExecutor = new CommandExecutor();            
             IUserInputReader inputReader = new ConsoleReader();
+            CommandParser commandParser = new CommandParser();
+            CommandExecutor cmdExecutor = new CommandExecutor();            
 
             // Create commands
             ICommand cmdRestart = new CmdRestart(game);
@@ -17,14 +18,14 @@
             ICommand cmdShowScores = new CmdShowScores(game);
             ICommand cmdEndGame = new CmdEndGame(game);
             ICommand cmdInvalid = new CmdInvalid(game);
-
-            CommandReader commandReader = new CommandReader();
+            
+            // Start game loop
             bool gameEnded = false;
             while (!gameEnded)
             {
                 CellPos cellToOpen;
                 var input = inputReader.ReadLine();
-                var command = commandReader.ExtractCommand(input, out cellToOpen);
+                var command = commandParser.ParseCommand(input, out cellToOpen);
 
                 ICommand cmdOpenCell = new CmdOpenCell(game, cellToOpen);
 

@@ -49,7 +49,7 @@
     <Compile Include="Commands\CmdOpenCell.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="CommandExecutor.cs" />
-    <Compile Include="CommandReader.cs" />
+    <Compile Include="CommandParser.cs" />
     <Compile Include="Commands\CmdRestart.cs" />
     <Compile Include="Enums\CellImage.cs" />
     <Compile Include="Enums\Command.cs" />

@@ -66,11 +66,6 @@
             this.ClearCommandLine();
         }
 
-        public string ReadInput()
-        {
-            return this.inputReader.ReadLine();
-        }
-
         public string ReadName()
         {
             string name = this.inputReader.ReadLine();

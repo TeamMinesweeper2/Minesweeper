@@ -4,7 +4,7 @@
     using Minesweeper.Lib;
     using System.Collections.Generic;
 
-    internal class CommandReader
+    internal class CommandParser
     {
         private readonly Dictionary<string, CommandType> commands = new Dictionary<string, CommandType>()
         {
@@ -14,11 +14,11 @@
             { "boom", CommandType.Boom }
         };
 
-        public CommandReader()
+        public CommandParser()
         {
         }
 
-        public CommandType ExtractCommand(string input, out CellPos cellToOpen)
+        public CommandType ParseCommand(string input, out CellPos cellToOpen)
         {
             cellToOpen = CellPos.Empty;
 
