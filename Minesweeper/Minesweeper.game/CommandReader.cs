@@ -2,77 +2,61 @@
 {
     using System.Linq;
     using Minesweeper.Lib;
+    using System.Collections.Generic;
 
     internal class CommandReader
     {
-        //// TODO: add constants for all commands ("top", "restart"...) - DONE
-        private const string Restart = "restart";
-        private const string Top = "top";
-        private const string Exit = "exit";
-        private const string Boom = "boom";
-        private const int MinCommandLength = 3;
+        private readonly Dictionary<string, Command> commands = new Dictionary<string, Command>()
+        {
+            { "restart", Command.Restart },
+            { "top", Command.ShowTopScores },
+            { "exit", Command.Exit },
+            { "boom", Command.Boom }
+        };
 
         public CommandReader()
         {
         }
 
-        public Command ExtractCommand(string command, out CellPos cellToOpen)
+        public Command ExtractCommand(string input, out CellPos cellToOpen)
         {
             cellToOpen = CellPos.Empty;
 
-            if (command.Equals(Restart))
+            Command command;
+            if (commands.TryGetValue(input, out command))
             {
-                return Command.Restart;
+                return command;
             }
 
-            if (command.Equals(Top))
-            {
-                return Command.ShowTopScores;
-            }
+            var tokens = input.Split(' ');
+            tokens = tokens.Where(x => !string.IsNullOrEmpty(x)).ToArray();
 
-            if (command.Equals(Exit))
+            if (tokens.Length != 2)
             {
-                return Command.Exit;
-            }
-
-            if (command.Equals(Boom))
-            {
-                return Command.Boom;
-            }
-
-            // TODO: split string and TryParse !!!! - DONE
-            var splitedCommands = command.Split(' ');
-            splitedCommands =  splitedCommands.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-
-            //check if the input for rows and cols is more/less than 2
-            if (splitedCommands.Length == 2)
-            {
-                int parseCommandInteger;
-                //if the parsing was successful assign the parsed integer value to cellToOpen.Row
-                if (int.TryParse(splitedCommands[0], out parseCommandInteger))
-                {
-                    cellToOpen.Row = parseCommandInteger;
-                }
-                else
-                {
-                    return Command.Invalid;
-                }
-
-                if (int.TryParse(splitedCommands[1], out parseCommandInteger))
-                {
-                    cellToOpen.Col = parseCommandInteger;
-                }
-                else
-                {
-                    return Command.Invalid;
-                }
-            }
-            else
-            {
-                //if there are more/less than 2 input values the command is invalid
                 return Command.Invalid;
             }
 
+            int parseCommandInteger;
+            //if the parsing was successful assign the parsed integer value to cellToOpen.Row
+            if (int.TryParse(tokens[0], out parseCommandInteger))
+            {
+                cellToOpen.Row = parseCommandInteger;
+            }
+            else
+            {
+                return Command.Invalid;
+            }
+
+            if (int.TryParse(tokens[1], out parseCommandInteger))
+            {
+                cellToOpen.Col = parseCommandInteger;
+            }
+            else
+            {
+                return Command.Invalid;
+            }
+
+            // Parsing was successful, the parsed integers are assigned to the out parameter cellToOpen
             return Command.OpenCell;
         }
     }

@@ -21,7 +21,6 @@
 
         public void WriteAt(int left, int top, string format, params object[] args)
         {
-            // TODO: validate left, top
             Console.SetCursorPosition(left, top);
             Console.Write(format, args);
         }
