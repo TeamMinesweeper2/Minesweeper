@@ -60,6 +60,9 @@
                     case Command.OpenCell:
                         this.OpenCell(cellToOpen);
                         break;
+                    case Command.Boom:
+                        this.MineBoomed();
+                        break;
                     default:
                         throw new ArgumentException("Unrecognized command!");
                 }

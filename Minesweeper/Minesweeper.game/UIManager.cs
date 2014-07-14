@@ -21,13 +21,13 @@
             this.cmdLineRow = 8 + minefieldRows;
             this.cmdLineCol = cmdLineCol;
             CellPos minefieldTopLeft = new CellPos(6, 4);
-            this.boardDrawer = new BoardDrawer(minefieldRows, minefieldCols, minefieldTopLeft);
-            
+            this.boardDrawer = new BoardDrawer(minefieldRows, minefieldCols, minefieldTopLeft);            
         }
 
         public void DisplayIntro(string msg)
         {
-            this.renderer.WriteLine(msg);
+            this.renderer.WriteAt(0, 0, msg);
+            this.renderer.WriteLine();
         }
 
         public void DisplayEnd(string msg, int numberOfOpenedCells)

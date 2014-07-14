@@ -6,6 +6,7 @@
         ShowTopScores,
         Exit,
         OpenCell,
-        Invalid
+        Invalid,
+        Boom
     }
 }

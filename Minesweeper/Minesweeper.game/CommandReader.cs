@@ -8,6 +8,7 @@ namespace Minesweeper
         private const string Restart = "restart";
         private const string Top = "top";
         private const string Exit = "exit";
+        private const string Boom = "boom";
         private const int MinCommandLength = 3;
 
         public CommandReader()
@@ -31,6 +32,11 @@ namespace Minesweeper
             if (command.Equals(Exit))
             {
                 return Command.Exit;
+            }
+
+            if (command.Equals(Boom))
+            {
+                return Command.Boom;
             }
 
             // TODO: split string and TryParse !!!! - DONE
