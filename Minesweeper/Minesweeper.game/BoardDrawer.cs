@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Minesweeper
+﻿namespace Minesweeper
 {
+    using System;
+    using System.Text;
+    using Minesweeper.Lib;
+
     public class BoardDrawer
     {
         // strings
         private const string TabSpace = "    ";
+        private const string CellBomb = "*"; // bomb -> "\u000f";
+        private const string CellNoBomb = "-";
+        private const string CellClosed = "?";
+        private const string CellMarked = "!";
 
         private int minefieldCols;
         private int mineFieldRows;
@@ -48,7 +50,7 @@ namespace Minesweeper
                 gameField.AppendFormat("{0} | ", row);
                 for (int col = 0; col < this.minefieldCols; col++)
                 {
-                    gameField.Append("? ");
+                    gameField.Append(CellClosed + " ");
                 }
 
                 gameField.AppendLine();
@@ -81,11 +83,11 @@ namespace Minesweeper
                     int colOnScreen = topLeft.Col + (col * 2);
                     if (minefield[row, col])
                     {
-                        this.DrawCell(rowOnScreen, colOnScreen, "*");
+                        this.DrawCell(rowOnScreen, colOnScreen, CellBomb);
                     }
                     else if (!openedCells[row, col])
                     {
-                        this.DrawCell(rowOnScreen, colOnScreen, "-");
+                        this.DrawCell(rowOnScreen, colOnScreen, CellNoBomb);
                     }
                 }
             }

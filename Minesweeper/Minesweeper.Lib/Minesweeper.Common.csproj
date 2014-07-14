@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{952452D6-174F-41F0-ABF7-ED07136BB97C}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{06675ED7-9CB1-40C4-B61B-AC458FB16911}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Minesweeper</RootNamespace>
-    <AssemblyName>Minesweeper</AssemblyName>
+    <RootNamespace>Minesweeper.Lib</RootNamespace>
+    <AssemblyName>Minesweeper.Lib</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,27 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoardDrawer.cs" />
-    <Compile Include="CommandReader.cs" />
-    <Compile Include="Enums\Command.cs" />
-    <Compile Include="UIManager.cs" />
-    <Compile Include="Enums\ErrorType.cs" />
-    <Compile Include="Enums\MinefieldState.cs" />
-    <Compile Include="Enums\UserMsg.cs" />
-    <Compile Include="Minefield.cs" />
-    <Compile Include="MinesweeperGame.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Cell.cs" />
+    <Compile Include="CellPos.cs" />
+    <Compile Include="ConsoleReader.cs" />
+    <Compile Include="ConsoleRenderer.cs" />
+    <Compile Include="Interfaces\ICell.cs" />
+    <Compile Include="Interfaces\IRandomGeneratorProvider.cs" />
+    <Compile Include="Interfaces\IRenderer.cs" />
+    <Compile Include="Interfaces\IUserInputReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\Minesweeper.Lib\Minesweeper.Common.csproj">
-      <Project>{06675ed7-9cb1-40c4-b61b-ac458fb16911}</Project>
-      <Name>Minesweeper.Common</Name>
-    </ProjectReference>
+    <Compile Include="RandomGeneratorProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

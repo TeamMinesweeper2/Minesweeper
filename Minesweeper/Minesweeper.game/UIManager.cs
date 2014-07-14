@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Minesweeper.Lib;
 
     public class UIManager
     {
@@ -27,7 +28,6 @@
         public void DisplayIntro(string msg)
         {
             this.renderer.WriteAt(0, 0, msg);
-            this.renderer.WriteLine();
         }
 
         public void DisplayEnd(string msg, int numberOfOpenedCells)

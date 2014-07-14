@@ -1,4 +1,4 @@
-﻿namespace Minesweeper.Interfaces
+﻿namespace Minesweeper.Lib
 {
     using System;
     using System.Linq;

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Minesweeper.Lib;
 
     public class MinesweeperGame
     {
@@ -137,7 +138,7 @@
             {
                 { UserMsg.PressAnyKey, "Press any key to continue."},
                 { UserMsg.EnterRowCol, "Enter row and column: " },
-                { UserMsg.Intro, "Welcome to the game “Minesweeper”.\nTry to open all cells without mines. Use 'top' to view the scoreboard,\n'restart' to start a new game and 'exit' to quit the game." },
+                { UserMsg.Intro, "Welcome to the game “Minesweeper”.\nTry to open all cells without mines. Use 'top' to view the scoreboard,\n'restart' to start a new game and 'exit' to quit the game.\n" },
                 { UserMsg.Boom, "Booooom! You were killed by a mine. You opened {0} cells without mines.\nPlease enter your name for the top scoreboard: "},
                 { UserMsg.Bye, "Good bye!" }
             };

@@ -2,6 +2,8 @@
 
 namespace Minesweeper
 {
+    using Minesweeper.Lib;
+
     internal class CommandReader
     {
         //// TODO: add constants for all commands ("top", "restart"...) - DONE

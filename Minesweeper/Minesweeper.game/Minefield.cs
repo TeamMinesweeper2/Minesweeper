@@ -1,7 +1,7 @@
 ﻿namespace Minesweeper
 {
     using System;
-    using Minesweeper.Interfaces;
+    using Minesweeper.Lib;
 
     internal class Minefield
     {

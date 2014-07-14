@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Minesweeper
+﻿namespace Minesweeper.Lib
 {
-    class ConsoleRenderer : IRenderer
+    using System;
+
+    public class ConsoleRenderer : IRenderer
     {
         public void WriteLine()
         {
