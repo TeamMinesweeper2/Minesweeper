@@ -22,11 +22,25 @@ namespace Minesweeper
             Console.Write(format, args);
         }
 
-        public void WriteAt(int row, int col, string format, params object[] args)
+        public void WriteAt(int left, int top, string format, params object[] args)
         {
-            // TODO: validate row, col
-            Console.SetCursorPosition(row, col);
+            // TODO: validate left, top
+            Console.SetCursorPosition(left, top);
             Console.Write(format, args);
+        }
+
+        public void ClearLines(int left, int top, int numLines)
+        {
+            if (numLines < 1)
+            {
+                throw new ArgumentOutOfRangeException("numLines", "Number of lines to clear must be at least '1'.");
+            }
+
+            // TODO: validate left, top
+            string spaces = new string(' ', numLines * Console.WindowWidth - left);
+            this.WriteAt(left, top, spaces);
+
+            Console.SetCursorPosition(left, top);
         }
     }
 }

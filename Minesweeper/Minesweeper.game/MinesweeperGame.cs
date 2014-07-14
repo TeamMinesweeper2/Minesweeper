@@ -8,7 +8,7 @@
     {
         private readonly List<KeyValuePair<string, int>> topScores = new List<KeyValuePair<string, int>>();
         private bool gameEnded = false;
-        private UIManager consoleManager;
+        private UIManager uiManager;
         private Minefield minefield;
         private IDictionary<ErrorType, string> errorMessages;
         private IDictionary<UserMsg, string> userMessages;
@@ -30,8 +30,8 @@
         public void Run()
         {
             int cmdLineCol = this.userMessages[UserMsg.EnterRowCol].Length;
-            this.consoleManager = new UIManager(this.minefieldRows, this.minefieldCols, cmdLineCol);
-            this.consoleManager.DisplayIntro(this.userMessages[UserMsg.Intro]);
+            this.uiManager = new UIManager(this.minefieldRows, this.minefieldCols, cmdLineCol);
+            this.uiManager.DisplayIntro(this.userMessages[UserMsg.Intro]);
 
             this.MakeNewMinefield();
 
@@ -39,7 +39,7 @@
             while (!this.gameEnded)
             {
                 CellPos cellToOpen;
-                var command = commandReader.ReadCommand(this.consoleManager, out cellToOpen);
+                var command = commandReader.ReadCommand(this.uiManager, out cellToOpen);
 
                 switch (command)
                 {
@@ -53,8 +53,7 @@
                         this.EndGame();
                         break;
                     case Command.Invalid:
-                        this.consoleManager.DisplayError(this.errorMessages[ErrorType.IvalidCommand]);
-                        this.consoleManager.WaitForKey(this.userMessages[UserMsg.PressAnyKey]);
+                        this.uiManager.DisplayError(this.errorMessages[ErrorType.IvalidCommand]);
                         break;
                     case Command.OpenCell:
                         this.OpenCell(cellToOpen);
@@ -67,7 +66,7 @@
 
         private void MakeNewMinefield()
         {
-            this.consoleManager.DrawInitialGameField(this.userMessages[UserMsg.EnterRowCol]);
+            this.uiManager.DrawInitialGameField(this.userMessages[UserMsg.EnterRowCol]);
             int minesCount = (int)(this.minefieldRows * this.minefieldCols * MinesCountCoeficient);
             var randomNumberProvider = RandomGeneratorProvider.GetInstance();
             this.minefield = new Minefield(this.minefieldRows, this.minefieldCols, minesCount, randomNumberProvider);
@@ -80,19 +79,17 @@
             switch (result)
             {
                 case MinefieldState.OutOfRange:
-                    this.consoleManager.DisplayError(this.errorMessages[ErrorType.CellOutOfRange]);
-                    this.consoleManager.WaitForKey(this.userMessages[UserMsg.PressAnyKey]);
+                    this.uiManager.DisplayError(this.errorMessages[ErrorType.CellOutOfRange]);
                     break;
                 case MinefieldState.AlreadyOpened:
-                    this.consoleManager.DisplayError(this.errorMessages[ErrorType.AlreadyOpened]);
-                    this.consoleManager.WaitForKey(this.userMessages[UserMsg.PressAnyKey]);
+                    this.uiManager.DisplayError(this.errorMessages[ErrorType.AlreadyOpened]);
                     break;
                 case MinefieldState.Boom:
                     this.MineBoomed();
                     break;
                 case MinefieldState.Normal:
                     int neighborMinesCount = this.minefield.CountNeighborMines(cell);
-                    this.consoleManager.DrawOpenCell(cell.Row, cell.Col, neighborMinesCount);
+                    this.uiManager.DrawOpenCell(cell.Row, cell.Col, neighborMinesCount);
                     break;
                 default:
                     break;
@@ -104,10 +101,10 @@
             // subtract the boomed mine that was opened
             int numberOfOpenedCells = this.minefield.CountOpen() - 1;
 
-            this.consoleManager.DrawFinalGameField(this.minefield.Mines, this.minefield.OpenedCells);
-            this.consoleManager.DisplayEnd(this.userMessages[UserMsg.Boom], numberOfOpenedCells);
+            this.uiManager.DrawFinalGameField(this.minefield.Mines, this.minefield.OpenedCells);
+            this.uiManager.DisplayEnd(this.userMessages[UserMsg.Boom], numberOfOpenedCells);
 
-            string name = this.consoleManager.ReadName();
+            string name = this.uiManager.ReadName();
             this.topScores.Add(new KeyValuePair<string, int>(name, numberOfOpenedCells));
 
             this.ShowScores();
@@ -118,7 +115,7 @@
 
         private void EndGame()
         {
-            this.consoleManager.GoodBye(this.userMessages[UserMsg.Bye]);
+            this.uiManager.GoodBye(this.userMessages[UserMsg.Bye]);
             this.gameEnded = true;
         }
 
@@ -144,7 +141,7 @@
         private void ShowScores()
         {
             var sorted = topScores.OrderBy(kvp => -kvp.Value);
-            this.consoleManager.DisplayHighScores(sorted);
+            this.uiManager.DisplayHighScores(sorted);
         }
     }
 }

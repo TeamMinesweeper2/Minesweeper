@@ -6,21 +6,15 @@
 
     public class UIManager : IUserInputReader
     {
-        private int minefieldCols;
-        private int mineFieldRows;
-        private int gameFieldWidth;
         private int cmdLineRow;
         private int cmdLineCol;
         private readonly IRenderer renderer;
 
         private BoardDrawer boardDrawer;
 
-        public UIManager(int minefieldRows, int mineFieldCols, int cmdLineCol)
+        public UIManager(int minefieldRows, int minefieldCols, int cmdLineCol)
         {
             this.renderer = new ConsoleRenderer();
-            this.mineFieldRows = minefieldRows;
-            this.minefieldCols = mineFieldCols;
-            this.gameFieldWidth = (mineFieldCols * 2) - 1;
             this.cmdLineRow = 8 + minefieldRows;
             this.cmdLineCol = cmdLineCol;
             CellPos minefieldTopLeft = new CellPos(6, 4);
@@ -59,6 +53,7 @@
         public void DisplayError(string errorMsg)
         {
             this.renderer.WriteAt(this.cmdLineCol, this.cmdLineRow, errorMsg);
+            this.WaitForKey(" Press any key to continue...");
         }
 
         public void WaitForKey(string promptMsg)
@@ -79,14 +74,15 @@
         public string ReadName()
         {
             string name = Console.ReadLine();
+            this.ClearCommandLine();
             return name;
         }
 
         public void DrawInitialGameField(string enterRowColPrompt)
         {
-            Console.SetCursorPosition(0, 3);
-            this.boardDrawer.DrawInitialGameField();
-
+            int left = 0;
+            int top = 3;
+            this.boardDrawer.DrawInitialGameField(left, top);
             this.renderer.Write(enterRowColPrompt);
         }
 
@@ -102,11 +98,7 @@
 
         private void ClearCommandLine()
         {
-            string emptyLine = new string(' ', 3 * Console.WindowWidth);
-
-            this.renderer.WriteAt(this.cmdLineCol, this.cmdLineRow, emptyLine);
-
-            Console.SetCursorPosition(this.cmdLineCol, this.cmdLineRow);
+            this.renderer.ClearLines(this.cmdLineCol, this.cmdLineRow, 3);
         }
     }
 }

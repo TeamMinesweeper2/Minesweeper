@@ -24,7 +24,7 @@ namespace Minesweeper
             this.topLeft = topLeft;
         }
 
-        public void DrawInitialGameField()
+        public void DrawInitialGameField(int left, int top)
         {
             var gameField = new StringBuilder();
             gameField.AppendLine();
@@ -60,6 +60,7 @@ namespace Minesweeper
 
             gameField.AppendLine();
 
+            Console.SetCursorPosition(left, top);
             Console.Write(gameField);
         }
 
