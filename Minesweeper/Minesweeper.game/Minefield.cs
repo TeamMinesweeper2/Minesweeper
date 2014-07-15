@@ -2,6 +2,7 @@
 {
     using System;
     using Minesweeper.Lib;
+    using System.Diagnostics;
 
     /// <summary>
     /// Minefield class represents matrix of cells.
@@ -91,6 +92,7 @@
                 // Open cell
                 this.cells[index].OpenCell();
                 this.openedCellsCount += 1; // Counts opened cells.
+                this.OpenEmptyCellsRecursive(cell);
                 return MinefieldState.Normal;
             }
         }
@@ -327,6 +329,52 @@
             }
 
             return counter;
+        }
+
+        /// <summary>
+        /// Recursively opens all adjacent cells of a cell which has no neighbors with mines.
+        /// </summary>
+        /// <param name="cellPos">The current cell.</param>
+        private void OpenEmptyCellsRecursive(CellPos cellPos)
+        {
+            // All neighbors must not have mines
+            Debug.Assert(CountNeighborMinesPerCell(cellPos) == 0);
+
+            for (int row = -1; row < 2; row++)
+            {
+                for (int col = -1; col < 2; col++)
+                {
+                    if (col == 0 && row == 0)
+                    {
+                        continue;
+                    }
+
+                    CellPos neighborCellPos = new CellPos(cellPos.Row + row, cellPos.Col + col);
+                    
+                    if (this.IsInsideMatrix(neighborCellPos.Row, neighborCellPos.Col))
+                    {
+                        int currentIndex = GetIndex(neighborCellPos);
+                        this.cells[currentIndex].OpenCell();
+                        this.openedCellsCount += 1;
+
+                        if (CountNeighborMinesPerCell(neighborCellPos) == 0)
+                        {
+                            OpenEmptyCellsRecursive(neighborCellPos);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Converts (row,col) coordinates to index in the cell list.
+        /// </summary>
+        /// <param name="cell">The cell position.</param>
+        /// <returns>The index in the cell list.</returns>
+        private int GetIndex(CellPos cell)
+        {
+            int index = (cell.Row * this.columnsCount) + cell.Col;
+            return index;
         }
     }
 }
