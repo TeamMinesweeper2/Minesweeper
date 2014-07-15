@@ -50,12 +50,22 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Common\CellUnitTest.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\" />
     <Folder Include="Game\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Minesweeper.game\Minesweeper.Game.csproj">
+      <Project>{952452d6-174f-41f0-abf7-ed07136bb97c}</Project>
+      <Name>Minesweeper.Game</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Minesweeper.Lib\Minesweeper.Common.csproj">
+      <Project>{06675ED7-9CB1-40C4-B61B-AC458FB16911}</Project>
+      <Name>Minesweeper.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
