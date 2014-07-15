@@ -12,6 +12,7 @@
         public CommandParser(MinesweeperGame game)
         {
             this.game = game;
+
             // Create commands
             ICommand cmdRestart = new CmdRestart(game);
             ICommand cmdBoom = new CmdBoom(game);
