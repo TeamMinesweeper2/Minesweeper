@@ -59,6 +59,28 @@
             this.uiManager.ClearCommandLine();
         }
 
+        public void FlagCell(CellPos cell)
+        {
+            var result = this.minefield.FlagCell(cell);
+
+            switch (result)
+            {
+                case MinefieldState.OutOfRange:
+                    this.uiManager.DisplayError(this.errorMessages[ErrorType.CellOutOfRange]);
+                    break;
+                case MinefieldState.AlreadyOpened:
+                    this.uiManager.DisplayError(this.errorMessages[ErrorType.AlreadyOpened]);
+                    break;
+                case MinefieldState.Normal:
+                    this.RedrawMinefield(false);
+                    break;
+                default:
+                    break;
+            }
+
+            this.uiManager.ClearCommandLine();
+        }
+
         public void MineBoomed()
         {
             // The boomed mine does not have an OPEN state, so CountOpen() is correct
@@ -122,7 +144,7 @@
             {
                 { UserMsg.PressAnyKey, "Press any key to continue."},
                 { UserMsg.EnterRowCol, "Enter row and column: " },
-                { UserMsg.Intro, "Welcome to the game “Minesweeper”.\nTry to open all cells without mines. Use 'top' to view the scoreboard,\n'restart' to start a new game and 'exit' to quit the game.\n" },
+                { UserMsg.Intro, "Welcome to the game “Minesweeper”.\nTry to open all cells without mines. Use 'top' to view the scoreboard,\n'restart' to start a new game and 'exit' to quit the game. Use 'm' to flag a cell.\n" },
                 { UserMsg.Boom, "Booooom! You were killed by a mine. You opened {0} cells without mines.\nPlease enter your name for the top scoreboard: "},
                 { UserMsg.Bye, "Good bye!" }
             };

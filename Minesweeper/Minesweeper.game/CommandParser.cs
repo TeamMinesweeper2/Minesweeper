@@ -30,8 +30,8 @@
         }
 
         public ICommand ParseCommand(string input)
-        {
-            CellPos cellToOpen = CellPos.Empty;
+        {            
+            input = input.Trim();
 
             ICommand command;
             if (commands.TryGetValue(input, out command))
@@ -39,6 +39,15 @@
                 return command;
             }
 
+            bool toggleFlag = false;
+            if (input.StartsWith("m"))
+            {
+                // remove the "m"
+                input = input.Substring(1);
+                toggleFlag = true;
+            }
+
+            // Extract row and col
             var tokens = input.Split(' ');
             tokens = tokens.Where(x => !string.IsNullOrEmpty(x)).ToArray();
 
@@ -47,11 +56,13 @@
                 return this.commands["invalid"];
             }
 
+
+            CellPos targetCell = CellPos.Empty;
             int parseCommandInteger;
 
             if (int.TryParse(tokens[0], out parseCommandInteger))
             {
-                cellToOpen.Row = parseCommandInteger;
+                targetCell.Row = parseCommandInteger;
             }
             else
             {
@@ -60,16 +71,24 @@
 
             if (int.TryParse(tokens[1], out parseCommandInteger))
             {
-                cellToOpen.Col = parseCommandInteger;
+                targetCell.Col = parseCommandInteger;
             }
             else
             {
                 return this.commands["invalid"];
             }
 
-            // Parsing was successful, the parsed integers are assigned to the out parameter cellToOpen
-            ICommand cmdOpenCell = new CmdOpenCell(this.game, cellToOpen);
-            return cmdOpenCell;
+            // Parsing was successful, the parsed integers are assigned to targetCell
+            if (toggleFlag)
+            {
+                command = new CmdFlagCell(this.game, targetCell);
+            }
+            else
+            {
+                command = new CmdOpenCell(this.game, targetCell);
+            }
+            
+            return command;
         }
     }
 }

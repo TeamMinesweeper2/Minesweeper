@@ -44,6 +44,7 @@
     <Compile Include="BoardDrawer.cs" />
     <Compile Include="Commands\CmdEndGame.cs" />
     <Compile Include="Commands\CmdInvalid.cs" />
+    <Compile Include="Commands\CmdFlagCell.cs" />
     <Compile Include="Commands\CmdShowScores.cs" />
     <Compile Include="Commands\CmdBoom.cs" />
     <Compile Include="Commands\CmdOpenCell.cs" />
