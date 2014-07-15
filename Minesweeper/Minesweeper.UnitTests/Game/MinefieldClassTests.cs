@@ -95,7 +95,7 @@
         }
 
         [TestMethod]
-        public void OpenCellHandlerShouldReturnCorrectStateEnumerationValue()
+        public void OpenCellHandlerShouldReturnCorrectStateEnumerationValueBoom()
         {
             // Arrange
             cellPosition.Setup(x => x.Col).Returns(1);
@@ -113,6 +113,53 @@
 
             // Assert
             Assert.AreEqual(MinefieldState.Boom, result);
+        }
+
+        [TestMethod]
+        public void OpenCellHandlerShouldReturnCorrectStateEnumerationValueNormal()
+        {
+            // Arrange;
+            cellPosition.Setup(x => x.Col).Returns(4);
+            cellPosition.Setup(x => x.Row).Returns(4);
+
+            // Act
+            var result = testMinefield.OpenCellHandler(cellPosition.Object);
+
+            // Assert
+            Assert.AreEqual(MinefieldState.Normal, result);
+        }
+
+        [TestMethod]
+        public void OpenCellHandlerShouldReturnCorrectStateEnumerationValueAlreadyOpened()
+        {
+            // Arrange;
+            cellPosition.Setup(x => x.Col).Returns(0);
+            cellPosition.Setup(x => x.Row).Returns(0);
+
+            var result = testMinefield.OpenCellHandler(cellPosition.Object);
+
+            cellPosition.Setup(x => x.Col).Returns(0);
+            cellPosition.Setup(x => x.Row).Returns(0);
+
+            // Act
+            result = testMinefield.OpenCellHandler(cellPosition.Object);
+
+            // Assert
+            Assert.AreEqual(MinefieldState.AlreadyOpened, result);
+        }
+
+        [TestMethod]
+        public void OpenCellHandlerShouldReturnCorrectStateEnumerationValueOutOfRange()
+        {
+            // Arrange;
+            cellPosition.Setup(x => x.Col).Returns(6);
+            cellPosition.Setup(x => x.Row).Returns(0);
+
+            // Act
+            var result = testMinefield.OpenCellHandler(cellPosition.Object);
+
+            // Assert
+            Assert.AreEqual(MinefieldState.OutOfRange, result);
         }
     }
 }
