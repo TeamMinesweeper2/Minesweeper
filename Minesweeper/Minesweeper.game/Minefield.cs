@@ -319,5 +319,10 @@
 
             return counter;
         }
+
+        public bool IsDisarmed()
+        {
+            return this.GetOpenedCells() >= (this.rowsCount * this.columnsCount - this.numberOfMines);
+        }
     }
 }
