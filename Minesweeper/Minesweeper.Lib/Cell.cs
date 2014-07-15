@@ -3,6 +3,9 @@
     using System;
     using System.Linq;
 
+    /// <summary>
+    /// Cell class which represents the minefield's single cell states
+    /// </summary>
     public class Cell : ICell
     {
         private bool isOpened;
