@@ -60,7 +60,7 @@
 
         public void FlagCell(CellPos cell)
         {
-            var result = this.minefield.FlagCell(cell);
+            var result = this.minefield.FlagCellHandler(cell);
 
             switch (result)
             {
@@ -158,7 +158,7 @@
         private void FinishGame(UserMsg msg)
         {
             // A boomed mine does not have an OPEN state, so CountOpen() is correct
-            int numberOfOpenedCells = this.minefield.GetOpenedCells();
+            int numberOfOpenedCells = this.minefield.POpenedCells;
 
             this.RedrawMinefield(true);
             this.uiManager.DisplayEnd(this.userMessages[msg], numberOfOpenedCells);
