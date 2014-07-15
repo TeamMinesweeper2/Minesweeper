@@ -43,6 +43,7 @@
     <Compile Include="CellPos.cs" />
     <Compile Include="ConsoleReader.cs" />
     <Compile Include="ConsoleRenderer.cs" />
+    <Compile Include="ICellPosition.cs" />
     <Compile Include="Interfaces\ICell.cs" />
     <Compile Include="Interfaces\IRandomGeneratorProvider.cs" />
     <Compile Include="Interfaces\IRenderer.cs" />

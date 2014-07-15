@@ -149,7 +149,7 @@
         /// </summary>
         /// <param name="cell">Cell's position in the minefield matrix.</param>
         /// <returns>State of the minefield.</returns>
-        public MinefieldState OpenCellHandler(CellPos cell) // TODO: Job to be done by Cell itself.
+        public MinefieldState OpenCellHandler(ICellPosition cell) // TODO: Job to be done by Cell itself.
         {
             var isInsideMatrix = this.IsInsideMatrix(cell.Row, cell.Col);
             int currentIndex = this.GetIndex(cell);
@@ -387,7 +387,7 @@
         /// </summary>
         /// <param name="currentPosition">Current cell position in the minefield.</param>
         /// <returns>Neighbor mines count.</returns>
-        private int CountNeighborMinesPerCell(CellPos currentPosition)
+        private int CountNeighborMinesPerCell(ICellPosition currentPosition)
         {
             int counter = 0;
 
@@ -450,7 +450,7 @@
         /// Recursively opens all adjacent cells of a cell which has no neighbors with mines.
         /// </summary>
         /// <param name="cellPos">The current cell.</param>
-        private void OpenEmptyCellsRecursive(CellPos cellPos)
+        private void OpenEmptyCellsRecursive(ICellPosition cellPos)
         {
             // All neighbors must not have mines
             Debug.Assert(CountNeighborMinesPerCell(cellPos) == 0);
@@ -491,7 +491,7 @@
         /// </summary>
         /// <param name="cell">The cell position.</param>
         /// <returns>The index in the cell list.</returns>
-        private int GetIndex(CellPos cell)
+        private int GetIndex(ICellPosition cell)
         {
             int index = (cell.Row * this.columnsCount) + cell.Col;
             return index;

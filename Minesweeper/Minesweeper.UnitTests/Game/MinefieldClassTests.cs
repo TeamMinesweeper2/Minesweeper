@@ -10,7 +10,23 @@
     public class MinefieldClassTests
     {
         /// <summary>Mocking IRandomGeneratorProvider ensures that test are consistent.</summary>
-        private static Mock<IRandomGeneratorProvider> randomGenerator = new Mock<IRandomGeneratorProvider>();
+        private static Mock<IRandomGeneratorProvider> randomGenerator;
+        private static Mock<ICellPosition> cellPosition;
+        private static Minefield testMinefield;
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            randomGenerator = new Mock<IRandomGeneratorProvider>();
+            cellPosition = new Mock<ICellPosition>();
+            randomGenerator.Setup(x => x.GetRandomNumber(5)).Returns(0);
+        }
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            testMinefield = new Minefield(5, 5, 2, randomGenerator.Object);
+        }
         
         [TestMethod]
         [ExpectedException(typeof(ArgumentException),
@@ -49,26 +65,6 @@
         public void AllNeighborMinesPropertyShouldReturnCorrectTwoDimensionalArray()
         {
             // Arrange
-            randomGenerator.Setup(x => x.GetRandomNumber(5)).Returns(0);
-            var testMineField = new Minefield(3, 3, 2, randomGenerator.Object);
-            int[,] expectedNeighborMinesArray = new int[,] {
-                {1, 0, 1}, 
-                {1, 2, 2},
-                {0, 1, 0}};
-
-            // Act
-            var neighborMines = testMineField.AllNeighborMines;
-
-            // Assert
-            Assert.IsTrue(expectedNeighborMinesArray.ContentEquals(neighborMines));
-        }
-
-        [TestMethod]
-        public void OpenCellHandlerShouldReturnCorrectStateEnumerationValue()
-        {
-            // Arrange
-            randomGenerator.Setup(x => x.GetRandomNumber(5)).Returns(0);
-            var testMineField = new Minefield(5, 5, 2, randomGenerator.Object);
             int[,] expectedNeighborMinesArray = new int[,] {
                 {1, 0, 1, 0, 0}, 
                 {1, 1, 1, 0, 0},
@@ -78,10 +74,45 @@
             };
 
             // Act
-            var neighborMines = testMineField.AllNeighborMines;
+            var neighborMines = testMinefield.AllNeighborMines;
 
             // Assert
             Assert.IsTrue(expectedNeighborMinesArray.ContentEquals(neighborMines));
+        }
+
+        [TestMethod]
+        public void OpenCellHandlerShouldMissTheFirstMine()
+        {
+            // Arrange
+            cellPosition.Setup(x => x.Col).Returns(1);
+            cellPosition.Setup(x => x.Row).Returns(0);
+            
+            // Act
+            var result = testMinefield.OpenCellHandler(cellPosition.Object);
+
+            // Assert
+            Assert.AreNotEqual(MinefieldState.Boom, result);
+        }
+
+        [TestMethod]
+        public void OpenCellHandlerShouldReturnCorrectStateEnumerationValue()
+        {
+            // Arrange
+            cellPosition.Setup(x => x.Col).Returns(1);
+            cellPosition.Setup(x => x.Row).Returns(0);
+
+            var result = testMinefield.OpenCellHandler(cellPosition.Object);
+
+            Assert.AreNotEqual(MinefieldState.Boom, result);
+
+            cellPosition.Setup(x => x.Col).Returns(4);
+            cellPosition.Setup(x => x.Row).Returns(4);
+
+            // Act
+            result = testMinefield.OpenCellHandler(cellPosition.Object);
+
+            // Assert
+            Assert.AreEqual(MinefieldState.Boom, result);
         }
     }
 }

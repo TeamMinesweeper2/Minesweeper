@@ -2,7 +2,7 @@ namespace Minesweeper.Lib
 {
     using System;
 
-    public interface ICellPos
+    public interface ICellPosition
     {
         /// <summary>
         /// Gets or sets value for position by row.
