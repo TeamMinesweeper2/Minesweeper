@@ -34,5 +34,10 @@
         {
             get;
         }
+
+        /// <summary>
+        /// Removes a mine from the current cell
+        /// </summary>
+        void Disarm();
     }
 }

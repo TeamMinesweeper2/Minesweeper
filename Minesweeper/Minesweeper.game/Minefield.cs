@@ -2,6 +2,7 @@
 {
     using System;
     using Minesweeper.Lib;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Minefield class represents matrix of cells.
@@ -24,7 +25,7 @@
         private readonly int numberOfMines;
 
         /// <summary>Calculated number of mines for each cell in the minefield.</summary>
-        private readonly int[,] allNeighborMines;
+        private int[,] allNeighborMines;
 
         /// <summary>Number of opened cells in the minefield.</summary>
         private int openedCellsCount;
@@ -81,6 +82,12 @@
             else
             {
                 int index = (cell.Row * this.columnsCount) + cell.Col;
+
+                // If the first open cell has mine, swap the mine with an empty cell
+                if (this.openedCellsCount == 0 && this.cells[index].IsMined)
+                {
+                    this.DisarmFirstCell(this.cells[index]);
+                }
 
                 if (this.cells[index].IsMined)
                 {
@@ -327,6 +334,37 @@
             }
 
             return counter;
+        }
+
+        /// <summary>
+        /// Disarms a cell and adds a mine to a random empty cell.
+        /// Used if the first open cell by the user is a cell with mine.
+        /// </summary>
+        /// <param name="cellToDisarm">The cell to disarm.</param>
+        private void DisarmFirstCell(ICell cellToDisarm)
+        {
+            // Store every cell without mine
+            var emptyCells = new List<ICell>();
+            for (int i = 0; i < cells.Length; i++)
+            {
+                if (!cells[i].IsMined)
+                {
+                    emptyCells.Add(cells[i]);
+                }
+            }
+
+            if (emptyCells.Count == 0)
+            {
+                throw new InvalidOperationException("Cannot disarm a cell because all other cells have mines!");
+            }
+
+            // Add mine to a random empty cell
+            int j = this.randomGenerator.GetRandomNumber(emptyCells.Count);
+            emptyCells[j].AddMine();
+
+            // Disarm the first cell and recalculate the neighbor mines count
+            cellToDisarm.Disarm();
+            this.allNeighborMines = this.CalculateNeighborMines();
         }
     }
 }
