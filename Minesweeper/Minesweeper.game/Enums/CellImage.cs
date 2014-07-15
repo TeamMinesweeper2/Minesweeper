@@ -5,7 +5,8 @@
         // Closed
         NotFlagged,
         Flagged,
-        // Open
+
+        // Opened
         Bomb, // boomed
         NoBomb, // boomed
         Num
