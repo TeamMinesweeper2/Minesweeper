@@ -130,16 +130,23 @@
                 StringBuilder expected = new StringBuilder();
                 expected.Append(Environment.NewLine);
                 expected.Append("Scoreboard:");
+                expected.Append(Environment.NewLine);
                 int place = 1;
+
                 foreach (var result in topScores)
                 {
-                    expected.Append(Environment.NewLine);
                     expected.AppendFormat("{0}. {1} --> {2} cells", place++, result.Key, result.Value);
+                    expected.Append(Environment.NewLine);
                 }
-                expected.Append(Environment.NewLine);
+                //expected.Append(Environment.NewLine);
 
                 //Assert.AreEqual<string>(expected.ToString(), sw.ToString());
             }
+        }
+
+        [Ignore]
+        public void TestReadName()
+        {
         }
     }
 }
