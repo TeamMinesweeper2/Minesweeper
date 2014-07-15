@@ -21,8 +21,8 @@
 
         public MinesweeperGame()
         {
-            this.minefieldRows = 4;
-            this.minefieldCols = 4;
+            this.minefieldRows = 5;
+            this.minefieldCols = 10;
             this.InitializeMessages();
             int cmdLineCol = this.userMessages[UserMsg.EnterRowCol].Length;
             this.uiManager = new UIManager(this.minefieldRows, this.minefieldCols, cmdLineCol);
