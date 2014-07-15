@@ -51,12 +51,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Common\CellUnitTest.cs" />
+    <Compile Include="Game\TestUIManager.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Game\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Minesweeper.game\Minesweeper.Game.csproj">
       <Project>{952452d6-174f-41f0-abf7-ed07136bb97c}</Project>
