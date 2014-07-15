@@ -169,6 +169,15 @@
         }
 
         /// <summary>
+        /// Checks if all cells are opened without explosion.
+        /// </summary>
+        /// <returns>True if all non-mined cells are opened.</returns>
+        public bool IsDisarmed()
+        {
+            return this.GetOpenedCells() >= ((this.rowsCount * this.columnsCount) - this.numberOfMines);
+        }
+
+        /// <summary>
         /// Validates if given coordinates are inside the minefield matrix.
         /// </summary>
         /// <param name="row">Current position by row.</param>
@@ -202,7 +211,7 @@
             }
 
             // Shuffle mines.
-            Shuffle(this.cells);
+            this.Shuffle(this.cells);
         }
 
         /// <summary>
@@ -215,7 +224,7 @@
             int n = array.Length - 1;
             while (n > 1)
             {
-                int k = randomGenerator.GetRandomNumber(n);
+                int k = this.randomGenerator.GetRandomNumber(n);
                 n = n - 1;
                 T temp = array[n];
                 array[n] = array[k];
@@ -249,7 +258,7 @@
         /// <returns>Two dimensional bool array.</returns>
         private bool[,] Mines()
         {
-            return ConvertMinefield(x => x.IsMined);
+            return this.ConvertMinefield(x => x.IsMined);
         }
 
         /// <summary>
@@ -258,7 +267,7 @@
         /// <returns>Two dimensional bool array.</returns>
         private bool[,] OpenedCells()
         {
-            return ConvertMinefield(x => x.IsOpened);
+            return this.ConvertMinefield(x => x.IsOpened);
         }
 
         /// <summary>
@@ -267,7 +276,7 @@
         /// <returns>Two dimensional bool array.</returns>
         private bool[,] FlaggedCells()
         {
-            return ConvertMinefield(x => x.IsFlagged);
+            return this.ConvertMinefield(x => x.IsFlagged);
         }
 
         /// <summary>
@@ -276,16 +285,16 @@
         /// <returns>Two dimensional array with neighbor mines count.</returns>
         private int[,] CalculateNeighborMines()
         {
-            var arr = new int[rowsCount, columnsCount];
-            for (int row = 0; row < rowsCount; row++)
+            var resultArray = new int[this.rowsCount, this.columnsCount];
+            for (int row = 0; row < this.rowsCount; row++)
             {
-                for (int col = 0; col < columnsCount; col++)
+                for (int col = 0; col < this.columnsCount; col++)
                 {
-                    arr[row, col] = this.CountNeighborMinesPerCell(new CellPos(row, col));
+                    resultArray[row, col] = this.CountNeighborMinesPerCell(new CellPos(row, col));
                 }
             }
 
-            return arr;
+            return resultArray;
         }
 
         /// <summary>
@@ -318,11 +327,6 @@
             }
 
             return counter;
-        }
-
-        public bool IsDisarmed()
-        {
-            return this.GetOpenedCells() >= (this.rowsCount * this.columnsCount - this.numberOfMines);
         }
     }
 }
