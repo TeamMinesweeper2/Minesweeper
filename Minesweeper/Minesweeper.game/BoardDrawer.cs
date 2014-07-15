@@ -15,7 +15,7 @@
         {
             { CellImage.Bomb, "*"},
             { CellImage.NoBomb, "-"},
-            { CellImage.NotFlagged, "?"},
+            { CellImage.NotFlagged, "#"},
             { CellImage.Flagged, "!"},
         };
 
@@ -75,8 +75,10 @@
 
                     string symbol;
                     if (minefield[row, col] == CellImage.Num)
-                    {
-                        symbol = neighborMines[row, col].ToString();
+                    {                        
+                        int num = neighborMines[row, col];
+                        symbol = (num == 0) ? " " : num.ToString();
+
                     }
                     else
                     {

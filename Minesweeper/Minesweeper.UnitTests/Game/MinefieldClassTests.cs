@@ -9,6 +9,7 @@
     [TestClass]
     public class MinefieldClassTests
     {
+        /// <summary>Mocking IRandomGeneratorProvider ensures that test are consistent.</summary>
         private static Mock<IRandomGeneratorProvider> randomGenerator = new Mock<IRandomGeneratorProvider>();
         
         [TestMethod]
@@ -54,6 +55,27 @@
                 {1, 0, 1}, 
                 {1, 2, 2},
                 {0, 1, 0}};
+
+            // Act
+            var neighborMines = testMineField.AllNeighborMines;
+
+            // Assert
+            Assert.IsTrue(expectedNeighborMinesArray.ContentEquals(neighborMines));
+        }
+
+        [TestMethod]
+        public void OpenCellHandlerShouldReturnCorrectStateEnumerationValue()
+        {
+            // Arrange
+            randomGenerator.Setup(x => x.GetRandomNumber(5)).Returns(0);
+            var testMineField = new Minefield(5, 5, 2, randomGenerator.Object);
+            int[,] expectedNeighborMinesArray = new int[,] {
+                {1, 0, 1, 0, 0}, 
+                {1, 1, 1, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 1},
+                {0, 0, 0, 1, 0}
+            };
 
             // Act
             var neighborMines = testMineField.AllNeighborMines;

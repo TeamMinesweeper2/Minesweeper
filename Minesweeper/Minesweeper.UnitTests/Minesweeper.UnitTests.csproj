@@ -58,9 +58,14 @@
   <ItemGroup>
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Game\MinefieldClassTests.cs" />
+    <Compile Include="Common\CellUnitTest.cs" />
+    <Compile Include="Common\TestCellPos.cs" />
+    <Compile Include="Common\TestConsoleRenderer.cs" />
+    <Compile Include="Game\TestUIManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTest1.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Folder Include="Common\" />
   </ItemGroup>

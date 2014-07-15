@@ -2,20 +2,28 @@
 {
     using System;
     using Minesweeper.Lib;
+    using System.Diagnostics;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Minefield class represents matrix of cells.
     /// </summary>
     public class Minefield
     {
+        /// <summary>Exception message format for value type parameters.</summary>
+        private const string ValueTypesExceptionFormat = "The value - {0} for {1} count must be greater than zero!";
+
+        /// <summary>Exception message for null random generator provider.</summary>
+        private const string IRandomGeneratorProviderNullExceptionMessage = "The constructor cannot generate mines with random generator equal to null!";
+
         /// <summary>Minefield container of cells.</summary>
         private readonly ICell[] cells;
 
-        /// <summary>Calculated number of mines for each cell in the minefield.</summary>
-        private readonly int[,] allNeighborMines;
-
         /// <summary>Random generator provider.</summary>
         private IRandomGeneratorProvider randomGenerator;
+
+        /// <summary>Calculated number of mines for each cell in the minefield.</summary>
+        private int[,] allNeighborMines;
 
         /// <summary>Number of columns for the minefield.</summary>
         private int columnsCount;
@@ -81,7 +89,7 @@
             {
                 if (value == null)
                 {
-                    throw new ArgumentException("The constructor cannot generate mines with random generator equal to null!");
+                    throw new ArgumentException(IRandomGeneratorProviderNullExceptionMessage);
                 }
 
                 this.randomGenerator = value;
@@ -97,7 +105,7 @@
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Value for row count cannot be zero or negative number!");
+                    throw new ArgumentException(string.Format(ValueTypesExceptionFormat, value, "rows"));
                 }
 
                 this.rowsCount = value;
@@ -113,7 +121,7 @@
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Value for columns count cannot be zero or negative number!");
+                    throw new ArgumentException(string.Format(ValueTypesExceptionFormat, value, "column"));
                 }
 
                 this.columnsCount = value;
@@ -129,7 +137,7 @@
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Value for number of mines cannot be zero or negative number!");
+                    throw new ArgumentException(string.Format(ValueTypesExceptionFormat, value, "mines"));
                 }
 
                 this.numberOfMines = value;
@@ -144,27 +152,38 @@
         public MinefieldState OpenCellHandler(CellPos cell) // TODO: Job to be done by Cell itself.
         {
             var isInsideMatrix = this.IsInsideMatrix(cell.Row, cell.Col);
+            int currentIndex = this.GetIndex(cell);
+
             if (!isInsideMatrix)
             {
                 return MinefieldState.OutOfRange;
             }
 
-            if (this.cells[(cell.Row * this.columnsCount) + cell.Col].IsOpened)
+            if (this.cells[currentIndex].IsOpened)
             {
                 return MinefieldState.AlreadyOpened;
             }
 
-            int index = (cell.Row * this.columnsCount) + cell.Col;
+            // If the first open cell has mine, swap the mine with an empty cell
+            if (this.openedCellsCount == 0 && this.cells[currentIndex].IsMined)
+            {
+                this.DisarmFirstCell(this.cells[currentIndex]);
+            }
 
-            if (this.cells[index].IsMined)
+            if (this.cells[currentIndex].IsMined)
             {
                 // Cells with bombs are not counted as open
                 return MinefieldState.Boom;
             }
 
             // Open cell
-            this.cells[index].OpenCell();
+            this.cells[currentIndex].OpenCell();
             this.openedCellsCount += 1; // Counts opened cells.
+
+            if (CountNeighborMinesPerCell(cell) == 0)
+            {
+                this.OpenEmptyCellsRecursive(cell);
+            }
 
             return MinefieldState.Normal;
         }
@@ -394,6 +413,88 @@
             }
 
             return counter;
+        }
+
+        /// <summary>
+        /// Disarms a cell and adds a mine to a random empty cell.
+        /// Used if the first open cell by the user is a cell with mine.
+        /// </summary>
+        /// <param name="cellToDisarm">The cell to disarm.</param>
+        private void DisarmFirstCell(ICell cellToDisarm)
+        {
+            // Store every cell without mine
+            var emptyCells = new List<ICell>();
+            for (int i = 0; i < cells.Length; i++)
+            {
+                if (!cells[i].IsMined)
+                {
+                    emptyCells.Add(cells[i]);
+                }
+            }
+
+            if (emptyCells.Count == 0)
+            {
+                throw new InvalidOperationException("Cannot disarm a cell because all other cells have mines!");
+            }
+
+            // Add mine to a random empty cell
+            int j = this.randomGenerator.GetRandomNumber(emptyCells.Count);
+            emptyCells[j].AddMine();
+
+            // Disarm the first cell and recalculate the neighbor mines count
+            cellToDisarm.Disarm();
+            this.allNeighborMines = this.CalculateNeighborMines();
+        }
+
+        /// <summary>
+        /// Recursively opens all adjacent cells of a cell which has no neighbors with mines.
+        /// </summary>
+        /// <param name="cellPos">The current cell.</param>
+        private void OpenEmptyCellsRecursive(CellPos cellPos)
+        {
+            // All neighbors must not have mines
+            Debug.Assert(CountNeighborMinesPerCell(cellPos) == 0);
+
+            for (int row = -1; row < 2; row++)
+            {
+                for (int col = -1; col < 2; col++)
+                {
+                    if (col == 0 && row == 0)
+                    {
+                        continue;
+                    }
+
+                    if (this.IsInsideMatrix(cellPos.Row + row, cellPos.Col + col))
+                    {
+                        CellPos neighborCellPos = new CellPos(cellPos.Row + row, cellPos.Col + col);
+                        int currentIndex = GetIndex(neighborCellPos);
+
+                        if (this.cells[currentIndex].IsOpened)
+                        {
+                            continue;
+                        }
+
+                        this.cells[currentIndex].OpenCell();
+                        this.openedCellsCount += 1;
+
+                        if (CountNeighborMinesPerCell(neighborCellPos) == 0)
+                        {
+                            OpenEmptyCellsRecursive(neighborCellPos);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Converts (row,col) coordinates to index in the cell list.
+        /// </summary>
+        /// <param name="cell">The cell position.</param>
+        /// <returns>The index in the cell list.</returns>
+        private int GetIndex(CellPos cell)
+        {
+            int index = (cell.Row * this.columnsCount) + cell.Col;
+            return index;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace Minesweeper.Game
 {
     using Minesweeper.Lib;
+    using System;
     using System.Collections.Generic;
 
     public class UIManager
@@ -26,22 +27,30 @@
 
         public void DisplayIntro(string msg)
         {
+            ValidateMessage(msg);
             this.renderer.WriteAt(0, 0, msg);
         }
 
         public void DisplayEnd(string msg, int numberOfOpenedCells)
         {
+            ValidateMessage(msg);
             this.renderer.WriteAt(0, this.cmdLineRow + 1, msg, numberOfOpenedCells);
         }
 
         public void GoodBye(string goodByeMsg)
         {
+            ValidateMessage(goodByeMsg);
             this.renderer.WriteLine();
             this.renderer.WriteLine(goodByeMsg);
         }
 
         public void DisplayHighScores(IEnumerable<KeyValuePair<string, int>> topScores)
         {
+            if (topScores == null)
+            {
+                throw new NullReferenceException("Top score list can not be null!");
+            }
+
             // Clear the old board (6 lines)
             this.renderer.ClearLines(0, this.cmdLineRow + 4, 6);
 
@@ -58,15 +67,9 @@
 
         public void DisplayError(string errorMsg)
         {
+            ValidateMessage(errorMsg);
             this.renderer.WriteAt(this.cmdLineCol, this.cmdLineRow, errorMsg);
             this.WaitForKey(" Press any key to continue...");
-        }
-
-        public void WaitForKey(string promptMsg)
-        {
-            this.renderer.Write(promptMsg);
-            this.inputReader.WaitForKey();
-            this.ClearCommandLine();
         }
 
         public string ReadName()
@@ -92,6 +95,21 @@
         public void DrawGameField(CellImage[,] minefield, int[,] neighborMines)
         {
             this.boardDrawer.DrawGameField(minefield, neighborMines);
+        }
+
+        private void WaitForKey(string promptMsg)
+        {
+            this.renderer.Write(promptMsg);
+            this.inputReader.WaitForKey();
+            this.ClearCommandLine();
+        }
+
+        private void ValidateMessage(string message)
+        {
+            if (string.IsNullOrEmpty(message))
+            {
+                throw new ArgumentException("Message can not be null or empty!");
+            }
         }
     }
 }

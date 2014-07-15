@@ -3,6 +3,9 @@
     using System;
     using System.Linq;
 
+    /// <summary>
+    /// Cell class which represents the minefield's single cell states
+    /// </summary>
     public class Cell : ICell
     {
         private bool isOpened;
@@ -103,6 +106,17 @@
             if (!this.IsMined)
             {
                 this.IsMined = true;
+            }
+        }
+
+        /// <summary>
+        /// Removes the mine from the current cell
+        /// </summary>
+        public void Disarm()
+        {
+            if (this.IsMined)
+            {
+                this.IsMined = false;
             }
         }
     }
