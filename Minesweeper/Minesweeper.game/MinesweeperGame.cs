@@ -8,7 +8,7 @@
     // The 'Receiver' class
     public class MinesweeperGame
     {
-        private readonly List<KeyValuePair<string, int>> topScores = new List<KeyValuePair<string, int>>();
+        private List<KeyValuePair<string, int>> topScores = new List<KeyValuePair<string, int>>();
         private UIManager uiManager;
         private Minefield minefield;
         private IDictionary<ErrorType, string> errorMessages;
@@ -93,8 +93,7 @@
 
         public void ShowScores()
         {
-            var sorted = topScores.OrderBy(kvp => -kvp.Value);
-            this.uiManager.DisplayHighScores(sorted);
+            this.uiManager.DisplayHighScores(this.topScores);
             this.uiManager.ClearCommandLine();
         }
 
@@ -165,13 +164,19 @@
             this.uiManager.DisplayEnd(this.userMessages[msg], numberOfOpenedCells);
 
             string name = this.uiManager.ReadName();
-            this.topScores.Add(new KeyValuePair<string, int>(name, numberOfOpenedCells));
-
+            this.AddScore(numberOfOpenedCells, name);
             this.ShowScores();
 
             // Start new game
             this.GenerateMinefield();
             this.uiManager.ClearCommandLine();
+        }
+
+        private void AddScore(int numberOfOpenedCells, string name)
+        {
+            this.topScores.Add(new KeyValuePair<string, int>(name, numberOfOpenedCells));
+            // Limit the scoreboard to only the top five players by score
+            this.topScores = this.topScores.OrderBy(kvp => -kvp.Value).Take(5).ToList();
         }
     }
 }

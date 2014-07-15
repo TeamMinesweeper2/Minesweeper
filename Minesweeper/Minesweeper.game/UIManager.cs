@@ -21,7 +21,7 @@
             this.cmdLineRow = 8 + minefieldRows;
             this.cmdLineCol = cmdLineCol;
             this.minefieldTopLeft = new CellPos(3, 0);
-            this.boardDrawer = new BoardDrawer(renderer, minefieldRows, minefieldCols, this.minefieldTopLeft);            
+            this.boardDrawer = new BoardDrawer(renderer, minefieldRows, minefieldCols, this.minefieldTopLeft);
         }
 
         public void DisplayIntro(string msg)
@@ -32,7 +32,7 @@
         public void DisplayEnd(string msg, int numberOfOpenedCells)
         {
             this.renderer.WriteAt(0, this.cmdLineRow + 1, msg, numberOfOpenedCells);
-        }      
+        }
 
         public void GoodBye(string goodByeMsg)
         {
@@ -42,10 +42,13 @@
 
         public void DisplayHighScores(IEnumerable<KeyValuePair<string, int>> topScores)
         {
+            // Clear the old board (6 lines)
+            this.renderer.ClearLines(0, this.cmdLineRow + 4, 6);
+
             this.renderer.WriteAt(0, this.cmdLineRow + 4, "Scoreboard:");
             this.renderer.WriteLine();
 
-            var place = 0;
+            var place = 1;
             foreach (var result in topScores)
             {
                 this.renderer.WriteLine("{0}. {1} --> {2} cells", place, result.Key, result.Value);
