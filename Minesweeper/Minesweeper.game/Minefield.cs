@@ -1,4 +1,4 @@
-﻿namespace Minesweeper
+﻿namespace Minesweeper.Game
 {
     using System;
     using Minesweeper.Lib;
@@ -6,7 +6,7 @@
     /// <summary>
     /// Minefield class represents matrix of cells.
     /// </summary>
-    internal class Minefield
+    public class Minefield
     {
         /// <summary>Minefield container of cells.</summary>
         private readonly ICell[] cells;
@@ -64,7 +64,7 @@
         /// <summary>
         /// Gets opened cells count.
         /// </summary>
-        public int POpenedCells
+        public int GetOpenedCells
         {
             get
             {
@@ -240,7 +240,7 @@
         /// <returns>True if all non-mined cells are opened.</returns>
         public bool IsDisarmed()
         {
-            return this.POpenedCells >= ((this.rowsCount * this.columnsCount) - this.numberOfMines);
+            return this.GetOpenedCells >= ((this.rowsCount * this.columnsCount) - this.numberOfMines);
         }
 
         /// <summary>
@@ -291,10 +291,10 @@
             while (currentIndex > 1)
             {
                 int nextRandomIndex = this.randomGenerator.GetRandomNumber(currentIndex);
-                currentIndex = currentIndex - 1;
                 T swapValue = array[currentIndex];
                 array[currentIndex] = array[nextRandomIndex];
                 array[nextRandomIndex] = swapValue;
+                currentIndex = currentIndex - 1;
             }
         }
 

@@ -1,4 +1,6 @@
-﻿namespace Minesweeper
+﻿using Minesweeper.Game;
+
+namespace Minesweeper
 {
     public class CmdExit : ICommand
     {

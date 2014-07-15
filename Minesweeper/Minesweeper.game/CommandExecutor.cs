@@ -1,7 +1,7 @@
-﻿namespace Minesweeper
+﻿namespace Minesweeper.Game
 {
     // The 'Invoker' class
-    class CommandExecutor
+    public class CommandExecutor
     {
         public bool ExecuteCommand(ICommand cmd)
         {

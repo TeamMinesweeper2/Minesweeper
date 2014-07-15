@@ -1,4 +1,4 @@
-﻿namespace Minesweeper
+﻿namespace Minesweeper.Game
 {
     // The 'Command' interface
     public interface ICommand

@@ -1,4 +1,4 @@
-﻿namespace Minesweeper
+﻿namespace Minesweeper.Game
 {
     using System;
     using System.Collections.Generic;
@@ -158,7 +158,7 @@
         private void FinishGame(UserMsg msg)
         {
             // A boomed mine does not have an OPEN state, so CountOpen() is correct
-            int numberOfOpenedCells = this.minefield.POpenedCells;
+            int numberOfOpenedCells = this.minefield.GetOpenedCells;
 
             this.RedrawMinefield(true);
             this.uiManager.DisplayEnd(this.userMessages[msg], numberOfOpenedCells);

@@ -7,8 +7,8 @@
     <ProjectGuid>{952452D6-174F-41F0-ABF7-ED07136BB97C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Minesweeper</RootNamespace>
-    <AssemblyName>Minesweeper</AssemblyName>
+    <RootNamespace>Minesweeper.Game</RootNamespace>
+    <AssemblyName>Minesweeper.Game</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -1,5 +1,6 @@
 ﻿namespace Minesweeper
 {
+    using Minesweeper.Game;
     using Minesweeper.Lib;
 
     public class CmdOpenCell : ICommand
