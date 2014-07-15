@@ -14,7 +14,7 @@
         private IDictionary<ErrorType, string> errorMessages;
         private IDictionary<UserMsg, string> userMessages;
 
-        private const float MinesCountCoeficient = 0.3F;
+        private const decimal MinesCountCoeficient = 0.16m; // 0.2m -> 10 mines; 0.16m -> 8 mines
 
         private int minefieldRows;
         private int minefieldCols;

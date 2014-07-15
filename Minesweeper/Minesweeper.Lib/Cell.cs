@@ -108,5 +108,16 @@
                 this.IsMined = true;
             }
         }
+
+        /// <summary>
+        /// Removes the mine from the current cell
+        /// </summary>
+        public void Disarm()
+        {
+            if (this.IsMined)
+            {
+                this.IsMined = false;
+            }
+        }
     }
 }
