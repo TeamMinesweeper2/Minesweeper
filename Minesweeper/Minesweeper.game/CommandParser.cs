@@ -16,7 +16,7 @@
             ICommand cmdRestart = new CmdRestart(game);
             ICommand cmdBoom = new CmdBoom(game);
             ICommand cmdShowScores = new CmdShowScores(game);
-            ICommand cmdEndGame = new CmdEndGame(game);
+            ICommand cmdEndGame = new CmdExit(game);
             ICommand cmdInvalid = new CmdInvalid(game);
 
             this.commands = new Dictionary<string, ICommand>()

@@ -1,4 +1,6 @@
 - add game end when all cells are opened
+- scoreboard limited to 5 places
+- don't create mine at the first open cell
 - add validation to all public methods
 
 - run StyleCop

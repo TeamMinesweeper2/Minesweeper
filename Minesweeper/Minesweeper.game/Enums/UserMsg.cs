@@ -6,6 +6,7 @@
         EnterRowCol,
         Intro,
         Boom,
-        Bye
+        Bye,
+        Success
     }
 }

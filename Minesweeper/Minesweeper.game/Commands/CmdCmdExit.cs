@@ -1,17 +1,17 @@
 ﻿namespace Minesweeper
 {
-    public class CmdEndGame : ICommand
+    public class CmdExit : ICommand
     {
         private MinesweeperGame game;
 
-        public CmdEndGame(MinesweeperGame game)
+        public CmdExit(MinesweeperGame game)
         {
             this.game = game;
         }
 
         public bool Execute()
         {
-            this.game.EndGame();
+            this.game.ExitGame();
             return false;
         }
     }

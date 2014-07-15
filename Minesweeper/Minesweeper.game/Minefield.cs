@@ -243,5 +243,10 @@
 
             return counter;
         }
+
+        public bool IsDisarmed()
+        {
+            return this.CountOpen() >= (this.rows * this.cols - this.numberOfMines);
+        }
     }
 }
