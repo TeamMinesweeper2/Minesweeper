@@ -1,6 +1,3 @@
-- don't create mine at the first open cell
-- add validation to all public methods
-
 - run StyleCop
 - add unit testing
 - add source code documentation

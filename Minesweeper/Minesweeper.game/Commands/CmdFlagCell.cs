@@ -1,5 +1,6 @@
 ﻿namespace Minesweeper
 {
+    using System;
     using Minesweeper.Lib;
 
     public class CmdFlagCell : ICommand
@@ -9,6 +10,11 @@
 
         public CmdFlagCell(MinesweeperGame game, CellPos targetCell)
         {
+            if (game == null)
+            {
+                throw new ArgumentNullException("game");
+            }
+
             this.game = game;
             this.targetCell = targetCell;
         }

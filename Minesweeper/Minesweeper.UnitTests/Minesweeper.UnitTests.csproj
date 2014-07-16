@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Common\CellUnitTest.cs" />
     <Compile Include="Common\TestCellPos.cs" />
+    <Compile Include="Game\CommandsTests.cs" />
     <Compile Include="Game\TestUIManager.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
