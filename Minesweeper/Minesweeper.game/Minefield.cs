@@ -1,4 +1,4 @@
-﻿namespace Minesweeper
+﻿namespace Minesweeper.Game
 {
     using System;
     using Minesweeper.Lib;
@@ -8,31 +8,37 @@
     /// <summary>
     /// Minefield class represents matrix of cells.
     /// </summary>
-    internal class Minefield
+    public class Minefield
     {
+        /// <summary>Exception message format for value type parameters.</summary>
+        private const string ValueTypesExceptionFormat = "The value - {0} for {1} count must be greater than zero!";
+
+        /// <summary>Exception message for null random generator provider.</summary>
+        private const string IRandomGeneratorProviderNullExceptionMessage = "The constructor cannot generate mines with random generator equal to null!";
+
         /// <summary>Minefield container of cells.</summary>
         private readonly ICell[] cells;
 
         /// <summary>Random generator provider.</summary>
-        private readonly IRandomGeneratorProvider randomGenerator;
-
-        /// <summary>Number of columns for the minefield.</summary>
-        private readonly int columnsCount;
-
-        /// <summary>Number of rows for the minefield.</summary>
-        private readonly int rowsCount;
-
-        /// <summary>Number of mines for the minefield.</summary>
-        private readonly int numberOfMines;
+        private IRandomGeneratorProvider randomGenerator;
 
         /// <summary>Calculated number of mines for each cell in the minefield.</summary>
         private int[,] allNeighborMines;
+
+        /// <summary>Number of columns for the minefield.</summary>
+        private int columnsCount;
+
+        /// <summary>Number of rows for the minefield.</summary>
+        private int rowsCount;
+
+        /// <summary>Number of mines for the minefield.</summary>
+        private int numberOfMines;
 
         /// <summary>Number of opened cells in the minefield.</summary>
         private int openedCellsCount;
 
         /// <summary>
-        /// Creates a new instance of <see cref="Minefield"/> class.
+        /// Initializes a new instance of the <see cref="Minefield"/> class.
         /// </summary>
         /// <param name="rows">Number of rows.</param>
         /// <param name="cols">Number of columns.</param>
@@ -42,11 +48,11 @@
         {
             this.cells = new Cell[rows * cols];
             this.InitializeCellsMatrix();
-            this.rowsCount = rows;
-            this.columnsCount = cols;
-            this.numberOfMines = numberOfMines;
+            this.RowsCount = rows;
+            this.ColumnsCount = cols;
+            this.NumberOfMines = numberOfMines;
             this.openedCellsCount = 0;
-            this.randomGenerator = rndGenerator;
+            this.RandomGenerator = rndGenerator;
             this.GenerateMines();
             this.allNeighborMines = this.CalculateNeighborMines();
         }
@@ -64,57 +70,130 @@
         }
 
         /// <summary>
+        /// Gets opened cells count.
+        /// </summary>
+        public int GetOpenedCells
+        {
+            get
+            {
+                return this.openedCellsCount;
+            }
+        }
+
+        /// <summary>
+        /// Sets the value of randomGenerator.
+        /// </summary>
+        private IRandomGeneratorProvider RandomGenerator
+        {
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException(IRandomGeneratorProviderNullExceptionMessage);
+                }
+
+                this.randomGenerator = value;
+            }
+        }
+
+        /// <summary>
+        /// Sets the value of rowsCount.
+        /// </summary>
+        private int RowsCount
+        {
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException(string.Format(ValueTypesExceptionFormat, value, "rows"));
+                }
+
+                this.rowsCount = value;
+            }
+        }
+
+        /// <summary>
+        /// Sets the value of columnsCount.
+        /// </summary>
+        private int ColumnsCount
+        {
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException(string.Format(ValueTypesExceptionFormat, value, "column"));
+                }
+
+                this.columnsCount = value;
+            }
+        }
+
+        /// <summary>
+        /// Sets the value of numberOfMines.
+        /// </summary>
+        private int NumberOfMines
+        {
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException(string.Format(ValueTypesExceptionFormat, value, "mines"));
+                }
+
+                this.numberOfMines = value;
+            }
+        }
+
+        /// <summary>
         /// Handles cell opening. Reveals cell's content and returns it's state.
         /// </summary>
         /// <param name="cell">Cell's position in the minefield matrix.</param>
-        /// <returns>State of the matrix.</returns>
-        public MinefieldState OpenCellHandler(CellPos cell) // TODO: Job to be done by Cell itself.
+        /// <returns>State of the minefield.</returns>
+        public MinefieldState OpenCellHandler(ICellPosition cell) // TODO: Job to be done by Cell itself.
         {
             var isInsideMatrix = this.IsInsideMatrix(cell.Row, cell.Col);
+            int currentIndex = this.GetIndex(cell);
+
             if (!isInsideMatrix)
             {
                 return MinefieldState.OutOfRange;
             }
 
-            if (this.cells[(cell.Row * this.columnsCount) + cell.Col].IsOpened)
+            if (this.cells[currentIndex].IsOpened)
             {
                 return MinefieldState.AlreadyOpened;
             }
-            else
+
+            // If the first open cell has mine, swap the mine with an empty cell
+            if (this.openedCellsCount == 0 && this.cells[currentIndex].IsMined)
             {
-                int index = (cell.Row * this.columnsCount) + cell.Col;
-
-                // If the first open cell has mine, swap the mine with an empty cell
-                if (this.openedCellsCount == 0 && this.cells[index].IsMined)
-                {
-                    this.DisarmFirstCell(this.cells[index]);
-                }
-
-                if (this.cells[index].IsMined)
-                {
-                    // Cells with bombs are not counted as open
-                    return MinefieldState.Boom;
-                }
-
-                // Open cell
-                this.cells[index].OpenCell();
-                this.openedCellsCount += 1; // Counts opened cells.
-
-                if (CountNeighborMinesPerCell(cell) == 0)
-                {
-                    this.OpenEmptyCellsRecursive(cell);
-                }
-                
-                return MinefieldState.Normal;
+                this.DisarmFirstCell(this.cells[currentIndex]);
             }
+
+            if (this.cells[currentIndex].IsMined)
+            {
+                // Cells with bombs are not counted as open
+                return MinefieldState.Boom;
+            }
+
+            // Open cell
+            this.cells[currentIndex].OpenCell();
+            this.openedCellsCount += 1; // Counts opened cells.
+
+            if (CountNeighborMinesPerCell(cell) == 0)
+            {
+                this.OpenEmptyCellsRecursive(cell);
+            }
+
+            return MinefieldState.Normal;
         }
 
         /// <summary>
         /// Handles cell flagging.
         /// </summary>
-        /// <param name="cell">Cell position.</param>
+        /// <param name="cell">Cell's position in the minefield matrix.</param>
         /// <returns>State of the minefield.</returns>
-        public MinefieldState FlagCell(CellPos cell)
+        public MinefieldState FlagCellHandler(CellPos cell)
         {
             var isInside = this.IsInsideMatrix(cell.Row, cell.Col);
             int currentIndex = (cell.Row * this.columnsCount) + cell.Col;
@@ -130,20 +209,12 @@
             }
 
             this.cells[currentIndex].ToggleFlag();
+
             return MinefieldState.Normal;
         }
 
         /// <summary>
-        /// Returns opened cells count.
-        /// </summary>
-        /// <returns></returns>
-        public int GetOpenedCells()
-        {
-            return this.openedCellsCount;
-        }
-
-        /// <summary>
-        /// Gets an 'image' of the minefield as a matrix of type CellImage
+        /// Gets an 'image' of the minefield as a matrix of type CellImage.
         /// </summary>
         /// <param name="showAll">Set to 'true' to uncover all mines.</param>
         /// <returns>A matrix of cells of type CellImage.</returns>
@@ -188,7 +259,7 @@
         /// <returns>True if all non-mined cells are opened.</returns>
         public bool IsDisarmed()
         {
-            return this.GetOpenedCells() >= ((this.rowsCount * this.columnsCount) - this.numberOfMines);
+            return this.GetOpenedCells >= ((this.rowsCount * this.columnsCount) - this.numberOfMines);
         }
 
         /// <summary>
@@ -229,29 +300,29 @@
         }
 
         /// <summary>
-        /// Shuffles an array of T.
+        /// Shuffles an array of T with Fisher-Yates shuffle algorithm.
         /// </summary>
         /// <typeparam name="T">Generic type.</typeparam>
         /// <param name="array">Array of T to be shuffled randomly.</param>
         private void Shuffle<T>(T[] array)
         {
-            int n = array.Length - 1;
-            while (n > 1)
+            int currentIndex = array.Length - 1;
+            while (currentIndex > 1)
             {
-                int k = this.randomGenerator.GetRandomNumber(n);
-                n = n - 1;
-                T temp = array[n];
-                array[n] = array[k];
-                array[k] = temp;
+                int nextRandomIndex = this.randomGenerator.GetRandomNumber(currentIndex);
+                T swapValue = array[currentIndex];
+                array[currentIndex] = array[nextRandomIndex];
+                array[nextRandomIndex] = swapValue;
+                currentIndex = currentIndex - 1;
             }
         }
 
         /// <summary>
-        /// Converts minefield matrix to matrix of type T upon to given function.
+        /// Converts minefield matrix to matrix of type T upon given function.
         /// </summary>
         /// <typeparam name="T">Return type of the given function.</typeparam>
-        /// <param name="func"></param>
-        /// <returns></returns>
+        /// <param name="func">Conversion function returning type T.</param>
+        /// <returns>Two dimensional array of type T.</returns>
         private T[,] ConvertMinefield<T>(Func<ICell, T> func)
         {
             T[,] result = new T[this.rowsCount, this.columnsCount];
@@ -269,7 +340,7 @@
         /// <summary>
         /// Generates matrix of mines from minefield.
         /// </summary>
-        /// <returns>Two dimensional bool array.</returns>
+        /// <returns>Two dimensional boolean array.</returns>
         private bool[,] Mines()
         {
             return this.ConvertMinefield(x => x.IsMined);
@@ -278,7 +349,7 @@
         /// <summary>
         /// Generates matrix of opened cells from minefield.
         /// </summary>
-        /// <returns>Two dimensional bool array.</returns>
+        /// <returns>Two dimensional boolean array.</returns>
         private bool[,] OpenedCells()
         {
             return this.ConvertMinefield(x => x.IsOpened);
@@ -287,7 +358,7 @@
         /// <summary>
         /// Generates matrix of flagged cells from minefield.
         /// </summary>
-        /// <returns>Two dimensional bool array.</returns>
+        /// <returns>Two dimensional boolean array.</returns>
         private bool[,] FlaggedCells()
         {
             return this.ConvertMinefield(x => x.IsFlagged);
@@ -314,8 +385,9 @@
         /// <summary>
         /// Calculates the number of neighbor mines for a specified cell.
         /// </summary>
+        /// <param name="currentPosition">Current cell position in the minefield.</param>
         /// <returns>Neighbor mines count.</returns>
-        private int CountNeighborMinesPerCell(CellPos currentPosition)
+        private int CountNeighborMinesPerCell(ICellPosition currentPosition)
         {
             int counter = 0;
 
@@ -378,7 +450,7 @@
         /// Recursively opens all adjacent cells of a cell which has no neighbors with mines.
         /// </summary>
         /// <param name="cellPos">The current cell.</param>
-        private void OpenEmptyCellsRecursive(CellPos cellPos)
+        private void OpenEmptyCellsRecursive(ICellPosition cellPos)
         {
             // All neighbors must not have mines
             Debug.Assert(CountNeighborMinesPerCell(cellPos) == 0);
@@ -390,7 +462,7 @@
                     if (col == 0 && row == 0)
                     {
                         continue;
-                    }                    
+                    }
 
                     if (this.IsInsideMatrix(cellPos.Row + row, cellPos.Col + col))
                     {
@@ -419,7 +491,7 @@
         /// </summary>
         /// <param name="cell">The cell position.</param>
         /// <returns>The index in the cell list.</returns>
-        private int GetIndex(CellPos cell)
+        private int GetIndex(ICellPosition cell)
         {
             int index = (cell.Row * this.columnsCount) + cell.Col;
             return index;

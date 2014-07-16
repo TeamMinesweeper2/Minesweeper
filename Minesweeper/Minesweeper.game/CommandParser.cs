@@ -1,4 +1,4 @@
-﻿namespace Minesweeper
+﻿namespace Minesweeper.Game
 {
     using System.Linq;
     using Minesweeper.Lib;

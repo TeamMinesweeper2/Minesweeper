@@ -1,4 +1,6 @@
-﻿namespace Minesweeper
+﻿using Minesweeper.Game;
+
+namespace Minesweeper
 {
     using System;
 

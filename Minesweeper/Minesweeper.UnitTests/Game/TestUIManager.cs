@@ -5,6 +5,7 @@
     using System.IO;
     using System.Text;
     using System.Collections.Generic;
+    using Minesweeper.Game;
 
     [TestClass]
     public class TestUIManager

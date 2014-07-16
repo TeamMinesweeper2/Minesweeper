@@ -5,7 +5,7 @@
     /// <summary>
     /// Holds position by row and column.
     /// </summary>
-    public struct CellPos
+    public struct CellPos : ICellPosition
     {
         /// <summary>
         /// Represents a cell that has Row and Col values set to zero.
