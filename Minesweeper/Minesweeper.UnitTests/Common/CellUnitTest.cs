@@ -7,61 +7,55 @@ namespace Minesweeper.UnitTests.Common
     [TestClass]
     public class CellUnitTest
     {
+        private readonly Cell firstCell = new Cell();
+        private readonly Cell secondCell = new Cell();
         [TestMethod]
         public void TestConstructorCell()
         {
-            Cell pesho = new Cell();
-            Cell gosho = new Cell();
-            Assert.ReferenceEquals(pesho, gosho);
+            Assert.ReferenceEquals(firstCell, secondCell);
         }
 
         [TestMethod]
         public void TestIsOpenPropertyInitialization()
         {
-            Cell pesho = new Cell();
-            Assert.IsFalse(pesho.IsOpened);
+            Assert.IsFalse(firstCell.IsOpened);
         }
 
         [TestMethod]
         public void TestIsMinedPropertyInitialization()
         {
-            Cell pesho = new Cell();
-            Assert.IsFalse(pesho.IsMined);
+            Assert.IsFalse(firstCell.IsMined);
         }
 
         [TestMethod]
         public void TestIsFalggedPropertyInitialization()
         {
-            Cell pesho = new Cell();
-            Assert.IsFalse(pesho.IsFlagged);
+            Assert.IsFalse(firstCell.IsFlagged);
         }
 
         [TestMethod]
         public void TestOpenCellMethod()
         {
-            Cell pesho = new Cell();
-            pesho.OpenCell();
-            Assert.IsTrue(pesho.IsOpened);
-            Assert.IsFalse(pesho.IsFlagged);
+            firstCell.OpenCell();
+            Assert.IsTrue(firstCell.IsOpened);
+            Assert.IsFalse(firstCell.IsFlagged);
         }
 
         [TestMethod]
         public void TestToggleFlagMethod()
         {
-            Cell pesho = new Cell();
-            Assert.IsFalse(pesho.IsFlagged);
-            pesho.ToggleFlag();
-            Assert.IsTrue(pesho.IsFlagged);
-            pesho.ToggleFlag();
-            Assert.IsFalse(pesho.IsFlagged);
+            Assert.IsFalse(secondCell.IsFlagged);
+            secondCell.ToggleFlag();
+            Assert.IsTrue(secondCell.IsFlagged);
+            secondCell.ToggleFlag();
+            Assert.IsFalse(secondCell.IsFlagged);
         }
 
         [TestMethod]
         public void TestAddMineMethod()
         {
-            Cell pesho = new Cell();
-            pesho.AddMine();
-            Assert.IsTrue(pesho.IsMined);
+            secondCell.AddMine();
+            Assert.IsTrue(secondCell.IsMined);
         }
     }
 }
