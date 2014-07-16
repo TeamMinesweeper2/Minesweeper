@@ -6,7 +6,7 @@ using System.IO;
 namespace Minesweeper.UnitTests.Common
 {
     [TestClass]
-    public class TestConsoleRenderer
+    public class ConsoleRendererTest
     {
         private IRenderer renderer;
 
