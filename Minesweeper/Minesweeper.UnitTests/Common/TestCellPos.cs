@@ -26,6 +26,8 @@ namespace Minesweeper.UnitTests.Common
             Assert.AreEqual(cell.Col, col);
         }
 
+        
+        [TestMethod]
         [TestProperty("Row", "-1")]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void TestPropRowSetNegativeValue()
@@ -33,6 +35,7 @@ namespace Minesweeper.UnitTests.Common
             cell.Row = -1;
         }
 
+        [TestMethod]
         [TestProperty("Col", "-1")]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void TestPropColSetNegativeValue()

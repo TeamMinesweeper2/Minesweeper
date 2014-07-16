@@ -1,5 +1,6 @@
 ﻿namespace Minesweeper
 {
+    using System;
     using Minesweeper.Game;
     using Minesweeper.Lib;
 
@@ -10,6 +11,11 @@
 
         public CmdOpenCell(MinesweeperGame game, CellPos cellToOpen)
         {
+            if (game == null)
+            {
+                throw new ArgumentNullException("game");
+            }
+
             this.game = game;
             this.cellToOpen = cellToOpen;
         }
