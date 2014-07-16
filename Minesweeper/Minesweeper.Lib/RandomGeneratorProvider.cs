@@ -1,4 +1,10 @@
-﻿namespace Minesweeper.Lib
+﻿//-----------------------------------------------------------------------
+// <copyright file="RandomGeneratorProvider.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>Class library for the Minesweeper game.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper.Lib
 {
     using System;
 
@@ -14,7 +20,7 @@
         private readonly Random randomGenerator;
 
         /// <summary>
-        /// Creates a new instance of <see cref="RandomGeneratorProvider"/>
+        /// Prevents a default instance of the <see cref="RandomGeneratorProvider" /> class from being created.
         /// </summary>
         private RandomGeneratorProvider()
         {
@@ -55,7 +61,7 @@
         /// <returns>Integer random number.</returns>
         public int GetRandomNumber(int maxNumber)
         {
-            return GetRandomNumber(0, maxNumber);
+            return this.GetRandomNumber(0, maxNumber);
         }
     }
 }
