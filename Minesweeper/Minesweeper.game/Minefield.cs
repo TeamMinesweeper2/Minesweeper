@@ -1,9 +1,9 @@
 ﻿namespace Minesweeper.Game
 {
     using System;
-    using Minesweeper.Lib;
-    using System.Diagnostics;
     using System.Collections.Generic;
+    using System.Diagnostics;
+    using Minesweeper.Lib;
 
     /// <summary>
     /// Minefield class represents matrix of cells.
@@ -61,8 +61,9 @@
         }
 
         /// <summary>
-        /// Gets the number of neighbor mines for each cell.
+        /// Gets the number of neighbor mines for each cell. Returns copy of the allNeighborMines matrix.
         /// </summary>
+        /// <value>Not accepted.</value>
         public int[,] AllNeighborMines
         {
             get
@@ -75,6 +76,7 @@
         /// <summary>
         /// Gets opened cells count.
         /// </summary>
+        /// <value>Not accepted.</value>
         public int GetOpenedCells
         {
             get
@@ -183,7 +185,7 @@
             this.cells[currentIndex].OpenCell();
             this.openedCellsCount += 1; // Counts opened cells.
 
-            if (CountNeighborMinesPerCell(cell) == 0)
+            if (this.CountNeighborMinesPerCell(cell) == 0)
             {
                 this.OpenEmptyCellsRecursive(cell);
             }
@@ -427,11 +429,11 @@
         {
             // Store every cell without mine
             var emptyCells = new List<ICell>();
-            for (int i = 0; i < cells.Length; i++)
+            for (int i = 0; i < this.cells.Length; i++)
             {
-                if (!cells[i].IsMined)
+                if (!this.cells[i].IsMined)
                 {
-                    emptyCells.Add(cells[i]);
+                    emptyCells.Add(this.cells[i]);
                 }
             }
 
@@ -455,8 +457,8 @@
         /// <param name="cellPos">The current cell.</param>
         private void OpenEmptyCellsRecursive(ICellPosition cellPos)
         {
-            // All neighbors must not have mines
-            Debug.Assert(CountNeighborMinesPerCell(cellPos) == 0);
+            // All neighbors must not have mines.
+            Debug.Assert(this.CountNeighborMinesPerCell(cellPos) == 0, "All neighbors must not have mines!");
 
             for (int row = -1; row < 2; row++)
             {
@@ -470,7 +472,7 @@
                     if (this.IsInsideMatrix(cellPos.Row + row, cellPos.Col + col))
                     {
                         CellPos neighborCellPos = new CellPos(cellPos.Row + row, cellPos.Col + col);
-                        int currentIndex = GetIndex(neighborCellPos);
+                        int currentIndex = this.GetIndex(neighborCellPos);
 
                         if (this.cells[currentIndex].IsOpened)
                         {
@@ -480,9 +482,9 @@
                         this.cells[currentIndex].OpenCell();
                         this.openedCellsCount += 1;
 
-                        if (CountNeighborMinesPerCell(neighborCellPos) == 0)
+                        if (this.CountNeighborMinesPerCell(neighborCellPos) == 0)
                         {
-                            OpenEmptyCellsRecursive(neighborCellPos);
+                            this.OpenEmptyCellsRecursive(neighborCellPos);
                         }
                     }
                 }

@@ -1,12 +1,12 @@
 ﻿namespace Minesweeper.Game
 {
-    using System.Text;
-    using Minesweeper.Lib;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Text;
+    using Minesweeper.Lib;
 
     /// <summary>
-    /// Class that handles drawing of the game board. This includes the minefield and
+    /// Class that handles drawing of the game board. This includes the minefield and game table.
     /// </summary>
     public class BoardDrawer
     {
@@ -28,6 +28,9 @@
         /// <summary>Board offset by column relative to table.</summary>
         private const int BoardOffsetByColumn = 4;
 
+        /// <summary>Renderer instance.</summary>
+        private readonly IRenderer renderer;
+
         /// <summary>Number of rows of the minefield.</summary>
         private int minefieldCols;
 
@@ -36,9 +39,6 @@
 
         /// <summary>Position of the top left corner of the board.</summary>
         private ICellPosition boardTopLeft;
-
-        /// <summary>Renderer instance.</summary>
-        private readonly IRenderer renderer;
 
         /// <summary>Cell image alphabet.</summary>
         private IReadOnlyDictionary<CellImage, string> symbols = new ReadOnlyDictionary<CellImage, string>(
@@ -51,7 +51,7 @@
             });
 
         /// <summary>
-        /// Initializes a new instance of <see cref="BoardDrawer"/>
+        /// Initializes a new instance of the <see cref="BoardDrawer"/> class. Used for drawing game table and minefield on screen.
         /// </summary>
         /// <param name="renderer">Renderer for the game.</param>
         /// <param name="minefieldRows">Number of rows of the minefield.</param>
@@ -118,8 +118,8 @@
             {
                 for (int col = 0; col < this.minefieldCols; col++)
                 {
-                    int rowOnScreen = boardTopLeft.Row + BoardOffsetByRow + row;
-                    int colOnScreen = boardTopLeft.Col + BoardOffsetByColumn + (col * CellSpaceOnScreen);
+                    int rowOnScreen = this.boardTopLeft.Row + BoardOffsetByRow + row;
+                    int colOnScreen = this.boardTopLeft.Col + BoardOffsetByColumn + (col * CellSpaceOnScreen);
 
                     string symbol;
                     var symbolType = minefield[row, col];
