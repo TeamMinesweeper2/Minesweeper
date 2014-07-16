@@ -116,16 +116,34 @@
         }
 
         [TestMethod]
-        public void OpenCellHandlerShouldReturnCorrectStateEnumerationValueNormal()
+        public void OpenCellHandlerShouldReturnCorrectStateEnumerationValueNormalWithoutChainedOpening()
         {
             // Arrange;
-            cellPosition.Setup(x => x.Col).Returns(4);
-            cellPosition.Setup(x => x.Row).Returns(4);
+            cellPosition.Setup(x => x.Col).Returns(0);
+            cellPosition.Setup(x => x.Row).Returns(0);
 
             // Act
             var result = testMinefield.OpenCellHandler(cellPosition.Object);
+            var opened = testMinefield.GetOpenedCells;
 
             // Assert
+            Assert.AreEqual(1, opened);
+            Assert.AreEqual(MinefieldState.Normal, result);
+        }
+
+        [TestMethod]
+        public void OpenCellHandlerShouldReturnCorrectStateEnumerationValueNormalWthChainedOpening()
+        {
+            // Arrange;
+            cellPosition.Setup(x => x.Col).Returns(2);
+            cellPosition.Setup(x => x.Row).Returns(2);
+
+            // Act
+            var result = testMinefield.OpenCellHandler(cellPosition.Object);
+            var opened = testMinefield.GetOpenedCells;
+
+            // Assert
+            Assert.AreEqual(22, opened);
             Assert.AreEqual(MinefieldState.Normal, result);
         }
 
@@ -160,6 +178,60 @@
 
             // Assert
             Assert.AreEqual(MinefieldState.OutOfRange, result);
+        }
+
+        [TestMethod]
+        public void GetImageShouldReturnProperTwoDimensionalArrayOfCellImageEnumsFalseShowAll()
+        {
+            // Arrange
+            cellPosition.Setup(x => x.Col).Returns(0);
+            cellPosition.Setup(x => x.Row).Returns(0);
+            Mock<ICellPosition> secondCell = new Mock<ICellPosition>();
+            secondCell.Setup(c => c.Row).Returns(0);
+            secondCell.Setup(c => c.Col).Returns(1);
+
+            CellImage[,] expectedImageArray = new CellImage[,] {
+                {CellImage.Num, CellImage.Flagged, CellImage.NotFlagged, CellImage.NotFlagged, CellImage.NotFlagged}, 
+                {CellImage.NotFlagged, CellImage.NotFlagged, CellImage.NotFlagged, CellImage.NotFlagged, CellImage.NotFlagged},
+                {CellImage.NotFlagged, CellImage.NotFlagged, CellImage.NotFlagged, CellImage.NotFlagged, CellImage.NotFlagged},
+                {CellImage.NotFlagged, CellImage.NotFlagged, CellImage.NotFlagged, CellImage.NotFlagged, CellImage.NotFlagged},
+                {CellImage.NotFlagged, CellImage.NotFlagged, CellImage.NotFlagged, CellImage.NotFlagged, CellImage.NotFlagged}
+            };
+
+            // Act
+            testMinefield.OpenCellHandler(cellPosition.Object);
+            testMinefield.FlagCellHandler(secondCell.Object);
+            var imageMatrix = testMinefield.GetImage(false);
+
+            // Assert
+            Assert.IsTrue(expectedImageArray.ContentEquals(imageMatrix));
+        }
+
+        [TestMethod]
+        public void GetImageShouldReturnProperTwoDimensionalArrayOfCellImageEnumsTrueShowAll()
+        {
+            // Arrange
+            cellPosition.Setup(x => x.Col).Returns(0);
+            cellPosition.Setup(x => x.Row).Returns(0);
+            Mock<ICellPosition> secondCell = new Mock<ICellPosition>();
+            secondCell.Setup(c => c.Row).Returns(1);
+            secondCell.Setup(c => c.Col).Returns(0);
+
+            CellImage[,] expectedImageArray = new CellImage[,] {
+                {CellImage.Num, CellImage.Bomb, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb}, 
+                {CellImage.Num, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb},
+                {CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb},
+                {CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb},
+                {CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb, CellImage.Bomb},
+            };
+
+            // Act
+            testMinefield.OpenCellHandler(cellPosition.Object);
+            testMinefield.OpenCellHandler(secondCell.Object);
+            var imageMatrix = testMinefield.GetImage(true);
+
+            // Assert
+            Assert.IsTrue(expectedImageArray.ContentEquals(imageMatrix));
         }
     }
 }

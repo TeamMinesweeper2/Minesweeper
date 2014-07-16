@@ -46,13 +46,16 @@
         /// <param name="rndGenerator">Random generator provider.</param>
         public Minefield(int rows, int cols, int numberOfMines, IRandomGeneratorProvider rndGenerator)
         {
-            this.cells = new Cell[rows * cols];
-            this.InitializeCellsMatrix();
+            // Validations
             this.RowsCount = rows;
             this.ColumnsCount = cols;
             this.NumberOfMines = numberOfMines;
-            this.openedCellsCount = 0;
             this.RandomGenerator = rndGenerator;
+
+            // Initializations
+            this.openedCellsCount = 0;
+            this.cells = new Cell[rows * cols];
+            this.InitializeCellsMatrix();
             this.GenerateMines();
             this.allNeighborMines = this.CalculateNeighborMines();
         }
@@ -193,7 +196,7 @@
         /// </summary>
         /// <param name="cell">Cell's position in the minefield matrix.</param>
         /// <returns>State of the minefield.</returns>
-        public MinefieldState FlagCellHandler(CellPos cell)
+        public MinefieldState FlagCellHandler(ICellPosition cell)
         {
             var isInside = this.IsInsideMatrix(cell.Row, cell.Col);
             int currentIndex = (cell.Row * this.columnsCount) + cell.Col;
