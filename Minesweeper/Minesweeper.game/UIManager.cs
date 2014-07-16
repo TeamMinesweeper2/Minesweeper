@@ -12,7 +12,7 @@
         private readonly IRenderer renderer;
         private readonly IUserInputReader inputReader;
 
-        private BoardDrawer boardDrawer;
+        private BoardDrawer boardGenerator;
 
         public UIManager(int minefieldRows, int minefieldCols, int cmdLineCol)
         {
@@ -22,7 +22,7 @@
             this.cmdLineRow = 8 + minefieldRows;
             this.cmdLineCol = cmdLineCol;
             this.minefieldTopLeft = new CellPos(3, 0);
-            this.boardDrawer = new BoardDrawer(renderer, minefieldRows, minefieldCols, this.minefieldTopLeft);
+            this.boardGenerator = new BoardDrawer(renderer, minefieldRows, minefieldCols, this.minefieldTopLeft);
         }
 
         public void DisplayIntro(string msg)
@@ -83,7 +83,7 @@
         {
             int left = this.minefieldTopLeft.Col;
             int top = this.minefieldTopLeft.Row;
-            this.boardDrawer.DrawTable(left, top);
+            this.boardGenerator.DrawTable(left, top);
             this.renderer.Write(enterRowColPrompt);
         }
 
@@ -94,7 +94,7 @@
 
         public void DrawGameField(CellImage[,] minefield, int[,] neighborMines)
         {
-            this.boardDrawer.DrawGameField(minefield, neighborMines);
+            this.boardGenerator.DrawGameField(minefield, neighborMines);
         }
 
         private void WaitForKey(string promptMsg)

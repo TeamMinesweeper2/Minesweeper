@@ -56,6 +56,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Game\BoardDrawerTestClass.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Game\MinefieldClassTests.cs" />
     <Compile Include="Common\CellUnitTest.cs" />
