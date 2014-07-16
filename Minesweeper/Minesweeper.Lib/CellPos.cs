@@ -1,4 +1,10 @@
-﻿namespace Minesweeper.Lib
+﻿//-----------------------------------------------------------------------
+// <copyright file="CellPos.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>Class library for the Minesweeper game.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper.Lib
 {
     using System;
 
@@ -22,7 +28,7 @@
         private int col;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CellPos"/> class.
+        /// Initializes a new instance of the <see cref="CellPos" /> struct.
         /// </summary>
         /// <param name="initialRow">Position by row.</param>
         /// <param name="initialCol">Position by column.</param>

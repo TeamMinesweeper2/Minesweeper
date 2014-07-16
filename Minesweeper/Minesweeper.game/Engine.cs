@@ -2,8 +2,14 @@
 {
     using Minesweeper.Lib;
 
+    /// <summary>
+    /// A class that runs the main game loop.
+    /// </summary>
     public class Engine
     {
+        /// <summary>
+        /// Runs the main game loop - accepts user input, parses the input and executes the command.
+        /// </summary>
         public void Run()
         {
             MinesweeperGame game = new MinesweeperGame();

@@ -1,4 +1,10 @@
-﻿namespace Minesweeper.Lib
+﻿//-----------------------------------------------------------------------
+// <copyright file="IRandomGeneratorProvider.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>Class library for the Minesweeper game.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper.Lib
 {
     /// <summary>
     /// Random number provider interface.

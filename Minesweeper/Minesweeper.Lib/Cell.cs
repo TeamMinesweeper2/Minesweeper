@@ -1,19 +1,30 @@
-﻿namespace Minesweeper.Lib
+﻿//-----------------------------------------------------------------------
+// <copyright file="Cell.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>Class library for the Minesweeper game.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper.Lib
 {
     using System;
     using System.Linq;
 
     /// <summary>
-    /// Cell class which represents the minefield's single cell states
+    /// Cell class which represents the minefield's single cell states.
     /// </summary>
     public class Cell : ICell
     {
+        /// <summary>A boolean flag indicating if the current cell is opened.</summary>
         private bool isOpened;
+
+        /// <summary>A boolean flag indicating if the current cell is flagged.</summary>
         private bool isFlagged;
+
+        /// <summary>A boolean flag indicating if the current cell is mined.</summary>
         private bool isMined;
 
         /// <summary>
-        /// Constructor of the class Cell
+        /// Initializes a new instance of the <see cref="Cell" /> class.
         /// </summary>
         public Cell()
         {
@@ -23,8 +34,9 @@
         }
 
         /// <summary>
-        /// Checks if the current cell is opened
+        /// Gets a value indicating whether the current cell is opened.
         /// </summary>
+        /// <value>True if the current cell is opened.</value>
         public bool IsOpened
         {
             get
@@ -39,8 +51,9 @@
         }
 
         /// <summary>
-        /// Checks if the current cell is flagged
+        /// Gets a value indicating whether the current cell is flagged.
         /// </summary>
+        /// <value>True if the current cell is flagged.</value>
         public bool IsFlagged
         {
             get
@@ -55,8 +68,9 @@
         }
 
         /// <summary>
-        /// Checks whether the current cell is mined
+        /// Gets a value indicating whether the current cell is mined.
         /// </summary>
+        /// <value>True if the current cell has a mine.</value>
         public bool IsMined
         {
             get
@@ -71,7 +85,7 @@
         }
 
         /// <summary>
-        /// Marks the current cell as opened and removes flages
+        /// Marks the current cell as opened and removes flags.
         /// </summary>
         public void OpenCell()
         {
@@ -80,11 +94,10 @@
                 this.IsOpened = true;
                 this.IsFlagged = false;
             }
-
         }
 
         /// <summary>
-        /// Changes the state of the flag
+        /// Changes the state of the flag.
         /// </summary>
         public void ToggleFlag()
         {
@@ -99,7 +112,7 @@
         }
 
         /// <summary>
-        /// Marks the current cell as mined
+        /// Marks the current cell as mined.
         /// </summary>
         public void AddMine()
         {
@@ -110,7 +123,7 @@
         }
 
         /// <summary>
-        /// Removes the mine from the current cell
+        /// Removes the mine from the current cell.
         /// </summary>
         public void Disarm()
         {

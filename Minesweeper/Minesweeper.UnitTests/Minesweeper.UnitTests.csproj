@@ -64,6 +64,8 @@
     <Compile Include="Game\CommandsTests.cs" />
     <Compile Include="Common\TestConsoleRenderer.cs" />
     <Compile Include="Game\TestUIManager.cs" />
+    <Compile Include="Game\CommandExecutorTest.cs" />
+    <Compile Include="Game\CommandParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -1,7 +1,16 @@
+//-----------------------------------------------------------------------
+// <copyright file="ICellPosition.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>Class library for the Minesweeper game.</summary>
+//-----------------------------------------------------------------------
 namespace Minesweeper.Lib
 {
     using System;
 
+    /// <summary>
+    /// Defines properties for the cell position.
+    /// </summary>
     public interface ICellPosition
     {
         /// <summary>
