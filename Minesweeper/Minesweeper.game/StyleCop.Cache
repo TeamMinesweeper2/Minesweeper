@@ -1,8 +1,5 @@
 <stylecopresultscache>
   <version>12</version>
-  <project key="-170397328">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="BoardDrawer.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2014/04/01 10:18:24.000</styleCop>
@@ -822,4 +819,7 @@
       </violation>
     </violations>
   </sourcecode>
+  <project key="-170397328">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
 </stylecopresultscache>
