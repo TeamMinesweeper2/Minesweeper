@@ -63,13 +63,12 @@
     <Compile Include="Game\CommandsTests.cs" />
     <Compile Include="Common\TestConsoleRenderer.cs" />
     <Compile Include="Game\TestUIManager.cs" />
+    <Compile Include="Game\CommandExecutorTest.cs" />
+    <Compile Include="Game\CommandParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Common\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Minesweeper.game\Minesweeper.Game.csproj">
       <Project>{952452d6-174f-41f0-abf7-ed07136bb97c}</Project>

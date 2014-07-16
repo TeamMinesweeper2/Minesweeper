@@ -1,16 +1,36 @@
 ﻿namespace Minesweeper.Game
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Minesweeper.Lib;
-    using System.Collections.Generic;
 
-    internal class CommandParser
+    /// <summary>
+    /// A class that can parse string input and return a command of type <see cref="ICommand"/>.
+    /// </summary>
+    public class CommandParser
     {
+        /// <summary>
+        /// Holds the string commands as keys and their corresponding <see cref="ICommand"/> objects as values.
+        /// </summary>
         private readonly Dictionary<string, ICommand> commands;
+
+        /// <summary>
+        /// The <see cref="MinesweeperGame"/> object for which commands will be parsed.
+        /// </summary>
         private MinesweeperGame game;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommandParser"/> class.
+        /// </summary>
+        /// <param name="game">The <see cref="MinesweeperGame"/> object for which commands will be returned.</param>
         public CommandParser(MinesweeperGame game)
         {
+            if (game == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             this.game = game;
 
             // Create commands
@@ -30,12 +50,17 @@
             };
         }
 
+        /// <summary>
+        /// Parses a string and returns its corresponding <see cref="ICommand"/>.
+        /// </summary>
+        /// <param name="input">The string to parse.</param>
+        /// <returns>The parsed command.</returns>
         public ICommand ParseCommand(string input)
         {            
             input = input.Trim();
 
             ICommand command;
-            if (commands.TryGetValue(input, out command))
+            if (this.commands.TryGetValue(input, out command))
             {
                 return command;
             }
@@ -56,7 +81,6 @@
             {
                 return this.commands["invalid"];
             }
-
 
             CellPos targetCell = CellPos.Empty;
             int parseCommandInteger;
