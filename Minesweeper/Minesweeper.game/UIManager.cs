@@ -6,6 +6,7 @@
 
     public class UIManager
     {
+        private const int CmdLineRowDefault = 0;
         private int cmdLineRow;
         private CellPos minefieldTopLeft;
         private readonly IRenderer renderer;
@@ -13,12 +14,17 @@
 
         private BoardDrawer boardGenerator;
 
-        public UIManager(int minefieldRows)
+        public UIManager()
+            : this(new ConsoleRenderer(), new ConsoleReader())
         {
-            this.renderer = new ConsoleRenderer();
-            this.inputReader = new ConsoleReader();
+        }
 
-            this.cmdLineRow = 8 + minefieldRows;
+        public UIManager(IRenderer renderer, IUserInputReader inputReader)
+        {
+            this.renderer = renderer;
+            this.inputReader = inputReader;
+
+            this.cmdLineRow = UIManager.CmdLineRowDefault;
             this.minefieldTopLeft = new CellPos(3, 0);
             this.boardGenerator = new BoardDrawer(renderer);
         }
@@ -82,14 +88,16 @@
             int left = this.minefieldTopLeft.Col;
             int top = this.minefieldTopLeft.Row;
             this.boardGenerator.DrawTable(left, top, mineFieldRows, minefieldCols);
-            //this.renderer.Write(enterRowColPrompt);
+
+            // Update command line position
+            this.cmdLineRow = Console.CursorTop;
         }
 
         public void ClearCommandLine(string commandPrompt)
         {
             this.renderer.ClearLines(0, this.cmdLineRow, 3);
             this.renderer.WriteAt(0, this.cmdLineRow, commandPrompt);
-         }
+        }
 
         public void DrawGameField(CellImage[,] minefield, int[,] neighborMines)
         {

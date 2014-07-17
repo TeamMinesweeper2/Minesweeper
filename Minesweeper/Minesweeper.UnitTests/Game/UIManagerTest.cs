@@ -15,7 +15,7 @@
         [TestInitialize]
         public void TestINitialization()
         {
-            manager = new UIManager(1);
+            manager = new UIManager();
         }
 
         [TestMethod]

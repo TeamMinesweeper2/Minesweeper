@@ -24,9 +24,9 @@
         {
             this.minefieldRows = 5;
             this.minefieldCols = 10;
+            this.uiManager = new UIManager(new ConsoleRenderer(), new ConsoleReader());
+
             this.InitializeMessages();
-            int cmdLineCol = this.userMessages[UserMsg.EnterRowCol].Length;
-            this.uiManager = new UIManager(this.minefieldRows);
 
             // Show game
             this.uiManager.DisplayIntro(this.userMessages[UserMsg.Intro]);
