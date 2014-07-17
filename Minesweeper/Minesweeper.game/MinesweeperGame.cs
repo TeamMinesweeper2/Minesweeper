@@ -29,7 +29,7 @@
 
             // Show game
             this.uiManager.DisplayIntro(this.userMessages[UserMsg.Intro]);
-            this.uiManager.DrawTable(this.userMessages[UserMsg.EnterRowCol]);
+            this.uiManager.DrawTable(this.userMessages[UserMsg.EnterRowCol], this.minefieldRows, this.minefieldCols);
             this.GenerateMinefield();
         }
 

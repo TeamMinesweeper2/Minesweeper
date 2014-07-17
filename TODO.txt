@@ -1,7 +1,9 @@
 - add color
+- make some methods virtual (to allow adding commands)
 - add unit testing
 - run StyleCop
 - add refactoring documentation
+
 
 
 
