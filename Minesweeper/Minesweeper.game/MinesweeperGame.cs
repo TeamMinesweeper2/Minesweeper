@@ -18,6 +18,7 @@
 
         private int minefieldRows;
         private int minefieldCols;
+        private string prompt;
 
         public MinesweeperGame()
         {
@@ -25,11 +26,11 @@
             this.minefieldCols = 10;
             this.InitializeMessages();
             int cmdLineCol = this.userMessages[UserMsg.EnterRowCol].Length;
-            this.uiManager = new UIManager(this.minefieldRows, this.minefieldCols, cmdLineCol);
+            this.uiManager = new UIManager(this.minefieldRows);
 
             // Show game
             this.uiManager.DisplayIntro(this.userMessages[UserMsg.Intro]);
-            this.uiManager.DrawTable(this.userMessages[UserMsg.EnterRowCol], this.minefieldRows, this.minefieldCols);
+            this.uiManager.DrawTable(this.minefieldRows, this.minefieldCols);
             this.GenerateMinefield();
         }
 
@@ -55,7 +56,7 @@
                     break;
             }
 
-            this.uiManager.ClearCommandLine();
+            this.uiManager.ClearCommandLine(this.prompt);
         }
 
         public void FlagCell(CellPos cell)
@@ -77,7 +78,7 @@
                     break;
             }
 
-            this.uiManager.ClearCommandLine();
+            this.uiManager.ClearCommandLine(this.prompt);
         }
 
         public void MineBoomed()
@@ -94,7 +95,7 @@
         public void ShowScores()
         {
             this.uiManager.DisplayHighScores(this.topScores);
-            this.uiManager.ClearCommandLine();
+            this.uiManager.ClearCommandLine(this.prompt);
         }
 
         public void GenerateMinefield()
@@ -106,13 +107,13 @@
 
             // Show minefield
             this.RedrawMinefield(false);
-            this.uiManager.ClearCommandLine();
+            this.uiManager.ClearCommandLine(this.prompt);
         }
 
         public void DisplayError()
         {
             this.uiManager.DisplayError(this.errorMessages[ErrorType.IvalidCommand]);
-            this.uiManager.ClearCommandLine();
+            this.uiManager.ClearCommandLine(this.prompt);
         }
 
         private void InitializeMessages()
@@ -133,6 +134,8 @@
                 { UserMsg.Bye, "Good bye!" },
                 { UserMsg.Success, "Success! You opened all cells without mines.\nPlease enter your name for the top scoreboard: " }
             };
+
+            this.prompt = this.userMessages[UserMsg.EnterRowCol];
         }
 
         private void RedrawMinefield(bool showAll)
@@ -169,7 +172,7 @@
 
             // Start new game
             this.GenerateMinefield();
-            this.uiManager.ClearCommandLine();
+            this.uiManager.ClearCommandLine(this.prompt);
         }
 
         private void AddScore(int numberOfOpenedCells, string name)
