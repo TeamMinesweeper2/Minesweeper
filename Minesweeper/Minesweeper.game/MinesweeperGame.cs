@@ -34,7 +34,7 @@
             this.GenerateMinefield();
         }
 
-        public void OpenCell(CellPos cell)
+        public void OpenCell(ICellPosition cell)
         {
             var result = this.minefield.OpenCellHandler(cell);
 
@@ -59,7 +59,7 @@
             this.uiManager.ClearCommandLine(this.prompt);
         }
 
-        public void FlagCell(CellPos cell)
+        public void FlagCell(ICellPosition cell)
         {
             var result = this.minefield.FlagCellHandler(cell);
 

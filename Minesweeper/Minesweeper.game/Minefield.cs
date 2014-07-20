@@ -200,10 +200,10 @@
         /// <returns>State of the minefield.</returns>
         public MinefieldState FlagCellHandler(ICellPosition cell)
         {
-            var isInside = this.IsInsideMatrix(cell.Row, cell.Col);
+            var isInsideMatrix = this.IsInsideMatrix(cell.Row, cell.Col);
             int currentIndex = (cell.Row * this.columnsCount) + cell.Col;
 
-            if (!isInside)
+            if (!isInsideMatrix)
             {
                 return MinefieldState.OutOfRange;
             }
@@ -223,39 +223,43 @@
         /// </summary>
         /// <param name="showAll">Set to 'true' to uncover all mines.</param>
         /// <returns>A matrix of cells of type CellImage.</returns>
-        public CellImage[,] GetImage(bool showAll)
+        public CellImage[,] GetImage(bool showAll = false)
         {
-            var opened = this.OpenedCells();
-            var mines = this.Mines();
-            var flagged = this.FlaggedCells();
+            var image = ConvertMinefield<CellImage>(c => ConvertCellToImage(c, showAll));
 
-            var image = new CellImage[this.rowsCount, this.columnsCount];
-            for (int row = 0; row < this.rowsCount; row++)
+            return image;
+        }
+
+        /// <summary>
+        /// Converts current cell state to <see cref="CellImage"/>.
+        /// </summary>
+        /// <param name="currentCell">Cell to be converted.</param>
+        /// <param name="showAll">Set to 'true' uncovers mines, else returns flags.</param>
+        /// <returns>Current cell state as CellImage.</returns>
+        private CellImage ConvertCellToImage(ICell currentCell, bool showAll)
+        {
+            CellImage currentImage;
+
+            if (currentCell.IsOpened)//(opened[row, col])
             {
-                for (int col = 0; col < this.columnsCount; col++)
+                // Num
+                currentImage = CellImage.Num;
+            }
+            else
+            {
+                if (showAll)
                 {
-                    if (opened[row, col])
-                    {
-                        // Num
-                        image[row, col] = CellImage.Num;
-                    }
-                    else
-                    {
-                        if (showAll)
-                        {
-                            // Bomb, NoBomb
-                            image[row, col] = mines[row, col] ? CellImage.Bomb : CellImage.NoBomb;
-                        }
-                        else
-                        {
-                            // Flagged, NotFlagged
-                            image[row, col] = flagged[row, col] ? CellImage.Flagged : CellImage.NotFlagged;
-                        }
-                    }
+                    // Bomb, NoBomb
+                    currentImage = currentCell.IsMined ? CellImage.Bomb : CellImage.NoBomb;
+                }
+                else
+                {
+                    // Flagged, NotFlagged
+                    currentImage = currentCell.IsFlagged ? CellImage.Flagged : CellImage.NotFlagged;
                 }
             }
 
-            return image;
+            return currentImage;
         }
 
         /// <summary>
@@ -340,33 +344,6 @@
             }
 
             return result;
-        }
-
-        /// <summary>
-        /// Generates matrix of mines from minefield.
-        /// </summary>
-        /// <returns>Two dimensional boolean array.</returns>
-        private bool[,] Mines()
-        {
-            return this.ConvertMinefield(x => x.IsMined);
-        }
-
-        /// <summary>
-        /// Generates matrix of opened cells from minefield.
-        /// </summary>
-        /// <returns>Two dimensional boolean array.</returns>
-        private bool[,] OpenedCells()
-        {
-            return this.ConvertMinefield(x => x.IsOpened);
-        }
-
-        /// <summary>
-        /// Generates matrix of flagged cells from minefield.
-        /// </summary>
-        /// <returns>Two dimensional boolean array.</returns>
-        private bool[,] FlaggedCells()
-        {
-            return this.ConvertMinefield(x => x.IsFlagged);
         }
 
         /// <summary>
