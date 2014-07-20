@@ -45,9 +45,6 @@
         /// Initializes a new instance of the <see cref="BoardDrawer"/> class. Used for drawing game table and minefield on screen.
         /// </summary>
         /// <param name="renderer">Renderer for the game.</param>
-        /// <param name="minefieldRows">Number of rows of the minefield.</param>
-        /// <param name="mineFieldCols">Number of columns of the minefield.</param>
-        /// <param name="topLeft">Top left coordinates of the board.</param>
         public BoardDrawer(IRenderer renderer)
         {
             this.renderer = renderer;
@@ -58,7 +55,9 @@
         /// </summary>
         /// <param name="left">Left coordinate on screen.</param>
         /// <param name="top">Top coordinate on screen.</param>
-        public void DrawTable(int left, int top, int mineFieldRows, int minefieldCols)
+        /// <param name="minefieldRows">Number of rows of the minefield.</param>
+        /// <param name="minefieldCols">Number of columns of the minefield.</param>
+        public void DrawTable(int left, int top, int minefieldRows, int minefieldCols)
         {
             var gameField = new StringBuilder();
             gameField.AppendLine();
@@ -80,7 +79,7 @@
             gameField.AppendLine(new string('-', gameFieldWidth));
 
             // Draw minefield rows.
-            for (int row = 0; row < mineFieldRows; row++)
+            for (int row = 0; row < minefieldRows; row++)
             {
                 gameField.AppendFormat(RowEnumerationFormat, row);
                 gameField.AppendLine();
@@ -100,6 +99,7 @@
         /// </summary>
         /// <param name="minefield">Image of the minefield represented by two dimensional array of CellImage enumeration.</param>
         /// <param name="neighborMines">Two dimensional array of numbers representing neighbor mines for each cell.</param>
+        /// <param name="topLeft">Top left coordinates of the board.</param>
         public void DrawGameField(CellImage[,] minefield, int[,] neighborMines, ICellPosition topLeft)
         {
             for (int row = 0; row < minefield.GetLength(0); row++)
