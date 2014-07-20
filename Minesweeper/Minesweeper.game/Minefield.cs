@@ -152,70 +152,21 @@
         /// <summary>
         /// Handles cell opening. Reveals cell's content and returns it's state.
         /// </summary>
-        /// <param name="cell">Cell's position in the minefield matrix.</param>
+        /// <param name="cellPosition">Cell's position in the minefield matrix.</param>
         /// <returns>State of the minefield.</returns>
-        public MinefieldState OpenCellHandler(ICellPosition cell) // TODO: Job to be done by Cell itself.
+        public MinefieldState OpenCellHandler(ICellPosition cellPosition)
         {
-            var isInsideMatrix = this.IsInsideMatrix(cell.Row, cell.Col);
-            int currentIndex = this.GetIndex(cell);
-
-            if (!isInsideMatrix)
-            {
-                return MinefieldState.OutOfRange;
-            }
-
-            if (this.cells[currentIndex].IsOpened)
-            {
-                return MinefieldState.AlreadyOpened;
-            }
-
-            // If the first open cell has mine, swap the mine with an empty cell
-            if (this.openedCellsCount == 0 && this.cells[currentIndex].IsMined)
-            {
-                this.DisarmFirstCell(this.cells[currentIndex]);
-            }
-
-            if (this.cells[currentIndex].IsMined)
-            {
-                // Cells with bombs are not counted as open
-                return MinefieldState.Boom;
-            }
-
-            // Open cell
-            this.cells[currentIndex].OpenCell();
-            this.openedCellsCount += 1; // Counts opened cells.
-
-            if (this.CountNeighborMinesPerCell(cell) == 0)
-            {
-                this.OpenEmptyCellsRecursive(cell);
-            }
-
-            return MinefieldState.Normal;
+            return this.CellInteractionHandler(cellPosition, this.OpenCell);
         }
 
         /// <summary>
         /// Handles cell flagging.
         /// </summary>
-        /// <param name="cell">Cell's position in the minefield matrix.</param>
+        /// <param name="cellPosition">Cell's position in the minefield matrix.</param>
         /// <returns>State of the minefield.</returns>
-        public MinefieldState FlagCellHandler(ICellPosition cell)
+        public MinefieldState FlagCellHandler(ICellPosition cellPosition)
         {
-            var isInsideMatrix = this.IsInsideMatrix(cell.Row, cell.Col);
-            int currentIndex = (cell.Row * this.columnsCount) + cell.Col;
-
-            if (!isInsideMatrix)
-            {
-                return MinefieldState.OutOfRange;
-            }
-
-            if (this.cells[currentIndex].IsOpened)
-            {
-                return MinefieldState.AlreadyOpened;
-            }
-
-            this.cells[currentIndex].ToggleFlag();
-
-            return MinefieldState.Normal;
+            return this.CellInteractionHandler(cellPosition, this.FlagCell);
         }
 
         /// <summary>
@@ -238,6 +189,89 @@
         public bool IsDisarmed()
         {
             return this.GetOpenedCells >= ((this.rowsCount * this.columnsCount) - this.numberOfMines);
+        }
+
+        /// <summary>
+        /// Handles cell interaction - opening and flagging.
+        /// </summary>
+        /// <param name="cellPosition">Cell's position in the minefield matrix.</param>
+        /// <param name="handler">Handler function - accepts cell position returns boolean.</param>
+        /// <returns>State of the minefield.</returns>
+        private MinefieldState CellInteractionHandler(ICellPosition cellPosition, Func<ICellPosition, bool> handler)
+        {
+            var isInsideMatrix = this.IsInsideMatrix(cellPosition.Row, cellPosition.Col);
+            int currentIndex = this.GetIndex(cellPosition);
+
+            if (!isInsideMatrix)
+            {
+                return MinefieldState.OutOfRange;
+            }
+
+            if (this.cells[currentIndex].IsOpened)
+            {
+                return MinefieldState.AlreadyOpened;
+            }
+
+            bool steppedOnAMine = handler(cellPosition);
+
+            if (steppedOnAMine)
+            {
+                return MinefieldState.Boom;
+            }
+
+            return MinefieldState.Normal;
+        }
+
+        /// <summary>
+        /// Handles cell opening. Reveals cell's content and returns it's state.
+        /// </summary>
+        /// <param name="cellPosition">Cell's position in the minefield matrix.</param>
+        /// <returns>State of the minefield.</returns>
+        private bool OpenCell(ICellPosition cellPosition)
+        {
+            bool steppedOnAMine = false;
+            int currentIndex = this.GetIndex(cellPosition);
+
+            if (this.cells[currentIndex].IsMined)
+            {
+                if (this.openedCellsCount == 0)
+                {
+                    // If the first open cell has mine, swap the mine with an empty cell
+                    this.DisarmFirstCell(this.cells[currentIndex]);
+                }
+                else
+                {
+                    steppedOnAMine = true;
+                }
+            }
+
+            if (!steppedOnAMine)
+            {
+                // Open cell
+                this.cells[currentIndex].OpenCell();
+                this.openedCellsCount += 1; // Counts opened cells.
+
+                if (this.allNeighborMines[cellPosition.Row, cellPosition.Col] == 0)
+                {
+                    this.OpenEmptyCellsRecursive(cellPosition);
+                }
+            }
+
+            return steppedOnAMine;
+        }
+
+        /// <summary>
+        /// Handles cell flagging.
+        /// </summary>
+        /// <param name="cellPosition">Cell's position in the minefield matrix.</param>
+        /// <returns>State of the minefield.</returns>
+        private bool FlagCell(ICellPosition cellPosition)
+        {
+            bool steppedOnAMine = false;
+            int currentIndex = this.GetIndex(cellPosition);
+            this.cells[currentIndex].ToggleFlag();
+
+            return steppedOnAMine;
         }
 
         /// <summary>
@@ -424,7 +458,7 @@
         private void OpenEmptyCellsRecursive(ICellPosition cellPos)
         {
             // All neighbors must not have mines.
-            Debug.Assert(this.CountNeighborMinesPerCell(cellPos) == 0, "All neighbors must not have mines!");
+            Debug.Assert(this.allNeighborMines[cellPos.Row, cellPos.Col] == 0, "All neighbors must not have mines!");
 
             for (int row = -1; row < 2; row++)
             {
@@ -448,7 +482,7 @@
                         this.cells[currentIndex].OpenCell();
                         this.openedCellsCount += 1;
 
-                        if (this.CountNeighborMinesPerCell(neighborCellPos) == 0)
+                        if (this.allNeighborMines[neighborCellPos.Row, neighborCellPos.Col] == 0)
                         {
                             this.OpenEmptyCellsRecursive(neighborCellPos);
                         }

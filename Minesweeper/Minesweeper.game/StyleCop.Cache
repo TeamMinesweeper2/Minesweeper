@@ -799,14 +799,11 @@
   <project key="-170397328">
     <configuration>DEBUG;TRACE</configuration>
   </project>
-  <project key="-568960175">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="Minefield.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2014.04.01 10:18:24.000</styleCop>
       <settingsFile>2014.07.20 13:51:14.600</settingsFile>
-      <sourceFile>2014.07.20 23:48:54.690</sourceFile>
+      <sourceFile>2014.07.21 01:23:09.763</sourceFile>
       <parser>2014.04.01 10:18:24.000</parser>
       <StyleCop.CSharp.DocumentationRules>2014.04.01 10:18:24.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1945363787</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -825,4 +822,7 @@
     </timestamps>
     <violations />
   </sourcecode>
+  <project key="-568960175">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
 </stylecopresultscache>
