@@ -8,9 +8,15 @@
     using Minesweeper.Game;
 
     [TestClass]
-    public class TestUIManager
+    public class UIManagerTest
     {
-        private UIManager manager = new UIManager(3, 3, 5);
+        private UIManager manager;
+
+        [TestInitialize]
+        public void TestINitialization()
+        {
+            manager = new UIManager();
+        }
 
         [TestMethod]
         public void TestDisplayIntro()

@@ -20,6 +20,11 @@
         /// </summary>
         private MinesweeperGame game;
 
+        protected MinesweeperGame Game
+        {
+            get { return game; }
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandParser"/> class.
         /// </summary>
@@ -55,7 +60,7 @@
         /// </summary>
         /// <param name="input">The string to parse.</param>
         /// <returns>The parsed command.</returns>
-        public ICommand ParseCommand(string input)
+        public virtual ICommand ParseCommand(string input)
         {            
             input = input.Trim();
 

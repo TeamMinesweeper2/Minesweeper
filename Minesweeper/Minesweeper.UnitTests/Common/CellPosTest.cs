@@ -5,7 +5,7 @@ using Minesweeper.Lib;
 namespace Minesweeper.UnitTests.Common
 {
     [TestClass]
-    public class TestCellPos
+    public class CellPosTest
     {
         private CellPos cell;
 

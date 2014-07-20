@@ -60,10 +60,10 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Game\MinefieldClassTests.cs" />
     <Compile Include="Common\CellUnitTest.cs" />
-    <Compile Include="Common\TestCellPos.cs" />
+    <Compile Include="Common\CellPosTest.cs" />
     <Compile Include="Game\CommandsTests.cs" />
-    <Compile Include="Common\TestConsoleRenderer.cs" />
-    <Compile Include="Game\TestUIManager.cs" />
+    <Compile Include="Common\ConsoleRendererTest.cs" />
+    <Compile Include="Game\UIManagerTest.cs" />
     <Compile Include="Game\CommandExecutorTest.cs" />
     <Compile Include="Game\CommandParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

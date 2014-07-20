@@ -6,23 +6,27 @@
 
     public class UIManager
     {
+        private const int CmdLineRowDefault = 0;
         private int cmdLineRow;
-        private int cmdLineCol;
         private CellPos minefieldTopLeft;
         private readonly IRenderer renderer;
         private readonly IUserInputReader inputReader;
 
         private BoardDrawer boardGenerator;
 
-        public UIManager(int minefieldRows, int minefieldCols, int cmdLineCol)
+        public UIManager()
+            : this(new ConsoleRenderer(), new ConsoleReader())
         {
-            this.renderer = new ConsoleRenderer();
-            this.inputReader = new ConsoleReader();
+        }
 
-            this.cmdLineRow = 8 + minefieldRows;
-            this.cmdLineCol = cmdLineCol;
+        public UIManager(IRenderer renderer, IUserInputReader inputReader)
+        {
+            this.renderer = renderer;
+            this.inputReader = inputReader;
+
+            this.cmdLineRow = UIManager.CmdLineRowDefault;
             this.minefieldTopLeft = new CellPos(3, 0);
-            this.boardGenerator = new BoardDrawer(renderer, minefieldRows, minefieldCols, this.minefieldTopLeft);
+            this.boardGenerator = new BoardDrawer(renderer);
         }
 
         public void DisplayIntro(string msg)
@@ -67,41 +71,43 @@
 
         public void DisplayError(string errorMsg)
         {
-            ValidateMessage(errorMsg);
-            this.renderer.WriteAt(this.cmdLineCol, this.cmdLineRow, errorMsg);
+            this.ValidateMessage(errorMsg);
+            this.ClearCommandLine("");
+            this.renderer.WriteAt(0, this.cmdLineRow, errorMsg);
             this.WaitForKey(" Press any key to continue...");
         }
 
         public string ReadName()
         {
             string name = this.inputReader.ReadLine();
-            this.ClearCommandLine();
             return name;
         }
 
-        public void DrawTable(string enterRowColPrompt)
+        public void DrawTable(int mineFieldRows, int minefieldCols)
         {
             int left = this.minefieldTopLeft.Col;
             int top = this.minefieldTopLeft.Row;
-            this.boardGenerator.DrawTable(left, top);
-            this.renderer.Write(enterRowColPrompt);
+            this.boardGenerator.DrawTable(left, top, mineFieldRows, minefieldCols);
+
+            // Update command line position
+            this.cmdLineRow = Console.CursorTop;
         }
 
-        public void ClearCommandLine()
+        public void ClearCommandLine(string commandPrompt)
         {
-            this.renderer.ClearLines(this.cmdLineCol, this.cmdLineRow, 3);
+            this.renderer.ClearLines(0, this.cmdLineRow, 3);
+            this.renderer.WriteAt(0, this.cmdLineRow, commandPrompt);
         }
 
         public void DrawGameField(CellImage[,] minefield, int[,] neighborMines)
         {
-            this.boardGenerator.DrawGameField(minefield, neighborMines);
+            this.boardGenerator.DrawGameField(minefield, neighborMines, this.minefieldTopLeft);
         }
 
         private void WaitForKey(string promptMsg)
         {
             this.renderer.Write(promptMsg);
             this.inputReader.WaitForKey();
-            this.ClearCommandLine();
         }
 
         private void ValidateMessage(string message)

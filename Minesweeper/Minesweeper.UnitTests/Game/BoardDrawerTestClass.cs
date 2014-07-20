@@ -11,15 +11,12 @@
     public class BoardDrawerTestClass
     {
         private static Mock<IRenderer> testRenderer = new Mock<IRenderer>();
-        private static Mock<ICellPosition> testCell = new Mock<ICellPosition>();
         private static BoardDrawer testBoardDrawer;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            testCell.Setup(cp => cp.Row).Returns(3);
-            testCell.Setup(cp => cp.Col).Returns(3);
-            testBoardDrawer = new BoardDrawer(testRenderer.Object, 5, 5, testCell.Object);
+            testBoardDrawer = new BoardDrawer(testRenderer.Object);
         }
         /*
         [TestInitialize]
@@ -43,7 +40,7 @@
             testRenderer.Setup(tr => tr.WriteAt(3, 3, It.Is<string>(s => s == testTable))).Verifiable();
 
             // Act
-            testBoardDrawer.DrawTable(3, 3);
+            testBoardDrawer.DrawTable(3, 3, 5, 5);
 
             // Assert
             testRenderer.Verify();
@@ -74,7 +71,7 @@
             };
 
             // Act
-            testBoardDrawer.DrawGameField(sendedImageArray, sendedNeighborMinesArray);
+            testBoardDrawer.DrawGameField(sendedImageArray, sendedNeighborMinesArray, CellPos.Empty);
 
             // Assert
             Assert.AreEqual(25, counter, "DrawGamefield has not iterated 25 times as it should.");
@@ -105,7 +102,7 @@
             };
 
             // Act
-            testBoardDrawer.DrawGameField(sendedImageArray, sendedNeighborMinesArray);
+            testBoardDrawer.DrawGameField(sendedImageArray, sendedNeighborMinesArray, CellPos.Empty);
 
             // Assert
             Assert.AreEqual(25, counter, "DrawGamefield has not send 25 times required string.");
