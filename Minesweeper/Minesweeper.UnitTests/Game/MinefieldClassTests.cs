@@ -19,7 +19,7 @@
         {
             randomGenerator = new Mock<IRandomGeneratorProvider>();
             cellPosition = new Mock<ICellPosition>();
-            randomGenerator.Setup(x => x.GetRandomNumber(5)).Returns(0);
+            randomGenerator.Setup(x => x.Next(5)).Returns(0);
         }
 
         [TestInitialize]
@@ -66,8 +66,8 @@
         {
             // Arrange
             int[,] expectedNeighborMinesArray = new int[,] {
-                {1, 0, 1, 0, 0}, 
-                {1, 1, 1, 0, 0},
+                {0, 1, 0, 0, 0}, 
+                {1, 1, 0, 0, 0},
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 1, 1},
                 {0, 0, 0, 1, 0}
@@ -143,7 +143,7 @@
             var opened = testMinefield.GetOpenedCells;
 
             // Assert
-            Assert.AreEqual(22, opened);
+            Assert.AreEqual(23, opened);
             Assert.AreEqual(MinefieldState.Normal, result);
         }
 
@@ -211,14 +211,14 @@
         public void GetImageShouldReturnProperTwoDimensionalArrayOfCellImageEnumsTrueShowAll()
         {
             // Arrange
-            cellPosition.Setup(x => x.Col).Returns(0);
+            cellPosition.Setup(x => x.Col).Returns(1);
             cellPosition.Setup(x => x.Row).Returns(0);
             Mock<ICellPosition> secondCell = new Mock<ICellPosition>();
             secondCell.Setup(c => c.Row).Returns(1);
             secondCell.Setup(c => c.Col).Returns(0);
 
             CellImage[,] expectedImageArray = new CellImage[,] {
-                {CellImage.Num, CellImage.Bomb, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb}, 
+                {CellImage.Bomb, CellImage.Num, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb}, 
                 {CellImage.Num, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb},
                 {CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb},
                 {CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb, CellImage.NoBomb},

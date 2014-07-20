@@ -17,13 +17,13 @@ namespace Minesweeper.Lib
         /// <param name="min">Minimal range.</param>
         /// <param name="max">Maximal range.</param>
         /// <returns>Random integer number.</returns>
-        int GetRandomNumber(int min, int max);
+        int Next(int min, int max);
 
         /// <summary>
         /// Overload with min range 0.
         /// </summary>
         /// <param name="max">Maximal range.</param>
         /// <returns>Random integer number.</returns>
-        int GetRandomNumber(int max);
+        int Next(int max);
     }
 }

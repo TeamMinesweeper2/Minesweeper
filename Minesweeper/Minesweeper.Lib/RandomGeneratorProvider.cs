@@ -48,9 +48,9 @@ namespace Minesweeper.Lib
         /// <param name="minNumber">Minimal range.</param>
         /// <param name="maxNumber">Maximal range.</param>
         /// <returns>Integer random number.</returns>
-        public int GetRandomNumber(int minNumber, int maxNumber)
+        public int Next(int minNumber, int maxNumber)
         {
-            int nextRandomNumber = this.randomGenerator.Next(minNumber, maxNumber + 1);
+            int nextRandomNumber = this.randomGenerator.Next(minNumber, maxNumber);
             return nextRandomNumber;
         }
 
@@ -59,9 +59,9 @@ namespace Minesweeper.Lib
         /// </summary>
         /// <param name="maxNumber">Maximal range.</param>
         /// <returns>Integer random number.</returns>
-        public int GetRandomNumber(int maxNumber)
+        public int Next(int maxNumber)
         {
-            return this.GetRandomNumber(0, maxNumber);
+            return this.Next(0, maxNumber);
         }
     }
 }
