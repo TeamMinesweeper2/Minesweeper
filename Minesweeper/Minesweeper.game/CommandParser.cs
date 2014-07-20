@@ -20,11 +20,6 @@
         /// </summary>
         private MinesweeperGame game;
 
-        protected MinesweeperGame Game
-        {
-            get { return game; }
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandParser"/> class.
         /// </summary>
@@ -53,6 +48,15 @@
                 { "boom", cmdBoom },
                 { "invalid", cmdInvalid }
             };
+        }
+
+        /// <summary>
+        /// Gets for the <see cref="MinesweeperGame"/> object for which commands will be parsed.
+        /// </summary>
+        /// <value>The MinesweeperGame property gets the value of the MinesweeperGame field, game.</value>
+        protected MinesweeperGame Game
+        {
+            get { return this.game; }
         }
 
         /// <summary>
