@@ -1,8 +1,6 @@
 ﻿namespace Minesweeper.Game
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Minesweeper.Lib;
 
     /// <summary>
@@ -13,11 +11,11 @@
         /// <summary>The coefficient of how many mines to be placed on the minefield.</summary>
         private const decimal MinesCountCoeficient = 0.16m; // 0.2m -> 10 mines; 0.16m -> 8 mines
 
-        /// <summary>A collection of KeyValuePair of the top scores.</summary>
-        private List<KeyValuePair<string, int>> topScores = new List<KeyValuePair<string, int>>();
+        /// <summary>Instance of the <see cref="Minesweeper.Game.ScoreBoard"/> class.</summary>
+        private readonly ScoreBoard scoreBoard;        
 
         /// <summary>Instance of the <see cref="Minesweeper.Game.UIManager"/> class.</summary>
-        private UIManager uiManager;
+        private readonly UIManager uiManager;
 
         /// <summary>Instance of the <see cref="Minesweeper.Game.Minefield"/> class.</summary>
         private Minefield minefield;
@@ -47,6 +45,7 @@
             this.uiManager = new UIManager(new ConsoleRenderer(), new ConsoleReader());
 
             this.InitializeMessages();
+            this.scoreBoard = new ScoreBoard();
 
             // Show game
             this.uiManager.DisplayIntro(this.userMessages[UserMsg.Intro]);
@@ -131,7 +130,7 @@
         /// </summary>
         public void ShowScores()
         {
-            this.uiManager.DisplayHighScores(this.topScores);
+            this.uiManager.DisplayHighScores(this.scoreBoard.TopScores);
             this.uiManager.ClearCommandLine(this.prompt);
         }
 
@@ -223,24 +222,12 @@
             this.uiManager.DisplayEnd(this.userMessages[msg], numberOfOpenedCells);
 
             string name = this.uiManager.ReadName();
-            this.AddScore(numberOfOpenedCells, name);
+            this.scoreBoard.AddScore(numberOfOpenedCells, name);
             this.ShowScores();
 
             // Start new game
             this.GenerateMinefield();
             this.uiManager.ClearCommandLine(this.prompt);
-        }
-
-        /// <summary>
-        /// Adds the current player high score.
-        /// </summary>
-        /// <param name="numberOfOpenedCells">The high score.</param>
-        /// <param name="name">Player's name.</param>
-        private void AddScore(int numberOfOpenedCells, string name)
-        {
-            this.topScores.Add(new KeyValuePair<string, int>(name, numberOfOpenedCells));
-            //// Limit the scoreboard to only the top five players by score
-            this.topScores = this.topScores.OrderBy(kvp => -kvp.Value).Take(5).ToList();
         }
     }
 }

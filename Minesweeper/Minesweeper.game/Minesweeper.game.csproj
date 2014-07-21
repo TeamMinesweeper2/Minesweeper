@@ -54,6 +54,7 @@
     <Compile Include="Commands\CmdRestart.cs" />
     <Compile Include="Enums\CellImage.cs" />
     <Compile Include="MinesweeperGame.cs" />
+    <Compile Include="ScoreBoard.cs" />
     <Compile Include="UIManager.cs" />
     <Compile Include="Enums\ErrorType.cs" />
     <Compile Include="Enums\MinefieldState.cs" />
