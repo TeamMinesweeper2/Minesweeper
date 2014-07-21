@@ -1,7 +1,21 @@
-- add color
-- add unit testing
+- scoreboard class
+- is Game class a Facade for working with 3 classes (UI, Minefield, Scoreboard)?
+
+- extendable command parser
+- Flaggable Cell with Decorator ?
+
+- factory method for creating different versions of Minefield
+
+
+- message class as static (expose dictionary through property)?
+this.userMessages[UserMsg.EnterRowCol]
+Messages.get(UserMsg.EnterRowCol)
+
+
+* 
 - run StyleCop
-- add refactoring documentation
+- run unit tests
+- update documentation
 
 
 

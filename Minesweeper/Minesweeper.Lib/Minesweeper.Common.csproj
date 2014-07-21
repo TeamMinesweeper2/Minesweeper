@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionMethods\ArrayExtensions.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="CellPos.cs" />
     <Compile Include="ConsoleReader.cs" />

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using ExtensionMethods;
+    //using ExtensionMethods;
     using Minesweeper.Lib;
 
     /// <summary>
