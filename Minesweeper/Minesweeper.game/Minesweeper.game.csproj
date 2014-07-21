@@ -57,9 +57,7 @@
     <Compile Include="MinesweeperGame.cs" />
     <Compile Include="ScoreBoard.cs" />
     <Compile Include="UIManager.cs" />
-    <Compile Include="Enums\ErrorType.cs" />
-    <Compile Include="Enums\MinefieldState.cs" />
-    <Compile Include="Enums\UserMsg.cs" />
+    <Compile Include="Enums\CellActionResult.cs" />
     <Compile Include="Minefield.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Program.cs" />

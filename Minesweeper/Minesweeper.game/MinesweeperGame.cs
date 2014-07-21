@@ -58,16 +58,16 @@
 
             switch (result)
             {
-                case MinefieldState.OutOfRange:
+                case CellActionResult.OutOfRange:
                     this.uiManager.DisplayError(Messages.CellOutOfRange);
                     break;
-                case MinefieldState.AlreadyOpened:
+                case CellActionResult.AlreadyOpened:
                     this.uiManager.DisplayError(Messages.AlreadyOpened);
                     break;
-                case MinefieldState.Boom:
+                case CellActionResult.Boom:
                     this.MineBoomed();
                     break;
-                case MinefieldState.Normal:
+                case CellActionResult.Normal:
                     this.UpdateGameStatus();                  
                     break;
                 default:
@@ -87,13 +87,13 @@
 
             switch (result)
             {
-                case MinefieldState.OutOfRange:
+                case CellActionResult.OutOfRange:
                     this.uiManager.DisplayError(Messages.CellOutOfRange);
                     break;
-                case MinefieldState.AlreadyOpened:
+                case CellActionResult.AlreadyOpened:
                     this.uiManager.DisplayError(Messages.AlreadyOpened);
                     break;
-                case MinefieldState.Normal:
+                case CellActionResult.Normal:
                     this.RedrawMinefield(false);
                     break;
                 default:

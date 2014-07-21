@@ -1,9 +1,9 @@
 ﻿namespace Minesweeper
 {
     /// <summary>
-    /// Defines the possible results after an open cell command.
+    /// Defines the possible results after an open/flag cell command.
     /// </summary>
-    public enum MinefieldState
+    public enum CellActionResult
     {
         /// <summary>Cell out of range.</summary>
         OutOfRange,

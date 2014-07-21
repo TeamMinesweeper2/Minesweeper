@@ -91,7 +91,7 @@
             var result = testMinefield.OpenCellHandler(cellPosition.Object);
 
             // Assert
-            Assert.AreNotEqual(MinefieldState.Boom, result);
+            Assert.AreNotEqual(CellActionResult.Boom, result);
         }
 
         [TestMethod]
@@ -103,7 +103,7 @@
 
             var result = testMinefield.OpenCellHandler(cellPosition.Object);
 
-            Assert.AreNotEqual(MinefieldState.Boom, result);
+            Assert.AreNotEqual(CellActionResult.Boom, result);
 
             cellPosition.Setup(x => x.Col).Returns(4);
             cellPosition.Setup(x => x.Row).Returns(4);
@@ -112,7 +112,7 @@
             result = testMinefield.OpenCellHandler(cellPosition.Object);
 
             // Assert
-            Assert.AreEqual(MinefieldState.Boom, result);
+            Assert.AreEqual(CellActionResult.Boom, result);
         }
 
         [TestMethod]
@@ -128,7 +128,7 @@
 
             // Assert
             Assert.AreEqual(1, opened);
-            Assert.AreEqual(MinefieldState.Normal, result);
+            Assert.AreEqual(CellActionResult.Normal, result);
         }
 
         [TestMethod]
@@ -144,7 +144,7 @@
 
             // Assert
             Assert.AreEqual(23, opened);
-            Assert.AreEqual(MinefieldState.Normal, result);
+            Assert.AreEqual(CellActionResult.Normal, result);
         }
 
         [TestMethod]
@@ -163,7 +163,7 @@
             result = testMinefield.OpenCellHandler(cellPosition.Object);
 
             // Assert
-            Assert.AreEqual(MinefieldState.AlreadyOpened, result);
+            Assert.AreEqual(CellActionResult.AlreadyOpened, result);
         }
 
         [TestMethod]
@@ -177,7 +177,7 @@
             var result = testMinefield.OpenCellHandler(cellPosition.Object);
 
             // Assert
-            Assert.AreEqual(MinefieldState.OutOfRange, result);
+            Assert.AreEqual(CellActionResult.OutOfRange, result);
         }
 
         [TestMethod]

@@ -153,7 +153,7 @@
         /// </summary>
         /// <param name="cellPosition">Cell's position in the minefield matrix.</param>
         /// <returns>State of the minefield.</returns>
-        public MinefieldState OpenCellHandler(ICellPosition cellPosition)
+        public CellActionResult OpenCellHandler(ICellPosition cellPosition)
         {
             return this.CellInteractionHandler(cellPosition, this.OpenCell);
         }
@@ -163,7 +163,7 @@
         /// </summary>
         /// <param name="cellPosition">Cell's position in the minefield matrix.</param>
         /// <returns>State of the minefield.</returns>
-        public MinefieldState FlagCellHandler(ICellPosition cellPosition)
+        public CellActionResult FlagCellHandler(ICellPosition cellPosition)
         {
             return this.CellInteractionHandler(cellPosition, this.FlagCell);
         }
@@ -196,29 +196,29 @@
         /// <param name="cellPosition">Cell's position in the minefield matrix.</param>
         /// <param name="handler">Handler function - accepts cell position returns boolean.</param>
         /// <returns>State of the minefield.</returns>
-        private MinefieldState CellInteractionHandler(ICellPosition cellPosition, Func<ICellPosition, bool> handler)
+        private CellActionResult CellInteractionHandler(ICellPosition cellPosition, Func<ICellPosition, bool> handler)
         {
             var isInsideMatrix = this.IsInsideMatrix(cellPosition.Row, cellPosition.Col);
             int currentIndex = this.GetIndex(cellPosition);
 
             if (!isInsideMatrix)
             {
-                return MinefieldState.OutOfRange;
+                return CellActionResult.OutOfRange;
             }
 
             if (this.cells[currentIndex].IsOpened)
             {
-                return MinefieldState.AlreadyOpened;
+                return CellActionResult.AlreadyOpened;
             }
 
             bool steppedOnAMine = handler(cellPosition);
 
             if (steppedOnAMine)
             {
-                return MinefieldState.Boom;
+                return CellActionResult.Boom;
             }
 
-            return MinefieldState.Normal;
+            return CellActionResult.Normal;
         }
 
         /// <summary>
