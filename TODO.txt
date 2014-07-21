@@ -1,15 +1,7 @@
-- message class as static (expose dictionary through property)?
-this.userMessages[UserMsg.EnterRowCol]
-Messages.get(UserMsg.EnterRowCol)
-
-
 - extendable command parser
 - Flaggable Cell with Decorator ?
 
 - factory method for creating different versions of Minefield
-
-
-
 
 
 * 

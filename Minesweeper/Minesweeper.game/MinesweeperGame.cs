@@ -21,12 +21,6 @@
         /// <summary>Instance of the <see cref="Minesweeper.Game.Minefield"/> class.</summary>
         private Minefield minefield;
 
-        /// <summary>Collection of key value pair of error messages.</summary>
-        private IDictionary<ErrorType, string> errorMessages;
-
-        /// <summary>Collection of key value pair of user messages.</summary>
-        private IDictionary<UserMsg, string> userMessages;
-
         /// <summary>The number of rows of the minefield.</summary>
         private int minefieldRows;
         
@@ -45,11 +39,11 @@
             this.minefieldCols = 10;
             this.uiManager = new UIManager(new ConsoleRenderer(), new ConsoleReader());
 
-            this.InitializeMessages();
+            this.prompt = Messages.EnterRowCol;
             this.scoreBoard = new ScoreBoard();
 
             // Show game
-            this.uiManager.DisplayIntro(this.userMessages[UserMsg.Intro]);
+            this.uiManager.DisplayIntro(Messages.Intro);
             this.uiManager.DrawTable(this.minefieldRows, this.minefieldCols);
             this.GenerateMinefield();
         }
@@ -65,10 +59,10 @@
             switch (result)
             {
                 case MinefieldState.OutOfRange:
-                    this.uiManager.DisplayError(this.errorMessages[ErrorType.CellOutOfRange]);
+                    this.uiManager.DisplayError(Messages.CellOutOfRange);
                     break;
                 case MinefieldState.AlreadyOpened:
-                    this.uiManager.DisplayError(this.errorMessages[ErrorType.AlreadyOpened]);
+                    this.uiManager.DisplayError(Messages.AlreadyOpened);
                     break;
                 case MinefieldState.Boom:
                     this.MineBoomed();
@@ -94,10 +88,10 @@
             switch (result)
             {
                 case MinefieldState.OutOfRange:
-                    this.uiManager.DisplayError(this.errorMessages[ErrorType.CellOutOfRange]);
+                    this.uiManager.DisplayError(Messages.CellOutOfRange);
                     break;
                 case MinefieldState.AlreadyOpened:
-                    this.uiManager.DisplayError(this.errorMessages[ErrorType.AlreadyOpened]);
+                    this.uiManager.DisplayError(Messages.AlreadyOpened);
                     break;
                 case MinefieldState.Normal:
                     this.RedrawMinefield(false);
@@ -114,7 +108,7 @@
         /// </summary>
         public void MineBoomed()
         {
-            this.FinishGame(UserMsg.Boom);
+            this.FinishGame(Messages.Boom);
         }
 
         /// <summary>
@@ -123,7 +117,7 @@
         public void ExitGame()
         {
             // the caller of this method will stop the game
-            this.uiManager.GoodBye(this.userMessages[UserMsg.Bye]);
+            this.uiManager.GoodBye(Messages.Bye);
         }
 
         /// <summary>
@@ -155,33 +149,8 @@
         /// </summary>
         public void DisplayError()
         {
-            this.uiManager.DisplayError(this.errorMessages[ErrorType.IvalidCommand]);
+            this.uiManager.DisplayError(Messages.IvalidCommand);
             this.uiManager.ClearCommandLine(this.prompt);
-        }
-
-        /// <summary>
-        /// Initializes the available messages. 
-        /// </summary>
-        private void InitializeMessages()
-        {
-            this.errorMessages = new Dictionary<ErrorType, string>()
-            {
-                { ErrorType.IvalidCommand, "Ivalid command!" },
-                { ErrorType.AlreadyOpened, "Cell already opened!" },
-                { ErrorType.CellOutOfRange, "Cell is out of range of the minefield!" }
-            };
-
-            this.userMessages = new Dictionary<UserMsg, string>()
-            {
-                { UserMsg.PressAnyKey, "Press any key to continue." },
-                { UserMsg.EnterRowCol, "Enter row and column: " },
-                { UserMsg.Intro, "Welcome to the game “Minesweeper”.\nTry to open all cells without mines. Use 'top' to view the scoreboard,\n'restart' to start a new game and 'exit' to quit the game. Use 'm' to flag a cell.\n" },
-                { UserMsg.Boom, "Booooom! You were killed by a mine. You opened {0} cells without mines.\nPlease enter your name for the top scoreboard: " },
-                { UserMsg.Bye, "Good bye!" },
-                { UserMsg.Success, "Success! You opened all cells without mines.\nPlease enter your name for the top scoreboard: " }
-            };
-
-            this.prompt = this.userMessages[UserMsg.EnterRowCol];
         }
 
         /// <summary>
@@ -202,7 +171,7 @@
         {
             if (this.minefield.IsDisarmed())
             {
-                this.FinishGame(UserMsg.Success);
+                this.FinishGame(Messages.Success);
             }
             else
             {
@@ -214,13 +183,13 @@
         /// Finishes the current game.
         /// </summary>
         /// <param name="msg">The message to be displayed to the user after the game finishes.</param>
-        private void FinishGame(UserMsg msg)
+        private void FinishGame(string msg)
         {
             // A boomed mine does not have an OPEN state, so CountOpen() is correct
             int numberOfOpenedCells = this.minefield.GetOpenedCells;
 
             this.RedrawMinefield(true);
-            this.uiManager.DisplayEnd(this.userMessages[msg], numberOfOpenedCells);
+            this.uiManager.DisplayEnd(msg, numberOfOpenedCells);
 
             string name = this.uiManager.ReadName();
             this.scoreBoard.AddScore(name, numberOfOpenedCells);
