@@ -4,7 +4,8 @@
     using Minesweeper.Lib;
 
     /// <summary>
-    /// The 'receiver' class.
+    /// The 'receiver' class in the Command pattern.
+    /// Also a Facade for the Minefield, UIManager and ScoreBoard class.
     /// </summary>
     public class MinesweeperGame
     {
@@ -222,7 +223,7 @@
             this.uiManager.DisplayEnd(this.userMessages[msg], numberOfOpenedCells);
 
             string name = this.uiManager.ReadName();
-            this.scoreBoard.AddScore(numberOfOpenedCells, name);
+            this.scoreBoard.AddScore(name, numberOfOpenedCells);
             this.ShowScores();
 
             // Start new game

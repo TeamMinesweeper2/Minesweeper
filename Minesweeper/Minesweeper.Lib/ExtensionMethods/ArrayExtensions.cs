@@ -9,7 +9,6 @@ namespace Minesweeper.Lib
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Minesweeper.Lib;
 
     /// <summary>
     /// Extensions of IEnumerable needed in the game.

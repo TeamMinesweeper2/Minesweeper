@@ -39,9 +39,9 @@
         /// Adds the current player high score.
         /// Player will not be added if the score is lower than the lowest score.
         /// </summary>
-        /// <param name="numberOfOpenedCells">The high score.</param>
         /// <param name="name">Player's name.</param>
-        public void AddScore(int numberOfOpenedCells, string name)
+        /// <param name="numberOfOpenedCells">The high score.</param>
+        public void AddScore(string name, int numberOfOpenedCells)
         {
             this.topScores.Add(new KeyValuePair<string, int>(name, numberOfOpenedCells));
             //// Limit the scoreboard to only the top five players by score
