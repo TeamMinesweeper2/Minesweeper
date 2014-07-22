@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minesweeper.Game", "Minesweeper.game\Minesweeper.Game.csproj", "{952452D6-174F-41F0-ABF7-ED07136BB97C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minesweeper.Game", "Minesweeper.Game\Minesweeper.Game.csproj", "{952452D6-174F-41F0-ABF7-ED07136BB97C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minesweeper.Common", "Minesweeper.Lib\Minesweeper.Common.csproj", "{06675ED7-9CB1-40C4-B61B-AC458FB16911}"
 EndProject
