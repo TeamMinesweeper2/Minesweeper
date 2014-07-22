@@ -1,9 +1,3 @@
-- extendable command parser
-- Flaggable Cell with Decorator ?
-
-- factory method for creating different versions of Minefield
-
-
 * 
 - run StyleCop
 - run unit tests
