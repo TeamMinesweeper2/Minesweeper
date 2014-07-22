@@ -68,10 +68,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\ExtensionMethods\ExtensionMethods.csproj">
-      <Project>{9a355cf7-bb93-40df-8cb8-7b8ed885706e}</Project>
-      <Name>ExtensionMethods</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Minesweeper.Lib\Minesweeper.Common.csproj">
       <Project>{06675ed7-9cb1-40c4-b61b-ac458fb16911}</Project>
       <Name>Minesweeper.Common</Name>
