@@ -6,12 +6,10 @@
     /// <summary>
     /// The 'receiver' class in the Command pattern.
     /// Also a Facade for the Minefield, UIManager and ScoreBoard class.
+    /// Uses Factory Method to create the minefield.
     /// </summary>
-    public class MinesweeperGame
+    public abstract class MinesweeperGame
     {
-        /// <summary>The coefficient of how many mines to be placed on the minefield.</summary>
-        private const decimal MinesCountCoeficient = 0.16m; // 0.2m -> 10 mines; 0.16m -> 8 mines
-
         /// <summary>Instance of the <see cref="Minesweeper.Game.ScoreBoard"/> class.</summary>
         private readonly ScoreBoard scoreBoard;        
 
@@ -134,10 +132,8 @@
         /// </summary>
         public void GenerateMinefield()
         {
-            // Create new minefield
-            int minesCount = (int)(this.minefieldRows * this.minefieldCols * MinesCountCoeficient);
-            var randomNumberProvider = RandomGeneratorProvider.GetInstance();
-            this.minefield = new Minefield(this.minefieldRows, this.minefieldCols, minesCount, randomNumberProvider);
+            // Create new minefield by Factory Method
+            this.minefield = this.CreateMinefield(this.minefieldRows, this.minefieldCols);
 
             // Show minefield
             this.RedrawMinefield(false);
@@ -152,6 +148,14 @@
             this.uiManager.DisplayError(Messages.IvalidCommand);
             this.uiManager.ClearCommandLine(this.prompt);
         }
+
+        /// <summary>
+        /// Factory Method to create a new minefield.
+        /// </summary>
+        /// <param name="rows">Rows in the minefield.</param>
+        /// <param name="cols">Columns in the minefield.</param>
+        /// <returns>Returns a new minefield.</returns>
+        protected abstract Minefield CreateMinefield(int rows, int cols);
 
         /// <summary>
         /// Redraws the minefield.
@@ -186,7 +190,7 @@
         private void FinishGame(string msg)
         {
             // A boomed mine does not have an OPEN state, so CountOpen() is correct
-            int numberOfOpenedCells = this.minefield.GetOpenedCells;
+            int numberOfOpenedCells = this.minefield.OpenedCellsCount;
 
             this.RedrawMinefield(true);
             this.uiManager.DisplayEnd(msg, numberOfOpenedCells);

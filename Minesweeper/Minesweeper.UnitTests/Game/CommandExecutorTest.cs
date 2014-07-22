@@ -19,7 +19,7 @@ namespace Minesweeper.UnitTests.Game
         public void Test_ExecuteCommandWithValidParam()
         {
             var executor = new CommandExecutor();
-            MinesweeperGame game = new MinesweeperGame();
+            MinesweeperGame game = new MinesweeperGameEasy();
             CommandParser commandParser = new CommandParser(game);
             ICommand restartCommand = commandParser.ParseCommand("restart");
             ICommand topCommand = commandParser.ParseCommand("top");

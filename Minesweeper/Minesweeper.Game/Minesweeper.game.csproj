@@ -54,7 +54,9 @@
     <Compile Include="Commands\CmdRestart.cs" />
     <Compile Include="Enums\CellImage.cs" />
     <Compile Include="Messages.cs" />
+    <Compile Include="MinefieldEasy.cs" />
     <Compile Include="MinesweeperGame.cs" />
+    <Compile Include="MinesweeperGameEasy.cs" />
     <Compile Include="ScoreBoard.cs" />
     <Compile Include="UIManager.cs" />
     <Compile Include="Enums\CellActionResult.cs" />

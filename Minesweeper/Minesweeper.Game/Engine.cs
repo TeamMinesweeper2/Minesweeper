@@ -12,7 +12,7 @@
         /// </summary>
         public void Run()
         {
-            MinesweeperGame game = new MinesweeperGame();
+            MinesweeperGame game = new MinesweeperGameEasy();
             IUserInputReader inputReader = new ConsoleReader();
             CommandParser commandParser = new CommandParser(game);
             CommandExecutor cmdExecutor = new CommandExecutor();

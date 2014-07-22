@@ -124,7 +124,7 @@
 
             // Act
             var result = testMinefield.OpenCellHandler(cellPosition.Object);
-            var opened = testMinefield.GetOpenedCells;
+            var opened = testMinefield.OpenedCellsCount;
 
             // Assert
             Assert.AreEqual(1, opened);
@@ -132,7 +132,7 @@
         }
 
         [TestMethod]
-        public void OpenCellHandlerShouldReturnCorrectStateEnumerationValueNormalWthChainedOpening()
+        public void OpenCellHandlerShouldReturnCorrectStateEnumerationValueNormal()
         {
             // Arrange;
             cellPosition.Setup(x => x.Col).Returns(2);
@@ -140,10 +140,10 @@
 
             // Act
             var result = testMinefield.OpenCellHandler(cellPosition.Object);
-            var opened = testMinefield.GetOpenedCells;
+            var opened = testMinefield.OpenedCellsCount;
 
             // Assert
-            Assert.AreEqual(23, opened);
+            Assert.AreEqual(1, opened);
             Assert.AreEqual(CellActionResult.Normal, result);
         }
 

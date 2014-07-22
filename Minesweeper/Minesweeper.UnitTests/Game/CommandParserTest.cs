@@ -13,7 +13,7 @@ namespace Minesweeper.UnitTests.Game
         [TestInitialize]
         public void TestInitialize()
         {
-            game = new MinesweeperGame();
+            game = new MinesweeperGameEasy();
             parser = new CommandParser(game);
         }
 
