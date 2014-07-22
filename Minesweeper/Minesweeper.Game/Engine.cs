@@ -1,4 +1,10 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="Engine.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary> A class that runs the main game loop.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper.Game
 {
     using Minesweeper.Lib;
 

@@ -1,4 +1,10 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="MinefieldEasy.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary> Minefield class represents matrix of cells with functionality to open all empty neighbor cells.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper.Game
 {
     using System.Diagnostics;
     using Minesweeper.Lib;
@@ -41,9 +47,9 @@
         }
 
         /// <summary>
-        /// Recursively opens all adjacent cells of a cell which has no neighbors with mines.
+        /// Recursively opens all adjacent cells of a cellPosition which has no neighbors with mines.
         /// </summary>
-        /// <param name="cellPos">The current cell.</param>
+        /// <param name="cellPos">The current cellPosition.</param>
         private void OpenEmptyCellsRecursive(ICellPosition cellPos)
         {
             // All neighbors must not have mines.

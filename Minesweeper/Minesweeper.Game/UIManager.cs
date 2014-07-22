@@ -1,4 +1,10 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="UIManager.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary> User Interface Manager class.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper.Game
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +13,7 @@
     /// <summary>
     /// User Interface Manager class.
     /// </summary>
-    public class UIManager
+    public class UIManager : IUIManager
     {
         /// <summary>Default value for the <see cref="cmdLineRow"/> field.</summary>
         private const int CmdLineRowDefault = 0;
@@ -16,13 +22,16 @@
         private readonly BoardDrawer boardGenerator;
 
         /// <summary>The top left position of the minefield.</summary>
-        private readonly CellPos minefieldTopLeft;
+        private readonly ICellPosition minefieldTopLeft;
 
         /// <summary>The renderer which is going to be used by the application.</summary>
         private readonly IRenderer renderer;
 
         /// <summary>The user input reader.</summary>
         private readonly IUserInputReader inputReader;
+
+        /// <summary>The message which is going to prompt the user of the expected input.</summary>
+        private string prompt;
 
         /// <summary>The current command prompt row.</summary>
         private int cmdLineRow;
@@ -46,40 +55,53 @@
             this.inputReader = inputReader;
 
             this.cmdLineRow = UIManager.CmdLineRowDefault;
+            this.prompt = Messages.EnterRowCol;
             this.minefieldTopLeft = new CellPos(3, 0);
             this.boardGenerator = new BoardDrawer(renderer);
         }
 
-        /// <summary>
-        /// Displays the introduction text of the game.
-        /// </summary>
-        /// <param name="msg">The introduction message.</param>
-        public void DisplayIntro(string msg)
+        /// <summary>Draws the game screen.</summary>
+        /// <param name="numberOfRows">Number of rows of the minefield.</param>
+        /// <param name="numberOfColumns">Number of columns of the minefield.</param>
+        public void DrawGameScreen(int numberOfRows, int numberOfColumns)
         {
-            this.ValidateMessage(msg);
-            this.renderer.WriteAt(0, 0, msg);
+            // Show game
+            this.DrawIntro(Messages.Intro);
+            this.DrawTable(numberOfRows, numberOfColumns);
         }
-
+        
         /// <summary>
         /// Displays the ending messages of the game.
         /// </summary>
-        /// <param name="msg">The ending message.</param>
+        /// <param name="gameState">Game end condition.</param>
         /// <param name="numberOfOpenedCells">The number of cells the user opened during the game.</param>
-        public void DisplayEnd(string msg, int numberOfOpenedCells)
+        public void DisplayEnd(GameEndState gameState, int numberOfOpenedCells)
         {
-            this.ValidateMessage(msg);
-            this.renderer.WriteAt(0, this.cmdLineRow + 1, msg, numberOfOpenedCells);
+            string message = null;
+
+            if (gameState == GameEndState.Fail)
+            {
+                message = Messages.Boom;
+            }
+            else if (gameState == GameEndState.Success)
+            {
+                message = Messages.Success;
+            }
+            else
+            {
+                throw new ArgumentException("Unknown game end state!");
+            }
+
+            this.renderer.WriteAt(0, this.cmdLineRow + 1, message, numberOfOpenedCells);
         }
 
         /// <summary>
         /// Displays the messages when the user quits the game.
         /// </summary>
-        /// <param name="goodByeMsg">The goodbye message.</param>
-        public void GoodBye(string goodByeMsg)
+        public void GameExit()
         {
-            this.ValidateMessage(goodByeMsg);
             this.renderer.WriteLine();
-            this.renderer.WriteLine(goodByeMsg);
+            this.renderer.WriteLine(Messages.Bye);
         }
 
         /// <summary>
@@ -105,28 +127,66 @@
                 this.renderer.WriteLine("{0}. {1} --> {2} cells", place, result.Key, result.Value);
                 place++;
             }
+
+            this.ClearCommandLine(this.prompt);
         }
 
         /// <summary>
-        /// Displays error messages.
+        /// Displays error messages by given enumeration value.
         /// </summary>
-        /// <param name="errorMsg">The error message to be displayed.</param>
-        public void DisplayError(string errorMsg)
+        /// <param name="error">The error to be displayed.</param>
+        public void HandleError(GameErrors error)
         {
+            string errorMsg = null;
+
+            if (error == GameErrors.CellOutOfRange)
+            {
+                errorMsg = Messages.CellOutOfRange;
+            }
+            else if (error == GameErrors.CellAlreadyOpened)
+            {
+                errorMsg = Messages.AlreadyOpened;
+            }
+            else if (error == GameErrors.InvalidCommand)
+            {
+                errorMsg = Messages.IvalidCommand;
+            }
+
             this.ValidateMessage(errorMsg);
             this.ClearCommandLine(string.Empty);
             this.renderer.WriteAt(0, this.cmdLineRow, errorMsg);
             this.WaitForKey(" Press any key to continue...");
+            this.ClearCommandLine(this.prompt);
         }
 
         /// <summary>
         /// Reads the player name.
         /// </summary>
         /// <returns>The player name.</returns>
-        public string ReadName()
+        public string GetPlayerName()
         {
             string name = this.inputReader.ReadLine();
             return name;
+        }
+
+        /// <summary>
+        /// Draws the game field.
+        /// </summary>
+        /// <param name="minefield">The minefield to be drawn.</param>
+        /// <param name="neighborMines">The minefield with all values of neighboring mines.</param>
+        public void DrawGameField(CellImage[,] minefield, int[,] neighborMines)
+        {
+            this.boardGenerator.DrawGameField(minefield, neighborMines, this.minefieldTopLeft);
+            this.ClearCommandLine(this.prompt);
+        }
+
+        /// <summary>
+        /// Displays the introduction text of the game.
+        /// </summary>
+        /// <param name="msg">The introduction message.</param>
+        private void DrawIntro(string msg)
+        {
+            this.renderer.WriteAt(0, 0, msg);
         }
 
         /// <summary>
@@ -134,7 +194,7 @@
         /// </summary>
         /// <param name="mineFieldRows">The count of the minefield rows.</param>
         /// <param name="minefieldCols">The count of the minefield columns.</param>
-        public void DrawTable(int mineFieldRows, int minefieldCols)
+        private void DrawTable(int mineFieldRows, int minefieldCols)
         {
             int left = this.minefieldTopLeft.Col;
             int top = this.minefieldTopLeft.Row;
@@ -148,20 +208,10 @@
         /// Clears the command line.
         /// </summary>
         /// <param name="commandPrompt">The prompt that is going to be shown to the user.</param>
-        public void ClearCommandLine(string commandPrompt)
+        private void ClearCommandLine(string commandPrompt)
         {
             this.renderer.ClearLines(0, this.cmdLineRow, 3);
             this.renderer.WriteAt(0, this.cmdLineRow, commandPrompt);
-        }
-
-        /// <summary>
-        /// Draws the game field.
-        /// </summary>
-        /// <param name="minefield">The minefield to be drawn.</param>
-        /// <param name="neighborMines">The minefield with all values of neighboring mines.</param>
-        public void DrawGameField(CellImage[,] minefield, int[,] neighborMines)
-        {
-            this.boardGenerator.DrawGameField(minefield, neighborMines, this.minefieldTopLeft);
         }
 
         /// <summary>

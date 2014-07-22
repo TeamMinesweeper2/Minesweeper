@@ -1,4 +1,10 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="CommandParser.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary> A class that can parse string input and return a command of type <see cref="ICommand"/>.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper.Game
 {
     using System;
     using System.Collections.Generic;

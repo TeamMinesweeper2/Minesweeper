@@ -1,4 +1,10 @@
-﻿namespace Minesweeper
+﻿//-----------------------------------------------------------------------
+// <copyright file="CmdInvalid.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary> Implements the Execute method by invoking an action on MinesweeperGame.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper
 {
     using System;
     using Minesweeper.Game;
@@ -33,7 +39,7 @@
         /// <returns>Returns true if more commands can be executed.</returns>
         public bool Execute()
         {
-            this.game.DisplayError();
+            this.game.HandleCommandError();
             return true;
         }
     }

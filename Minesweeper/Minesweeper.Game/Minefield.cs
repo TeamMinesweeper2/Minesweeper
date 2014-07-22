@@ -1,8 +1,13 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="Minefield.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary> Minefield class represents matrix of cells.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper.Game
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using Minesweeper.Lib;
 

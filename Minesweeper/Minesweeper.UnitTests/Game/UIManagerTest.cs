@@ -19,24 +19,27 @@
         }
 
         [TestMethod]
-        public void TestDisplayIntro()
+        public void TestDrawGameScreen()
         {
+            string message = "Welcome to the game “Minesweeper”.\n" +
+                             "Try to open all cells without mines. Use 'top' to view the scoreboard,\n" +
+                             "'restart' to start a new game and 'exit' to quit the game. Use 'm' to flag a cell.\n" +
+                             "\r\n    0 1 2 3 4 \r\n" +
+                             "    ---------\r\n" +
+                             "0 | \r\n" +
+                             "1 | \r\n" +
+                             "2 | \r\n" +
+                             "3 | \r\n" +
+                             "4 | \r\n" +
+                             "    ---------\r\n\r\n";
             using (StringWriter sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                manager.DisplayIntro("Message");
+                manager.DrawGameScreen(5, 5);
 
-                string expected = string.Format("{0}", "Message");
+                string expected = string.Format("{0}", message);
                 Assert.AreEqual<string>(expected, sw.ToString());
             }
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void TestDisplayIntroWhenMessageIsNull()
-        {
-            manager.DisplayIntro(null);
-
         }
 
         [TestMethod]
@@ -46,70 +49,64 @@
             {
                 Console.SetOut(sw);
                 int openCells = 0;
-                String message = "End Message";
-                manager.DisplayEnd(message, openCells);
+                var endState = GameEndState.Fail;
+               
+                manager.DisplayEnd(endState, openCells);
 
-                string expected = string.Format("{0}", message);
+                string expected = "Booooom! You were killed by a mine. You opened 0 cells without mines.\n" +
+                                  "Please enter your name for the top scoreboard: ";
                 Assert.AreEqual<string>(expected, sw.ToString());
             }
         }
-
+        
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void TestDisplayEndWhenMessageIsEmpty()
+        public void TestDisplayEndWithFakeEnumerationShouldThrowAnExceptiony()
         {
             int openCells = 0;
-            manager.DisplayEnd(string.Empty, openCells);
+            var fakeEnum = (GameEndState)int.MaxValue;
+            manager.DisplayEnd(fakeEnum, openCells);
         }
 
         [TestMethod]
-        public void TestGoodBye()
+        public void TestGameExitMethodShouldReturnProperMessage()
         {
             using (StringWriter sw = new StringWriter())
             {
                 Console.SetOut(sw);
 
-                String message = "GoodBye";
-                manager.GoodBye(message);
+                manager.GameExit();
 
                 StringBuilder expected = new StringBuilder();
                 expected.Append(Environment.NewLine);
-                expected.Append(message);
+                expected.Append("Good bye!");
                 expected.Append(Environment.NewLine);
                 Assert.AreEqual<string>(expected.ToString(), sw.ToString());
             }
         }
-
+        /*
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void TestGoodByeWhenMessageIsNull()
-        {
-            manager.GoodBye(null);
-        }
-
-        [TestMethod]
-        public void TestDisplayError()
+        public void TestHandleErrorMethod()
         {
             using (StringWriter sw = new StringWriter())
-            {
-                Console.SetOut(sw);
+                {
+                    Console.SetOut(sw);
 
-                String message = "Error";
-                manager.GoodBye(message);
+                    var error = GameErrors.CellOutOfRange;
+                    manager.HandleError(error);
 
-                StringBuilder expected = new StringBuilder();
-                expected.Append(Environment.NewLine);
-                expected.Append(message);
-                expected.Append(Environment.NewLine);
-                Assert.AreEqual<string>(expected.ToString(), sw.ToString());
-            }
-        }
+                    string expected = "Cell is out of range of the minefield! Press any key to continue...";
+
+                    Assert.AreEqual<string>(expected, sw.ToString());
+                }
+        }*/
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void TestDisplayErrorWhenMessageIsEmpty()
+        public void TestHandleErrorWithFakeEnumShouldThrowAnException()
         {
-            manager.DisplayError(string.Empty);
+            var error = (GameErrors)int.MaxValue;
+            manager.HandleError(error);
         }
 
         [TestMethod]
@@ -146,7 +143,6 @@
                     expected.Append(Environment.NewLine);
                 }
                 //expected.Append(Environment.NewLine);
-
                 //Assert.AreEqual<string>(expected.ToString(), sw.ToString());
             }
         }

@@ -1,4 +1,10 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="Program.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary> Class for the main entry point of the program.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper.Game
 {
     /// <summary>
     /// Class for the main entry point of the program.

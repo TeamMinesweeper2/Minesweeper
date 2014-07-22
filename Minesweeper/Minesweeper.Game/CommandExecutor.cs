@@ -1,4 +1,10 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="CommandExecutor.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary> A class which can execute commands of type ICommand.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper.Game
 {
     using System;
 

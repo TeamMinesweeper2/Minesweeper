@@ -1,4 +1,10 @@
-﻿namespace Minesweeper
+﻿//-----------------------------------------------------------------------
+// <copyright file="CmdExit.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary> Implements the Execute method by invoking an action on MinesweeperGame.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper
 {
     using System;
     using Minesweeper.Game;

@@ -5,7 +5,6 @@
     using Minesweeper.Game;
     using Minesweeper.Lib;
     using Moq;
-    using System.IO;
 
     [TestClass]
     public class BoardDrawerTestClass

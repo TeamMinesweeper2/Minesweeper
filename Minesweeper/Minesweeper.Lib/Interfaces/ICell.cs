@@ -42,7 +42,7 @@ namespace Minesweeper.Lib
         }
 
         /// <summary>
-        /// Opens the current cell.
+        /// Opens the current cellPosition.
         /// </summary>
         void OpenCell();
 
@@ -52,7 +52,7 @@ namespace Minesweeper.Lib
         void ToggleFlag();
 
         /// <summary>
-        /// Adds mine to the current cell.
+        /// Adds mine to the current cellPosition.
         /// </summary>
         void AddMine();
 

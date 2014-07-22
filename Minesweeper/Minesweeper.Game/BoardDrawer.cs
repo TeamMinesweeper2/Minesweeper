@@ -1,4 +1,10 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="BoardDrawer.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary> Class that handles drawing of the game board. This includes the minefield and game table.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper.Game
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;

@@ -1,6 +1,12 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="MinesweeperGame.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary> The 'receiver' class in the Command pattern.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper.Game
 {
-    using System.Collections.Generic;
+    using System;
     using Minesweeper.Lib;
 
     /// <summary>
@@ -25,9 +31,6 @@
         /// <summary>The number of columns of the minefield.</summary>
         private int minefieldCols;
 
-        /// <summary>The message which is going to prompt the user of the expected input.</summary>
-        private string prompt;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Minesweeper.Game.MinesweeperGame"/> class.
         /// </summary>
@@ -36,69 +39,27 @@
             this.minefieldRows = 5;
             this.minefieldCols = 10;
             this.uiManager = new UIManager(new ConsoleRenderer(), new ConsoleReader());
-
-            this.prompt = Messages.EnterRowCol;
             this.scoreBoard = new ScoreBoard();
-
-            // Show game
-            this.uiManager.DisplayIntro(Messages.Intro);
-            this.uiManager.DrawTable(this.minefieldRows, this.minefieldCols);
+            this.uiManager.DrawGameScreen(this.minefieldRows, this.minefieldCols);
             this.GenerateMinefield();
         }
 
         /// <summary>
-        /// Opens the selected <see cref="Cell"/>
+        /// Opens the selected cellPosition in minefield.
         /// </summary>
-        /// <param name="cell">The position of the cell on the minefield.</param>
-        public void OpenCell(ICellPosition cell)
+        /// <param name="cellPosition">The position of a selected cell on the minefield.</param>
+        public void OpenCell(ICellPosition cellPosition)
         {
-            var result = this.minefield.OpenCellHandler(cell);
-
-            switch (result)
-            {
-                case CellActionResult.OutOfRange:
-                    this.uiManager.DisplayError(Messages.CellOutOfRange);
-                    break;
-                case CellActionResult.AlreadyOpened:
-                    this.uiManager.DisplayError(Messages.AlreadyOpened);
-                    break;
-                case CellActionResult.Boom:
-                    this.MineBoomed();
-                    break;
-                case CellActionResult.Normal:
-                    this.UpdateGameStatus();                  
-                    break;
-                default:
-                    break;
-            }
-
-            this.uiManager.ClearCommandLine(this.prompt);
+            this.MinefieldInteractionHandler(cellPosition, this.minefield.OpenCellHandler);            
         }
 
         /// <summary>
-        /// Flags the cell on the given coordinates.
+        /// Flags the cellPosition on the given coordinates.
         /// </summary>
-        /// <param name="cell">The position of the cell.</param>
-        public void FlagCell(ICellPosition cell)
+        /// <param name="cellPosition">The position of a selected cell on the minefield.</param>
+        public void FlagCell(ICellPosition cellPosition)
         {
-            var result = this.minefield.FlagCellHandler(cell);
-
-            switch (result)
-            {
-                case CellActionResult.OutOfRange:
-                    this.uiManager.DisplayError(Messages.CellOutOfRange);
-                    break;
-                case CellActionResult.AlreadyOpened:
-                    this.uiManager.DisplayError(Messages.AlreadyOpened);
-                    break;
-                case CellActionResult.Normal:
-                    this.RedrawMinefield(false);
-                    break;
-                default:
-                    break;
-            }
-
-            this.uiManager.ClearCommandLine(this.prompt);
+            this.MinefieldInteractionHandler(cellPosition, this.minefield.FlagCellHandler);            
         }
 
         /// <summary>
@@ -106,7 +67,7 @@
         /// </summary>
         public void MineBoomed()
         {
-            this.FinishGame(Messages.Boom);
+            this.FinishGame(GameEndState.Fail);
         }
 
         /// <summary>
@@ -115,7 +76,7 @@
         public void ExitGame()
         {
             // the caller of this method will stop the game
-            this.uiManager.GoodBye(Messages.Bye);
+            this.uiManager.GameExit();
         }
 
         /// <summary>
@@ -124,7 +85,6 @@
         public void ShowScores()
         {
             this.uiManager.DisplayHighScores(this.scoreBoard.TopScores);
-            this.uiManager.ClearCommandLine(this.prompt);
         }
 
         /// <summary>
@@ -136,17 +96,15 @@
             this.minefield = this.CreateMinefield(this.minefieldRows, this.minefieldCols);
 
             // Show minefield
-            this.RedrawMinefield(false);
-            this.uiManager.ClearCommandLine(this.prompt);
+            this.UpdateMinefield(false);
         }
 
         /// <summary>
-        /// Displays error message if the user enters invalid command.
+        /// Handles error message if the user enters invalid command.
         /// </summary>
-        public void DisplayError()
+        public void HandleCommandError()
         {
-            this.uiManager.DisplayError(Messages.IvalidCommand);
-            this.uiManager.ClearCommandLine(this.prompt);
+            this.uiManager.HandleError(GameErrors.InvalidCommand);
         }
 
         /// <summary>
@@ -158,10 +116,38 @@
         protected abstract Minefield CreateMinefield(int rows, int cols);
 
         /// <summary>
-        /// Redraws the minefield.
+        /// Handles minefield interaction - Open, Flag.
+        /// </summary>
+        /// <param name="cellPosition">Selected cell position.</param>
+        /// <param name="handler">Handling function that returns CellActionResult.</param>
+        private void MinefieldInteractionHandler(ICellPosition cellPosition, Func<ICellPosition, CellActionResult> handler)
+        {
+            var result = handler(cellPosition);
+
+            switch (result)
+            {
+                case CellActionResult.OutOfRange:
+                    this.uiManager.HandleError(GameErrors.CellOutOfRange);
+                    break;
+                case CellActionResult.AlreadyOpened:
+                    this.uiManager.HandleError(GameErrors.CellAlreadyOpened);
+                    break;
+                case CellActionResult.Boom:
+                    this.MineBoomed();
+                    break;
+                case CellActionResult.Normal:
+                    this.UpdateGameStatus();
+                    break;
+                default:
+                    throw new ArgumentException("Unknown switch key of type CellActionResult!");
+            }
+        }
+
+        /// <summary>
+        /// Requests update on changes in the minefield.
         /// </summary>
         /// <param name="showAll">Tells the method whether to show all the mines on the field.</param>
-        private void RedrawMinefield(bool showAll)
+        private void UpdateMinefield(bool showAll)
         {
             var minefield = this.minefield.GetImage(showAll);
             var neighborMines = this.minefield.AllNeighborMines;
@@ -175,33 +161,33 @@
         {
             if (this.minefield.IsDisarmed())
             {
-                this.FinishGame(Messages.Success);
+                this.FinishGame(GameEndState.Success);
             }
             else
             {
-                this.RedrawMinefield(false);
+                this.UpdateMinefield(false);
             }
         }
 
         /// <summary>
-        /// Finishes the current game.
+        /// Requests drawing of game end screen, asks player to enter name and adds it to the 
+        /// scoreboard, requests scoreboard display and starts a new game.
         /// </summary>
-        /// <param name="msg">The message to be displayed to the user after the game finishes.</param>
-        private void FinishGame(string msg)
+        /// <param name="gameState">State of game end.</param>
+        private void FinishGame(GameEndState gameState)
         {
             // A boomed mine does not have an OPEN state, so CountOpen() is correct
             int numberOfOpenedCells = this.minefield.OpenedCellsCount;
 
-            this.RedrawMinefield(true);
-            this.uiManager.DisplayEnd(msg, numberOfOpenedCells);
+            this.UpdateMinefield(true);
+            this.uiManager.DisplayEnd(gameState, numberOfOpenedCells);
 
-            string name = this.uiManager.ReadName();
+            string name = this.uiManager.GetPlayerName();
             this.scoreBoard.AddScore(name, numberOfOpenedCells);
             this.ShowScores();
 
             // Start new game
             this.GenerateMinefield();
-            this.uiManager.ClearCommandLine(this.prompt);
         }
     }
 }

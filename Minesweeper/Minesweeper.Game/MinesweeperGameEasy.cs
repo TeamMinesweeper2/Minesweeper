@@ -1,4 +1,10 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="MinesweeperGameEasy.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary> Overrides the factory method to return an instance of a Minefield.</summary>
+//-----------------------------------------------------------------------
+namespace Minesweeper.Game
 {
     using Minesweeper.Lib;
 

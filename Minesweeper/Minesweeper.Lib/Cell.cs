@@ -51,7 +51,7 @@ namespace Minesweeper.Lib
         }
 
         /// <summary>
-        /// Gets a value indicating whether the current cell is flagged.
+        /// Gets a value indicating whether the current cellPosition is flagged.
         /// </summary>
         /// <value>True if the current cell is flagged.</value>
         public bool IsFlagged
