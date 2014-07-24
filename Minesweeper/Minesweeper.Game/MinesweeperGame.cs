@@ -7,7 +7,9 @@
 namespace Minesweeper.Game
 {
     using System;
-    using Minesweeper.Lib;
+    using Minesweeper.Game.Enums;
+    using Minesweeper.Game.Interfaces;
+    using Minesweeper.Lib.Interfaces;
 
     /// <summary>
     /// The 'receiver' class in the Command pattern.
@@ -20,28 +22,43 @@ namespace Minesweeper.Game
         private readonly ScoreBoard scoreBoard;        
 
         /// <summary>Instance of the <see cref="Minesweeper.Game.UIManager"/> class.</summary>
-        private readonly UIManager uiManager;
+        private readonly IUIManager uiManager;
+
+        /// <summary>The number of rows of the minefield.</summary>
+        private readonly int minefieldRows;
+        
+        /// <summary>The number of columns of the minefield.</summary>
+        private readonly int minefieldCols;
 
         /// <summary>Instance of the <see cref="Minesweeper.Game.Minefield"/> class.</summary>
         private Minefield minefield;
 
-        /// <summary>The number of rows of the minefield.</summary>
-        private int minefieldRows;
-        
-        /// <summary>The number of columns of the minefield.</summary>
-        private int minefieldCols;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Minesweeper.Game.MinesweeperGame"/> class.
         /// </summary>
-        public MinesweeperGame()
+        /// <param name="uiManager">UI Manager the game should work with.</param>
+        public MinesweeperGame(IUIManager uiManager)
         {
             this.minefieldRows = 5;
             this.minefieldCols = 10;
-            this.uiManager = new UIManager(new ConsoleRenderer(), new ConsoleReader());
+
+            this.uiManager = uiManager;
+
             this.scoreBoard = new ScoreBoard();
             this.uiManager.DrawGameScreen(this.minefieldRows, this.minefieldCols);
             this.GenerateMinefield();
+        }
+
+        /// <summary>
+        /// Gets the reference to the UIManager implementation game works with.
+        /// </summary>
+        /// <value>IUIManager instance.</value>
+        public IUIManager UiManager
+        {
+            get
+            {
+                return this.uiManager;
+            }
         }
 
         /// <summary>

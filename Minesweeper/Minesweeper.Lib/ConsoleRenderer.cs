@@ -7,6 +7,7 @@
 namespace Minesweeper.Lib
 {
     using System;
+    using Minesweeper.Lib.Interfaces;
 
     /// <summary>
     /// Writes text messages to the standard output stream.

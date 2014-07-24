@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Minesweeper.Lib;
 using System.IO;
+using Minesweeper.Lib.Interfaces;
 
 namespace Minesweeper.UnitTests.Common
 {

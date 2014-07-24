@@ -7,6 +7,7 @@
 namespace Minesweeper.Lib
 {
     using System;
+    using Minesweeper.Lib.Interfaces;
 
     /// <summary>
     /// Holds position by row and column.

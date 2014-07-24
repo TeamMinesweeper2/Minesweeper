@@ -2,8 +2,9 @@
 {
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Minesweeper.Lib;
+    using Minesweeper.Game.Enums;
     using Minesweeper.Game;
+    using Minesweeper.Lib.Interfaces;
     using Moq;
 
     [TestClass]

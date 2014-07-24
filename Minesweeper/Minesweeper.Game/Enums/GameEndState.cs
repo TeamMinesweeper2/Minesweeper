@@ -4,7 +4,7 @@
 // </copyright>
 // <summary> Defines the possible game end states.</summary>
 //-----------------------------------------------------------------------
-namespace Minesweeper.Game
+namespace Minesweeper.Game.Enums
 {
     /// <summary>
     /// Represents end game state.

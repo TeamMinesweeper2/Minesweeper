@@ -6,6 +6,8 @@
 //-----------------------------------------------------------------------
 namespace Minesweeper.Game
 {
+    using System;
+    using Minesweeper.Game.Interfaces;
     using Minesweeper.Lib;
 
     /// <summary>
@@ -18,20 +20,18 @@ namespace Minesweeper.Game
         /// </summary>
         public void Run()
         {
-            MinesweeperGame game = new MinesweeperGameEasy();
-            IUserInputReader inputReader = new ConsoleReader();
-            CommandParser commandParser = new CommandParser(game);
-            CommandExecutor cmdExecutor = new CommandExecutor();
+            // Creates new Console UI Manager.
+            IUIManagerBridge uiBridge = new UIConsoleManager(new ConsoleRenderer(), new ConsoleReader());
+            IUIManager uiManager = new UIManager(uiBridge);
+            MinesweeperGame game = new MinesweeperGameEasy(uiManager);
+
+            CommandFactory commandFactory = new CommandFactory(game);
           
             // Start game loop
             bool gameRunning = true;
             while (gameRunning)
             {
-                string input = inputReader.ReadLine();
-
-                ICommand command = commandParser.ParseCommand(input);
-
-                gameRunning = cmdExecutor.ExecuteCommand(command);
+                uiManager.WaitForCommand();
             }
         }
     }

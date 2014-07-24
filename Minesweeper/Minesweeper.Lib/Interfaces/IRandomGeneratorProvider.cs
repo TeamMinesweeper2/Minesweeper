@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Class library for the Minesweeper game.</summary>
 //-----------------------------------------------------------------------
-namespace Minesweeper.Lib
+namespace Minesweeper.Lib.Interfaces
 {
     /// <summary>
     /// Random number provider interface.

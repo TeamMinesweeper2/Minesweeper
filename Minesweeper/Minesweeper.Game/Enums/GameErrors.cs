@@ -4,7 +4,7 @@
 // </copyright>
 // <summary> Defines the possible errors in the game while executing command.</summary>
 //-----------------------------------------------------------------------
-namespace Minesweeper.Game
+namespace Minesweeper.Game.Enums
 {
     /// <summary>
     /// Represents game error.

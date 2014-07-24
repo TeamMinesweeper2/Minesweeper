@@ -4,7 +4,7 @@
 // </copyright>
 // <summary> Defines the possible results after an open/flag cell command.</summary>
 //-----------------------------------------------------------------------
-namespace Minesweeper.Game
+namespace Minesweeper.Game.Enums
 {
     /// <summary>
     /// Defines the possible results after an open/flag cell command.

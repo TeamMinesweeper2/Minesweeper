@@ -9,7 +9,8 @@ namespace Minesweeper.Game
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Text;
-    using Minesweeper.Lib;
+    using Minesweeper.Game.Enums;
+    using Minesweeper.Lib.Interfaces;
 
     /// <summary>
     /// Class that handles drawing of the game board. This includes the minefield and game table.

@@ -8,6 +8,7 @@ namespace Minesweeper.Game
 {
     using System.Diagnostics;
     using Minesweeper.Lib;
+    using Minesweeper.Lib.Interfaces;
 
     /// <summary>
     /// Minefield class represents matrix of cells.

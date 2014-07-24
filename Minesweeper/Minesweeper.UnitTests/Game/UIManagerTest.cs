@@ -6,16 +6,17 @@
     using System.Text;
     using System.Collections.Generic;
     using Minesweeper.Game;
+    using Minesweeper.Game.Enums;
 
     [TestClass]
     public class UIManagerTest
     {
-        private UIManager manager;
+        private UIConsoleManager manager;
 
         [TestInitialize]
         public void TestINitialization()
         {
-            manager = new UIManager();
+            manager = new UIConsoleManager();
         }
 
         [TestMethod]

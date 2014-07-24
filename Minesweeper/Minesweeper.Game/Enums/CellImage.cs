@@ -4,7 +4,7 @@
 // </copyright>
 // <summary> Defines the possible images a cell can have.</summary>
 //-----------------------------------------------------------------------
-namespace Minesweeper.Game
+namespace Minesweeper.Game.Enums
 {
     /// <summary>
     /// Defines the possible images a cell can have.

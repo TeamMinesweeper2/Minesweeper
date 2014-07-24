@@ -2,74 +2,71 @@
 // <copyright file="UIManager.cs" company="Telerik Academy">
 //     Copyright (c) 2014 Telerik Academy. All rights reserved.
 // </copyright>
-// <summary> User Interface Manager class.</summary>
+// <summary> Implementation of User Interface Manager contract.</summary>
 //-----------------------------------------------------------------------
 namespace Minesweeper.Game
 {
     using System;
     using System.Collections.Generic;
-    using Minesweeper.Lib;
+    using Minesweeper.Game.Enums;
+    using Minesweeper.Game.Interfaces;
+    using Minesweeper.Lib.Interfaces;
 
     /// <summary>
     /// User Interface Manager class.
     /// </summary>
     public class UIManager : IUIManager
     {
-        /// <summary>Default value for the <see cref="cmdLineRow"/> field.</summary>
-        private const int CmdLineRowDefault = 0;
-
-        /// <summary>The board generator which handles drawing of the game board.</summary>
-        private readonly BoardDrawer boardGenerator;
-
-        /// <summary>The top left position of the minefield.</summary>
-        private readonly ICellPosition minefieldTopLeft;
-
-        /// <summary>The renderer which is going to be used by the application.</summary>
-        private readonly IRenderer renderer;
-
-        /// <summary>The user input reader.</summary>
-        private readonly IUserInputReader inputReader;
-
-        /// <summary>The message which is going to prompt the user of the expected input.</summary>
-        private string prompt;
-
-        /// <summary>The current command prompt row.</summary>
-        private int cmdLineRow;
+        /// <summary>Bridged UI Manager implementation.</summary>
+        private readonly IUIManagerBridge implementer = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UIManager"/> class with default ConsoleRenderer and ConsoleReader.
         /// </summary>
-        public UIManager()
-            : this(new ConsoleRenderer(), new ConsoleReader())
+        /// <param name="implementer">Concrete implementation of IUIManagerBridge.</param>
+        public UIManager(IUIManagerBridge implementer)
         {
+            this.implementer = implementer;
+
+            // Register events from the implementer to be retriggered to the game.
+            this.implementer.BoomCommandEvent += new CommandEventHandler(this.OnBoomCommandEvent);
+            this.implementer.ExtiCommandEvent += new CommandEventHandler(this.OnExtiCommandEvent);
+            this.implementer.FlagCellCommandEvent += new CommandEventHandler(this.OnFlagCellCommandEvent);
+            this.implementer.InvalidCommandEvent += new CommandEventHandler(this.OnInvalidCommandEvent);
+            this.implementer.OpenCellCommandEvent += new CommandEventHandler(this.OnOpenCellCommandEvent);
+            this.implementer.ResetCommandEvent += new CommandEventHandler(this.OnResetCommandEvent);
+            this.implementer.ShowHighScoresCommandEvent += new CommandEventHandler(this.OnShowHighScoresCommandEvent);
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UIManager"/> class.
-        /// </summary>
-        /// <param name="renderer">The renderer which is going to be used by the UIManager.</param>
-        /// <param name="inputReader">The input reader which UIManager is going to use.</param>
-        public UIManager(IRenderer renderer, IUserInputReader inputReader)
-        {
-            this.renderer = renderer;
-            this.inputReader = inputReader;
+        /// <summary>Triggers 'Reset' command event.</summary>
+        public event CommandEventHandler ResetCommandEvent;
 
-            this.cmdLineRow = UIManager.CmdLineRowDefault;
-            this.prompt = Messages.EnterRowCol;
-            this.minefieldTopLeft = new CellPos(3, 0);
-            this.boardGenerator = new BoardDrawer(renderer);
-        }
+        /// <summary>Triggers 'Boom' command event.</summary>
+        public event CommandEventHandler BoomCommandEvent;
+
+        /// <summary>Triggers 'Exit' command event.</summary>
+        public event CommandEventHandler ExtiCommandEvent;
+
+        /// <summary>Triggers 'FlagCell' command event.</summary>
+        public event CommandEventHandler FlagCellCommandEvent;
+
+        /// <summary>Triggers 'Invalid command' command event.</summary>
+        public event CommandEventHandler InvalidCommandEvent;
+
+        /// <summary>Triggers 'Open cell' command event.</summary>
+        public event CommandEventHandler OpenCellCommandEvent;
+
+        /// <summary>Triggers 'Show high scores' command event.</summary>
+        public event CommandEventHandler ShowHighScoresCommandEvent;
 
         /// <summary>Draws the game screen.</summary>
         /// <param name="numberOfRows">Number of rows of the minefield.</param>
         /// <param name="numberOfColumns">Number of columns of the minefield.</param>
         public void DrawGameScreen(int numberOfRows, int numberOfColumns)
         {
-            // Show game
-            this.DrawIntro(Messages.Intro);
-            this.DrawTable(numberOfRows, numberOfColumns);
+            this.implementer.DrawGameScreen(numberOfRows, numberOfColumns);
         }
-        
+
         /// <summary>
         /// Displays the ending messages of the game.
         /// </summary>
@@ -77,22 +74,7 @@ namespace Minesweeper.Game
         /// <param name="numberOfOpenedCells">The number of cells the user opened during the game.</param>
         public void DisplayEnd(GameEndState gameState, int numberOfOpenedCells)
         {
-            string message = null;
-
-            if (gameState == GameEndState.Fail)
-            {
-                message = Messages.Boom;
-            }
-            else if (gameState == GameEndState.Success)
-            {
-                message = Messages.Success;
-            }
-            else
-            {
-                throw new ArgumentException("Unknown game end state!");
-            }
-
-            this.renderer.WriteAt(0, this.cmdLineRow + 1, message, numberOfOpenedCells);
+            this.implementer.DisplayEnd(gameState, numberOfOpenedCells);
         }
 
         /// <summary>
@@ -100,8 +82,7 @@ namespace Minesweeper.Game
         /// </summary>
         public void GameExit()
         {
-            this.renderer.WriteLine();
-            this.renderer.WriteLine(Messages.Bye);
+            this.implementer.GameExit();
         }
 
         /// <summary>
@@ -110,25 +91,7 @@ namespace Minesweeper.Game
         /// <param name="topScores">The top scores to be displayed.</param>
         public void DisplayHighScores(IEnumerable<KeyValuePair<string, int>> topScores)
         {
-            if (topScores == null)
-            {
-                throw new NullReferenceException("Top score list can not be null!");
-            }
-
-            // Clear the old board (6 lines)
-            this.renderer.ClearLines(0, this.cmdLineRow + 4, 6);
-
-            this.renderer.WriteAt(0, this.cmdLineRow + 4, "Scoreboard:");
-            this.renderer.WriteLine();
-
-            var place = 1;
-            foreach (var result in topScores)
-            {
-                this.renderer.WriteLine("{0}. {1} --> {2} cells", place, result.Key, result.Value);
-                place++;
-            }
-
-            this.ClearCommandLine(this.prompt);
+            this.implementer.DisplayHighScores(topScores);
         }
 
         /// <summary>
@@ -137,26 +100,7 @@ namespace Minesweeper.Game
         /// <param name="error">The error to be displayed.</param>
         public void HandleError(GameErrors error)
         {
-            string errorMsg = null;
-
-            if (error == GameErrors.CellOutOfRange)
-            {
-                errorMsg = Messages.CellOutOfRange;
-            }
-            else if (error == GameErrors.CellAlreadyOpened)
-            {
-                errorMsg = Messages.AlreadyOpened;
-            }
-            else if (error == GameErrors.InvalidCommand)
-            {
-                errorMsg = Messages.IvalidCommand;
-            }
-
-            this.ValidateMessage(errorMsg);
-            this.ClearCommandLine(string.Empty);
-            this.renderer.WriteAt(0, this.cmdLineRow, errorMsg);
-            this.WaitForKey(" Press any key to continue...");
-            this.ClearCommandLine(this.prompt);
+            this.implementer.HandleError(error);
         }
 
         /// <summary>
@@ -165,8 +109,15 @@ namespace Minesweeper.Game
         /// <returns>The player name.</returns>
         public string GetPlayerName()
         {
-            string name = this.inputReader.ReadLine();
-            return name;
+            return this.implementer.GetPlayerName();
+        }
+
+        /// <summary>
+        /// Waits for command to be triggered.
+        /// </summary>
+        public void WaitForCommand()
+        {
+            this.implementer.ReadCommand();
         }
 
         /// <summary>
@@ -176,63 +127,104 @@ namespace Minesweeper.Game
         /// <param name="neighborMines">The minefield with all values of neighboring mines.</param>
         public void DrawGameField(CellImage[,] minefield, int[,] neighborMines)
         {
-            this.boardGenerator.DrawGameField(minefield, neighborMines, this.minefieldTopLeft);
-            this.ClearCommandLine(this.prompt);
+            this.implementer.DrawGameField(minefield, neighborMines);
         }
 
         /// <summary>
-        /// Displays the introduction text of the game.
+        /// Retriggers the event for HighScore command.
         /// </summary>
-        /// <param name="msg">The introduction message.</param>
-        private void DrawIntro(string msg)
+        /// <param name="sender">Sending object.</param>
+        /// <param name="target">Coordinates in minefield.</param>
+        protected virtual void OnShowHighScoresCommandEvent(object sender, ICellPosition target)
         {
-            this.renderer.WriteAt(0, 0, msg);
-        }
-
-        /// <summary>
-        /// Draws the game table.
-        /// </summary>
-        /// <param name="mineFieldRows">The count of the minefield rows.</param>
-        /// <param name="minefieldCols">The count of the minefield columns.</param>
-        private void DrawTable(int mineFieldRows, int minefieldCols)
-        {
-            int left = this.minefieldTopLeft.Col;
-            int top = this.minefieldTopLeft.Row;
-            this.boardGenerator.DrawTable(left, top, mineFieldRows, minefieldCols);
-
-            // Update command line position
-            this.cmdLineRow = Console.CursorTop;
-        }
-
-        /// <summary>
-        /// Clears the command line.
-        /// </summary>
-        /// <param name="commandPrompt">The prompt that is going to be shown to the user.</param>
-        private void ClearCommandLine(string commandPrompt)
-        {
-            this.renderer.ClearLines(0, this.cmdLineRow, 3);
-            this.renderer.WriteAt(0, this.cmdLineRow, commandPrompt);
-        }
-
-        /// <summary>
-        /// Enters a state where the game waits for the user to press any key.
-        /// </summary>
-        /// <param name="promptMsg">The message to be prompted to the user.</param>
-        private void WaitForKey(string promptMsg)
-        {
-            this.renderer.Write(promptMsg);
-            this.inputReader.WaitForKey();
-        }
-
-        /// <summary>
-        /// Validates the passed message.
-        /// </summary>
-        /// <param name="message">The message to be validated.</param>
-        private void ValidateMessage(string message)
-        {
-            if (string.IsNullOrEmpty(message))
+            CommandEventHandler onShowHighScoresCommandEvent = this.ShowHighScoresCommandEvent;
+            if (onShowHighScoresCommandEvent != null)
             {
-                throw new ArgumentException("Message can not be null or empty!");
+                onShowHighScoresCommandEvent(this, target);
+            }
+        }
+
+        /// <summary>
+        /// Retriggers the event for OpenCell command.
+        /// </summary>
+        /// <param name="sender">Sending object.</param>
+        /// <param name="target">Coordinates in minefield.</param>
+        protected virtual void OnOpenCellCommandEvent(object sender, ICellPosition target)
+        {
+            CommandEventHandler onOpenCellCommandEvent = this.OpenCellCommandEvent;
+            if (onOpenCellCommandEvent != null)
+            {
+                onOpenCellCommandEvent(this, target);
+            }
+        }
+
+        /// <summary>
+        /// Retriggers the event for Invalid command.
+        /// </summary>
+        /// <param name="sender">Sending object.</param>
+        /// <param name="target">Coordinates in minefield.</param>
+        protected virtual void OnInvalidCommandEvent(object sender, ICellPosition target)
+        {
+            CommandEventHandler onInvalidCommandEvent = this.InvalidCommandEvent;
+            if (onInvalidCommandEvent != null)
+            {
+                onInvalidCommandEvent(this, target);
+            }
+        }
+
+        /// <summary>
+        /// Retriggers the event for FlagCell command.
+        /// </summary>
+        /// <param name="sender">Sending object.</param>
+        /// <param name="target">Coordinates in minefield.</param>
+        protected virtual void OnFlagCellCommandEvent(object sender, ICellPosition target)
+        {
+            CommandEventHandler onFlagCellCommandEvent = this.FlagCellCommandEvent;
+            if (onFlagCellCommandEvent != null)
+            {
+                onFlagCellCommandEvent(this, target);
+            }
+        }
+
+        /// <summary>
+        /// Retriggers the event for Exit command.
+        /// </summary>
+        /// <param name="sender">Sending object.</param>
+        /// <param name="target">Coordinates in minefield.</param>
+        protected virtual void OnExtiCommandEvent(object sender, ICellPosition target)
+        {
+            CommandEventHandler onExtiCommandEvent = this.ExtiCommandEvent;
+            if (onExtiCommandEvent != null)
+            {
+                onExtiCommandEvent(this, target);
+            }
+        }
+
+        /// <summary>
+        /// Retriggers the event for Boom command.
+        /// </summary>
+        /// <param name="sender">Sending object.</param>
+        /// <param name="target">Coordinates in minefield.</param>
+        protected virtual void OnBoomCommandEvent(object sender, ICellPosition target)
+        {
+            CommandEventHandler onBoomCommandEvent = this.BoomCommandEvent;
+            if (onBoomCommandEvent != null)
+            {
+                onBoomCommandEvent(this, target);
+            }
+        }
+
+        /// <summary>
+        /// Retriggers the event for Reset command.
+        /// </summary>
+        /// <param name="sender">Sending object.</param>
+        /// <param name="target">Coordinates in minefield.</param>
+        protected virtual void OnResetCommandEvent(object sender, ICellPosition target)
+        {
+            CommandEventHandler onResetCommandEvent = this.ResetCommandEvent;
+            if (onResetCommandEvent != null)
+            {
+                onResetCommandEvent(this, target);
             }
         }
     }

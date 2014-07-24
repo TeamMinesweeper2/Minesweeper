@@ -7,6 +7,7 @@
 namespace Minesweeper.Lib
 {
     using System;
+    using Minesweeper.Lib.Interfaces;
 
     /// <summary>
     /// Implements the <see cref="IUserInputReader"/> interface with the <see cref="System.Console"/>.

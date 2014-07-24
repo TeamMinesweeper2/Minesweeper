@@ -4,11 +4,13 @@
 // </copyright>
 // <summary>Extension methods for the Minesweeper game.</summary>
 //-----------------------------------------------------------------------
-namespace Minesweeper.Lib
+namespace Minesweeper.Lib.ExtensionMethods
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Minesweeper.Lib;
+    using Minesweeper.Lib.Interfaces;
 
     /// <summary>
     /// Extensions of IEnumerable needed in the game.

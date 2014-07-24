@@ -8,6 +8,7 @@ namespace Minesweeper.Lib
 {
     using System;
     using System.Linq;
+    using Minesweeper.Lib.Interfaces;
 
     /// <summary>
     /// Cell class which represents the minefield's single cell states.

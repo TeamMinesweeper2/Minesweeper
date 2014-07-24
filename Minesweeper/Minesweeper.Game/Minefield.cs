@@ -9,7 +9,10 @@ namespace Minesweeper.Game
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Minesweeper.Game.Enums;
     using Minesweeper.Lib;
+    using Minesweeper.Lib.ExtensionMethods;
+    using Minesweeper.Lib.Interfaces;
 
     /// <summary>
     /// Minefield class represents matrix of cells.
@@ -93,10 +96,15 @@ namespace Minesweeper.Game
         }
 
         /// <summary>
-        /// Sets the value of randomGenerator.
+        /// Gets or sets the value of randomGenerator.
         /// </summary>
         private IRandomGeneratorProvider RandomGenerator
         {
+            get
+            {
+                return this.randomGenerator;
+            }
+
             set
             {
                 if (value == null)
@@ -109,10 +117,15 @@ namespace Minesweeper.Game
         }
 
         /// <summary>
-        /// Sets the value of rowsCount.
+        /// Gets or sets the value of rowsCount.
         /// </summary>
         private int RowsCount
         {
+            get
+            {
+                return this.rowsCount;
+            }
+
             set
             {
                 if (value <= 0)
@@ -125,10 +138,15 @@ namespace Minesweeper.Game
         }
 
         /// <summary>
-        /// Sets the value of columnsCount.
+        /// Gets or sets the value of columnsCount.
         /// </summary>
         private int ColumnsCount
         {
+            get
+            {
+                return this.columnsCount;
+            }
+
             set
             {
                 if (value <= 0)
@@ -141,10 +159,15 @@ namespace Minesweeper.Game
         }
 
         /// <summary>
-        /// Sets the value of numberOfMines.
+        /// Gets or sets the value of numberOfMines.
         /// </summary>
         private int NumberOfMines
         {
+            get
+            {
+                return this.numberOfMines;
+            }
+
             set
             {
                 if (value <= 0)
@@ -195,7 +218,7 @@ namespace Minesweeper.Game
         /// <returns>True if all non-mined cells are opened.</returns>
         public bool IsDisarmed()
         {
-            return this.OpenedCellsCount >= ((this.rowsCount * this.columnsCount) - this.numberOfMines);
+            return this.OpenedCellsCount >= ((this.RowsCount * this.ColumnsCount) - this.NumberOfMines);
         }
 
         /// <summary>
@@ -206,7 +229,7 @@ namespace Minesweeper.Game
         /// <returns>Validation result.</returns>
         protected bool IsInsideMatrix(int row, int col)
         {
-            return (0 <= row && row < this.rowsCount) && (0 <= col && col < this.columnsCount);
+            return (0 <= row && row < this.RowsCount) && (0 <= col && col < this.ColumnsCount);
         }
 
         /// <summary>
@@ -353,7 +376,7 @@ namespace Minesweeper.Game
             }
 
             // Shuffle mines.
-            var result = buffer.Shuffle(this.randomGenerator);
+            var result = buffer.Shuffle(this.RandomGenerator);
 
             return result.ToList();
         }
@@ -388,10 +411,10 @@ namespace Minesweeper.Game
         /// <returns>Two dimensional array with neighbor mines count.</returns>
         private int[,] CalculateNeighborMines()
         {
-            var resultArray = new int[this.rowsCount, this.columnsCount];
-            for (int row = 0; row < this.rowsCount; row++)
+            var resultArray = new int[this.RowsCount, this.ColumnsCount];
+            for (int row = 0; row < this.RowsCount; row++)
             {
-                for (int col = 0; col < this.columnsCount; col++)
+                for (int col = 0; col < this.ColumnsCount; col++)
                 {
                     resultArray[row, col] = this.CountNeighborMinesPerCell(new CellPos(row, col));
                 }
@@ -456,7 +479,7 @@ namespace Minesweeper.Game
             }
 
             // Add mine to a random empty cell
-            int j = this.randomGenerator.Next(emptyCells.Count);
+            int j = this.RandomGenerator.Next(emptyCells.Count);
             emptyCells[j].AddMine();
 
             // Disarm the first cell and recalculate the neighbor mines count
