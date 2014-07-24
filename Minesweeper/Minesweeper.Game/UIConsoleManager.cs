@@ -4,6 +4,7 @@
 // </copyright>
 // <summary> User Interface Manager class.</summary>
 //-----------------------------------------------------------------------
+
 namespace Minesweeper.Game
 {
     using System;
@@ -22,6 +23,20 @@ namespace Minesweeper.Game
         /// <summary>Default value for the <see cref="cmdLineRow"/> field.</summary>
         private const int CmdLineRowDefault = 0;
 
+        /// <summary> Symbol for command to flag cell. </summary>
+        private const string FlagCommandSymbol = "m";
+
+        /// <summary>Message for the client to press any key.</summary>
+        private const string PressAnyKeyMessage = " Press any key to continue...";
+
+        /// <summary>
+        /// Format to display highscores on screen.
+        /// </summary>
+        private const string HighScoresDisplayFormat = "{0}. {1} --> {2} cells";
+
+        /// <summary>Space for tabulation.</summary>
+        private const int TabSpace = 4;
+
         /// <summary>The board generator which handles drawing of the game board.</summary>
         private readonly BoardDrawer boardGenerator;
 
@@ -38,10 +53,15 @@ namespace Minesweeper.Game
         private readonly string prompt;
 
         /// <summary>
-        /// Holds the string commands, triggered directly from the console, as keys and their corresponding 
-        /// <see cref="CommandEventHandler"/> events as values.
+        /// Holds the string commands, triggered directly from the console.
         /// </summary>
-        private readonly Dictionary<string, CommandEventHandler> commands;
+        private readonly IList<string> wordCommands = new List<string>()
+        {
+            "restart",
+            "top",
+            "exit",
+            "boom"
+        };
 
         /// <summary>The current command prompt row.</summary>
         private int cmdLineRow;
@@ -67,14 +87,6 @@ namespace Minesweeper.Game
             this.prompt = Messages.EnterRowCol;
             this.minefieldTopLeft = new CellPos(3, 0);
             this.boardGenerator = new BoardDrawer(renderer);
-
-            this.commands = new Dictionary<string, CommandEventHandler>()
-            {
-                { "restart", this.ResetCommandEvent },
-                { "top", this.ShowHighScoresCommandEvent },
-                { "exit", this.ExtiCommandEvent },
-                { "boom", this.BoomCommandEvent }
-            };
         }
 
         /// <summary>Triggers 'Reset' command event.</summary>
@@ -84,7 +96,7 @@ namespace Minesweeper.Game
         public event CommandEventHandler BoomCommandEvent;
 
         /// <summary>Triggers 'Exit' command event.</summary>
-        public event CommandEventHandler ExtiCommandEvent;
+        public event CommandEventHandler ExitCommandEvent;
 
         /// <summary>Triggers 'FlagCell' command event.</summary>
         public event CommandEventHandler FlagCellCommandEvent;
@@ -107,7 +119,7 @@ namespace Minesweeper.Game
             this.DrawIntro(Messages.Intro);
             this.DrawTable(numberOfRows, numberOfColumns);
         }
-        
+
         /// <summary>
         /// Displays the ending messages of the game.
         /// </summary>
@@ -148,24 +160,27 @@ namespace Minesweeper.Game
         /// <param name="topScores">The top scores to be displayed.</param>
         public void DisplayHighScores(IEnumerable<KeyValuePair<string, int>> topScores)
         {
+            int numberOfLinesToBeCleardForHighScores = 6;
+
             if (topScores == null)
             {
                 throw new NullReferenceException("Top score list can not be null!");
             }
 
-            // Clear the old board (6 lines)
-            this.renderer.ClearLines(0, this.cmdLineRow + 4, 6);
+            this.renderer.ClearLines(0, this.cmdLineRow + TabSpace, numberOfLinesToBeCleardForHighScores);
 
-            this.renderer.WriteAt(0, this.cmdLineRow + 4, "Scoreboard:");
+            this.renderer.WriteAt(0, this.cmdLineRow + TabSpace, "Scoreboard:");
             this.renderer.WriteLine();
 
             var place = 1;
             foreach (var result in topScores)
             {
-                this.renderer.WriteLine("{0}. {1} --> {2} cells", place, result.Key, result.Value);
+                this.renderer.WriteLine(HighScoresDisplayFormat, place, result.Key, result.Value);
                 place++;
             }
 
+            this.WaitForKey(PressAnyKeyMessage);
+            this.renderer.ClearLines(0, this.cmdLineRow + TabSpace, numberOfLinesToBeCleardForHighScores);
             this.ClearCommandLine(this.prompt);
         }
 
@@ -193,7 +208,7 @@ namespace Minesweeper.Game
             this.ValidateMessage(errorMsg);
             this.ClearCommandLine(string.Empty);
             this.renderer.WriteAt(0, this.cmdLineRow, errorMsg);
-            this.WaitForKey(" Press any key to continue...");
+            this.WaitForKey(PressAnyKeyMessage);
             this.ClearCommandLine(this.prompt);
         }
 
@@ -213,7 +228,7 @@ namespace Minesweeper.Game
         public void ReadCommand()
         {
             string input = this.inputReader.ReadLine();
-            this.CommandParser(input);
+            this.CommandParser(input.Trim());
         }
 
         /// <summary>
@@ -233,20 +248,14 @@ namespace Minesweeper.Game
         /// <param name="input">Input string from console.</param>
         private void CommandParser(string input)
         {
-            CommandEventHandler raisedEvent;
-
-            if (this.commands.TryGetValue(input, out raisedEvent))
+            if (this.wordCommands.Contains(input))
             {
-                if (raisedEvent != null)
-                {
-                    raisedEvent(this, CellPos.Empty);
-                }
-
+                this.HandleDirectCommands(input);
                 return;
             }
 
             bool toggleFlag = false;
-            if (input.StartsWith("m"))
+            if (input.StartsWith(FlagCommandSymbol))
             {
                 // remove the "m"
                 input = input.Substring(1);
@@ -259,11 +268,7 @@ namespace Minesweeper.Game
 
             if (tokens.Length != 2)
             {
-                if (this.InvalidCommandEvent != null)
-                {
-                    this.InvalidCommandEvent(this, CellPos.Empty);
-                }
-                
+                this.TriggerInvalidCommandEvent();
                 return;
             }
 
@@ -276,11 +281,7 @@ namespace Minesweeper.Game
             }
             else
             {
-                if (this.InvalidCommandEvent != null)
-                {
-                    this.InvalidCommandEvent(this, CellPos.Empty);
-                }
-                
+                this.TriggerInvalidCommandEvent();
                 return;
             }
 
@@ -290,11 +291,7 @@ namespace Minesweeper.Game
             }
             else
             {
-                if (this.InvalidCommandEvent != null)
-                {
-                    this.InvalidCommandEvent(this, CellPos.Empty);
-                }
-                
+                this.TriggerInvalidCommandEvent();
                 return;
             }
 
@@ -304,6 +301,7 @@ namespace Minesweeper.Game
                 if (this.FlagCellCommandEvent != null)
                 {
                     this.FlagCellCommandEvent(this, targetCell);
+                    return;
                 }
             }
             else
@@ -311,7 +309,64 @@ namespace Minesweeper.Game
                 if (this.OpenCellCommandEvent != null)
                 {
                     this.OpenCellCommandEvent(this, targetCell);
+                    return;
                 }
+            }
+
+            throw new ApplicationException(string.Format("Error in command parsing. Command: {0}", input));
+        }
+           
+        /// <summary>
+        /// Triggers invalid command event.
+        /// </summary>
+        private void TriggerInvalidCommandEvent()
+        {
+            if (this.InvalidCommandEvent != null)
+            {
+                this.InvalidCommandEvent(this, CellPos.Empty);
+            }
+        }
+  
+        /// <summary>
+        /// Handles commands typed directly in the console.
+        /// </summary>
+        /// <param name="input">Typed command.</param>
+        private void HandleDirectCommands(string input)
+        {
+            int index = this.wordCommands.IndexOf(input);
+
+            switch (index)
+            {
+                case 0:
+                    if (this.ResetCommandEvent != null)
+                    {
+                        this.ResetCommandEvent(this, CellPos.Empty);
+                    }
+
+                    return;
+                case 1:
+                    if (this.ShowHighScoresCommandEvent != null)
+                    {
+                        this.ShowHighScoresCommandEvent(this, CellPos.Empty);
+                    }
+
+                    return;
+                case 2:
+                    if (this.ExitCommandEvent != null)
+                    {
+                        this.ExitCommandEvent(this, CellPos.Empty);
+                    }
+
+                    return;
+                case 3:
+                    if (this.BoomCommandEvent != null)
+                    {
+                        this.BoomCommandEvent(this, CellPos.Empty);
+                    }
+
+                    return;
+                default:
+                    throw new ArgumentException("No event for direct input");
             }
         }
 

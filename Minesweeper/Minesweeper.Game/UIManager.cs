@@ -30,7 +30,7 @@ namespace Minesweeper.Game
 
             // Register events from the implementer to be retriggered to the game.
             this.implementer.BoomCommandEvent += new CommandEventHandler(this.OnBoomCommandEvent);
-            this.implementer.ExtiCommandEvent += new CommandEventHandler(this.OnExtiCommandEvent);
+            this.implementer.ExitCommandEvent += new CommandEventHandler(this.OnExtiCommandEvent);
             this.implementer.FlagCellCommandEvent += new CommandEventHandler(this.OnFlagCellCommandEvent);
             this.implementer.InvalidCommandEvent += new CommandEventHandler(this.OnInvalidCommandEvent);
             this.implementer.OpenCellCommandEvent += new CommandEventHandler(this.OnOpenCellCommandEvent);

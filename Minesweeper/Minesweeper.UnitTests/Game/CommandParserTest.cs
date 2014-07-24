@@ -22,7 +22,7 @@ namespace Minesweeper.UnitTests.Game
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void Test_CommandParser_CtorWithNullThrowsEx()
+        public void Test_CommandFactory_CtorWithNullThrowsEx()
         {
             var parser = new CommandFactory(null);
         }

@@ -18,6 +18,11 @@ namespace Minesweeper.Game
     public class CommandFactory
     {
         /// <summary>
+        /// Event to send to the Engine to stop the game loop.
+        /// </summary>
+        public EventHandler ExitGame;
+
+        /// <summary>
         /// The <see cref="MinesweeperGame"/> object for which commands will be parsed.
         /// </summary>
         private MinesweeperGame game;
@@ -36,7 +41,7 @@ namespace Minesweeper.Game
         /// Gets or sets the <see cref="MinesweeperGame"/> object for which commands will be generated.
         /// </summary>
         /// <value>The MinesweeperGame property gets the value of the MinesweeperGame field, game.</value>
-        protected MinesweeperGame Game
+        private MinesweeperGame Game
         {
             get 
             { 
@@ -87,9 +92,9 @@ namespace Minesweeper.Game
         private void ExecuteExitCommand(object sender, ICellPosition coordinates)
         {
             this.game.ExitGame();
-            Environment.Exit(0); // TODO: Make event to send game stop signal to the Engine.
+            this.ExitGame.Invoke(this, EventArgs.Empty);
         }
-        
+
         /// <summary>
         /// Executes command to flag cell in provided coordinates.
         /// </summary>

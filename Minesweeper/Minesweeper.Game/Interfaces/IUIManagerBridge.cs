@@ -22,7 +22,7 @@ namespace Minesweeper.Game.Interfaces
         event CommandEventHandler BoomCommandEvent;
 
         /// <summary>Triggers 'Exit' command event.</summary>
-        event CommandEventHandler ExtiCommandEvent;
+        event CommandEventHandler ExitCommandEvent;
 
         /// <summary>Triggers 'FlagCell' command event.</summary>
         event CommandEventHandler FlagCellCommandEvent;
