@@ -120,13 +120,13 @@
         }
 
         /// <summary>
-        /// Reads the player name.
+        /// Reads input from the user.
         /// </summary>
-        /// <returns>The player name.</returns>
+        /// <returns>The user input.</returns>
         public string ReadInput()
         {
-            string name = this.inputReader.ReadLine();
-            return name;
+            string input = this.inputReader.ReadLine();
+            return input;
         }
 
         /// <summary>

@@ -31,6 +31,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Minesweeper.Game.MinesweeperGame"/> class.
         /// </summary>
+        /// <param name="uiManager">The <see cref="Minesweeper.Game.IUIManager"/> implementation used to read and write.</param>
         public MinesweeperGame(IUIManager uiManager)
         {
             this.minefieldRows = 5;
