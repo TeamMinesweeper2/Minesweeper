@@ -12,6 +12,7 @@
         /// </summary>
         public void Run()
         {
+            // IUIManager bridged with IRenderer and IUserInputReader
             IUIManager consoleUIManager = new UIManager(new ConsoleRenderer(), new ConsoleReader());
 
             MinesweeperGame game = new MinesweeperGameEasy(consoleUIManager);
