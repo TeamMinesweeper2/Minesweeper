@@ -7,7 +7,7 @@
     /// <summary>
     /// User Interface Manager class.
     /// </summary>
-    public class UIManager
+    public class UIManager : IUIManager
     {
         /// <summary>Default value for the <see cref="cmdLineRow"/> field.</summary>
         private const int CmdLineRowDefault = 0;
@@ -120,13 +120,13 @@
         }
 
         /// <summary>
-        /// Reads the player name.
+        /// Reads input from the user.
         /// </summary>
-        /// <returns>The player name.</returns>
-        public string ReadName()
+        /// <returns>The user input.</returns>
+        public string ReadInput()
         {
-            string name = this.inputReader.ReadLine();
-            return name;
+            string input = this.inputReader.ReadLine();
+            return input;
         }
 
         /// <summary>

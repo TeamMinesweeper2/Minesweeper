@@ -11,6 +11,15 @@
         private const decimal MinesCountCoeficient = 0.16m; // 0.2m -> 10 mines; 0.16m -> 8 mines
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Minesweeper.Game.MinesweeperGameEasy"/> class.
+        /// </summary>
+        /// <param name="uiManager">The <see cref="Minesweeper.Game.IUIManager"/> implementation used to read and write.</param>
+        public MinesweeperGameEasy(IUIManager uiManager)
+            : base(uiManager)
+        {
+        }
+
+        /// <summary>
         /// Factory Method implementation to create a new minefield.
         /// </summary>
         /// <param name="rows">Rows in the minefield.</param>

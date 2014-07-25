@@ -12,8 +12,10 @@
         /// </summary>
         public void Run()
         {
-            MinesweeperGame game = new MinesweeperGameEasy();
-            IUserInputReader inputReader = new ConsoleReader();
+            // IUIManager bridged with IRenderer and IUserInputReader
+            IUIManager consoleUIManager = new UIManager(new ConsoleRenderer(), new ConsoleReader());
+
+            MinesweeperGame game = new MinesweeperGameEasy(consoleUIManager);
             CommandParser commandParser = new CommandParser(game);
             CommandExecutor cmdExecutor = new CommandExecutor();
           
@@ -21,7 +23,7 @@
             bool gameRunning = true;
             while (gameRunning)
             {
-                string input = inputReader.ReadLine();
+                string input = consoleUIManager.ReadInput();
 
                 ICommand command = commandParser.ParseCommand(input);
 
