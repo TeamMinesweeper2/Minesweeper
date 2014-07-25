@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="FullSignature">
+  <Class Name="Minesweeper.CmdBoom" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\CmdBoom.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Minesweeper.CmdExit" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\CmdExit.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Minesweeper.CmdFlagCell" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAAAAAAAACAA=</HashCode>
+      <FileName>Commands\CmdFlagCell.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Minesweeper.CmdInvalid" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\CmdInvalid.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Minesweeper.CmdOpenCell" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAQAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\CmdOpenCell.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Minesweeper.CmdRestart" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\CmdRestart.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Minesweeper.CmdShowScores" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\CmdShowScores.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Minesweeper.Game.BoardDrawer" Collapsed="true">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAEIAAAAAAACAAAAgAAAQAAAAAABAAAAEAAAAgQQ=</HashCode>
+      <FileName>BoardDrawer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Game.CommandExecutor" Collapsed="true">
+    <Position X="10.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CommandExecutor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Game.CommandParser" Collapsed="true">
+    <Position X="12" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAgAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>CommandParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Game.Engine" Collapsed="true">
+    <Position X="13.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Engine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Game.Messages" Collapsed="true">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QEAAAAAAAAAAIAAQAgAAAAAAAgAAAAAAAIAEAAIAAAA=</HashCode>
+      <FileName>Messages.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Game.Minefield" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QBAYEAACCBwAAEEWAAIAAkAQQAAgggAQAEABAAAQAAA=</HashCode>
+      <FileName>Minefield.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Game.MinefieldEasy" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>MinefieldEasy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Game.MinesweeperGame" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAIgAAEABEIABAAsAAVAAQAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>MinesweeperGame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Game.MinesweeperGameEasy" Collapsed="true">
+    <Position X="4.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAQAAAAA=</HashCode>
+      <FileName>MinesweeperGameEasy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Game.Program" Collapsed="true">
+    <Position X="10.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Game.ScoreBoard" Collapsed="true">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAABAAAAAAAAEAA=</HashCode>
+      <FileName>ScoreBoard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Game.UIManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQEAKAAAAAAEAgAQgAAAAMEAgACACAAAqAAEAAgAQ=</HashCode>
+      <FileName>UIManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="Minesweeper.Game.ICommand" Collapsed="true">
+    <Position X="10.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ICommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Minesweeper.Game.IUIManager" Collapsed="true">
+    <Position X="12" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAKAAAAAAAAgAAgAAAAAEAgAAAAAAAgAAAAAAAQ=</HashCode>
+      <FileName>IUIManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Minesweeper.CellActionResult" Collapsed="true">
+    <Position X="10.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAQAAAAAAAAAAAIAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Enums\CellActionResult.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Minesweeper.CellImage" Collapsed="true">
+    <Position X="12" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAwAAAAAAgAAA=</HashCode>
+      <FileName>Enums\CellImage.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
