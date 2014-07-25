@@ -4,6 +4,7 @@
 // </copyright>
 // <summary> ScoreBoard class that stores and updates the top scores for the game.</summary>
 //-----------------------------------------------------------------------
+
 namespace Minesweeper.Game
 {
     using System.Collections.Generic;
@@ -35,7 +36,6 @@ namespace Minesweeper.Game
             {
                 // Deep copy
                 return this.topScores.Select(item => new KeyValuePair<string, int>(item.Key, item.Value));
-
                 //// Shallow copy
                 ////return new List<KeyValuePair<string, int>>(this.topScores);
             }

@@ -4,6 +4,7 @@
 // </copyright>
 // <summary> Implementation of User Interface Manager contract.</summary>
 //-----------------------------------------------------------------------
+
 namespace Minesweeper.Game
 {
     using System;

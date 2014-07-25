@@ -28,7 +28,7 @@ namespace Minesweeper.Game
             IUIManager uiManager = new UIManager(uiBridge);
             MinesweeperGame game = new MinesweeperGameEasy(uiManager);
 
-            CommandFactory commandFactory = new CommandFactory(game);
+            CommandExecutor commandFactory = new CommandExecutor(game);
 
             // Register game exit event from command factory.
             commandFactory.ExitGame += new EventHandler(this.OnCommandExitGame);

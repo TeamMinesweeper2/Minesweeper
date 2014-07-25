@@ -45,22 +45,22 @@
     <Compile Include="CommandEventHandler.cs" />
     <Compile Include="Enums\GameEndState.cs" />
     <Compile Include="Enums\GameErrors.cs" />
-    <Compile Include="CommandFactory.cs" />
+    <Compile Include="CommandExecutor.cs" />
     <Compile Include="Enums\CellImage.cs" />
-    <Compile Include="Interfaces\IUIManagerBridge.cs" />
     <Compile Include="Interfaces\IUIManager.cs" />
+    <Compile Include="Interfaces\IUIManagerBridge.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="MinefieldEasy.cs" />
     <Compile Include="MinesweeperGame.cs" />
     <Compile Include="MinesweeperGameEasy.cs" />
     <Compile Include="ScoreBoard.cs" />
-    <Compile Include="UIManager.cs" />
-    <Compile Include="UIConsoleManager.cs" />
     <Compile Include="Enums\CellActionResult.cs" />
     <Compile Include="Minefield.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UIConsoleManager.cs" />
+    <Compile Include="UIManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

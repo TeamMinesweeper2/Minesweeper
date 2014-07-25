@@ -4,7 +4,6 @@
 // </copyright>
 // <summary> User Interface Manager class.</summary>
 //-----------------------------------------------------------------------
-
 namespace Minesweeper.Game
 {
     using System;
@@ -29,9 +28,7 @@ namespace Minesweeper.Game
         /// <summary>Message for the client to press any key.</summary>
         private const string PressAnyKeyMessage = " Press any key to continue...";
 
-        /// <summary>
-        /// Format to display highscores on screen.
-        /// </summary>
+        /// <summary>Format to display high scores on screen.</summary>
         private const string HighScoresDisplayFormat = "{0}. {1} --> {2} cells";
 
         /// <summary>Space for tabulation.</summary>
@@ -42,12 +39,6 @@ namespace Minesweeper.Game
 
         /// <summary>The top left position of the minefield.</summary>
         private readonly ICellPosition minefieldTopLeft;
-
-        /// <summary>The renderer which is going to be used by the application.</summary>
-        private readonly IRenderer renderer;
-
-        /// <summary>The user input reader.</summary>
-        private readonly IUserInputReader inputReader;
 
         /// <summary>The message which is going to prompt the user of the expected input.</summary>
         private readonly string prompt;
@@ -66,6 +57,12 @@ namespace Minesweeper.Game
         /// <summary>The current command prompt row.</summary>
         private int cmdLineRow;
 
+        /// <summary>The renderer which is going to be used by the application.</summary>
+        private IRenderer renderer;
+
+        /// <summary>The user input reader.</summary>
+        private IUserInputReader inputReader;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="UIConsoleManager"/> class with default ConsoleRenderer and ConsoleReader.
         /// </summary>
@@ -80,15 +77,53 @@ namespace Minesweeper.Game
         /// <param name="inputReader">The input reader which UIConsoleManager is going to use.</param>
         public UIConsoleManager(IRenderer renderer, IUserInputReader inputReader)
         {
-            this.renderer = renderer;
-            this.inputReader = inputReader;
+            this.Renderer = renderer;
+            this.InputReader = inputReader;
 
-            this.cmdLineRow = UIConsoleManager.CmdLineRowDefault;
+            this.cmdLineRow = CmdLineRowDefault;
             this.prompt = Messages.EnterRowCol;
             this.minefieldTopLeft = new CellPos(3, 0);
             this.boardGenerator = new BoardDrawer(renderer);
         }
+        
+        /// <summary>The user input reader.</summary>
+        private IUserInputReader InputReader
+        {
+            get
+            {
+                return this.inputReader;
+            }
 
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("User input reader cannot be null!");
+                }
+
+                this.inputReader = value;
+            }
+        }
+
+        /// <summary>The renderer used by the application.</summary>
+        private IRenderer Renderer
+        {
+            get
+            {
+                return this.renderer;
+            }
+
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Renderer cannot be null!");
+                }
+
+                this.renderer = value;
+            }
+        }
+        
         /// <summary>Triggers 'Reset' command event.</summary>
         public event CommandEventHandler ResetCommandEvent;
 
@@ -142,7 +177,7 @@ namespace Minesweeper.Game
                 throw new ArgumentException("Unknown game end state!");
             }
 
-            this.renderer.WriteAt(0, this.cmdLineRow + 1, message, numberOfOpenedCells);
+            this.Renderer.WriteAt(0, this.cmdLineRow + 1, message, numberOfOpenedCells);
         }
 
         /// <summary>
@@ -150,8 +185,8 @@ namespace Minesweeper.Game
         /// </summary>
         public void GameExit()
         {
-            this.renderer.WriteLine();
-            this.renderer.WriteLine(Messages.Bye);
+            this.Renderer.WriteLine();
+            this.Renderer.WriteLine(Messages.Bye);
         }
 
         /// <summary>
@@ -160,27 +195,27 @@ namespace Minesweeper.Game
         /// <param name="topScores">The top scores to be displayed.</param>
         public void DisplayHighScores(IEnumerable<KeyValuePair<string, int>> topScores)
         {
-            int numberOfLinesToBeCleardForHighScores = 6;
+            int numberOfLinesToBeCleardForHighScores = 1;
 
             if (topScores == null)
             {
                 throw new NullReferenceException("Top score list can not be null!");
             }
 
-            this.renderer.ClearLines(0, this.cmdLineRow + TabSpace, numberOfLinesToBeCleardForHighScores);
-
-            this.renderer.WriteAt(0, this.cmdLineRow + TabSpace, "Scoreboard:");
-            this.renderer.WriteLine();
+            this.Renderer.ClearLines(0, this.cmdLineRow + TabSpace, numberOfLinesToBeCleardForHighScores);
+            this.Renderer.WriteAt(0, this.cmdLineRow + TabSpace, "Scoreboard:");
+            this.Renderer.WriteLine();
 
             var place = 1;
             foreach (var result in topScores)
             {
-                this.renderer.WriteLine(HighScoresDisplayFormat, place, result.Key, result.Value);
+                this.Renderer.WriteLine(HighScoresDisplayFormat, place, result.Key, result.Value);
                 place++;
             }
 
+            numberOfLinesToBeCleardForHighScores = place + 2; // 2 for press any key message.
             this.WaitForKey(PressAnyKeyMessage);
-            this.renderer.ClearLines(0, this.cmdLineRow + TabSpace, numberOfLinesToBeCleardForHighScores);
+            this.Renderer.ClearLines(0, this.cmdLineRow + TabSpace, numberOfLinesToBeCleardForHighScores);
             this.ClearCommandLine(this.prompt);
         }
 
@@ -204,10 +239,14 @@ namespace Minesweeper.Game
             {
                 errorMsg = Messages.IvalidCommand;
             }
+            else
+            {
+                throw new ArgumentException("Unknown game error received!");
+            }
 
             this.ValidateMessage(errorMsg);
             this.ClearCommandLine(string.Empty);
-            this.renderer.WriteAt(0, this.cmdLineRow, errorMsg);
+            this.Renderer.WriteAt(0, this.cmdLineRow, errorMsg);
             this.WaitForKey(PressAnyKeyMessage);
             this.ClearCommandLine(this.prompt);
         }
@@ -218,7 +257,7 @@ namespace Minesweeper.Game
         /// <returns>The player name.</returns>
         public string GetPlayerName()
         {
-            string name = this.inputReader.ReadLine();
+            string name = this.InputReader.ReadLine();
             return name;
         }
 
@@ -227,7 +266,7 @@ namespace Minesweeper.Game
         /// </summary>
         public void ReadCommand()
         {
-            string input = this.inputReader.ReadLine();
+            string input = this.InputReader.ReadLine();
             this.CommandParser(input.Trim());
         }
 
@@ -238,6 +277,13 @@ namespace Minesweeper.Game
         /// <param name="neighborMines">The minefield with all values of neighboring mines.</param>
         public void DrawGameField(CellImage[,] minefield, int[,] neighborMines)
         {
+            bool notEqualFirstDimension = minefield.GetLength(0) != neighborMines.GetLength(0);
+            bool notEqualSecondDimension = minefield.GetLength(1) != neighborMines.GetLength(1);
+            if (notEqualFirstDimension || notEqualSecondDimension)
+            {
+                throw new ArgumentException("Matrices are not equal in dimensions!");
+            }
+
             this.boardGenerator.DrawGameField(minefield, neighborMines, this.minefieldTopLeft);
             this.ClearCommandLine(this.prompt);
         }
@@ -376,7 +422,7 @@ namespace Minesweeper.Game
         /// <param name="msg">The introduction message.</param>
         private void DrawIntro(string msg)
         {
-            this.renderer.WriteAt(0, 0, msg);
+            this.Renderer.WriteAt(0, 0, msg);
         }
 
         /// <summary>
@@ -400,8 +446,8 @@ namespace Minesweeper.Game
         /// <param name="commandPrompt">The prompt that is going to be shown to the user.</param>
         private void ClearCommandLine(string commandPrompt)
         {
-            this.renderer.ClearLines(0, this.cmdLineRow, 3);
-            this.renderer.WriteAt(0, this.cmdLineRow, commandPrompt);
+            this.Renderer.ClearLines(0, this.cmdLineRow, 3);
+            this.Renderer.WriteAt(0, this.cmdLineRow, commandPrompt);
         }
 
         /// <summary>
@@ -410,8 +456,8 @@ namespace Minesweeper.Game
         /// <param name="promptMsg">The message to be prompted to the user.</param>
         private void WaitForKey(string promptMsg)
         {
-            this.renderer.Write(promptMsg);
-            this.inputReader.WaitForKey();
+            this.Renderer.Write(promptMsg);
+            this.InputReader.WaitForKey();
         }
 
         /// <summary>

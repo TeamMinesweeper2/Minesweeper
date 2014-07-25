@@ -1,8 +1,8 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="CommandFactory.cs" company="Telerik Academy">
+// <copyright file="CommandExecutor.cs" company="Telerik Academy">
 //     Copyright (c) 2014 Telerik Academy. All rights reserved.
 // </copyright>
-// <summary> A class that can parse string input and return a command of type <see cref="IGameCommand"/>.</summary>
+// <summary> A class that executes commands through events.</summary>
 //-----------------------------------------------------------------------
 
 namespace Minesweeper.Game
@@ -15,7 +15,7 @@ namespace Minesweeper.Game
     /// <summary>
     /// A class that can parse string input and return a command of type <see cref="IGameCommand"/>.
     /// </summary>
-    public class CommandFactory
+    public class CommandExecutor
     {
         /// <summary>
         /// Event to send to the Engine to stop the game loop.
@@ -28,17 +28,17 @@ namespace Minesweeper.Game
         private MinesweeperGame game;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CommandFactory"/> class.
+        /// Initializes a new instance of the <see cref="CommandExecutor"/> class.
         /// </summary>
-        /// <param name="game">The <see cref="MinesweeperGame"/> object for which commands will be returned.</param>
-        public CommandFactory(MinesweeperGame game)
+        /// <param name="game">The <see cref="MinesweeperGame"/> object for which commands will be executed.</param>
+        public CommandExecutor(MinesweeperGame game)
         {
             this.Game = game;
             this.RegisterListeners(game.UiManager);
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="MinesweeperGame"/> object for which commands will be generated.
+        /// Gets or sets the <see cref="MinesweeperGame"/> object for which commands will be executed.
         /// </summary>
         /// <value>The MinesweeperGame property gets the value of the MinesweeperGame field, game.</value>
         private MinesweeperGame Game
@@ -81,7 +81,7 @@ namespace Minesweeper.Game
         /// <param name="coordinates">Coordinates in minefield.</param>
         private void ExecuteBoomCommand(object sender, ICellPosition coordinates)
         {
-            this.game.MineBoomed();
+            this.Game.MineBoomed();
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Minesweeper.Game
         /// <param name="coordinates">Coordinates in minefield.</param>
         private void ExecuteExitCommand(object sender, ICellPosition coordinates)
         {
-            this.game.ExitGame();
+            this.Game.ExitGame();
             this.ExitGame.Invoke(this, EventArgs.Empty);
         }
 
@@ -102,7 +102,7 @@ namespace Minesweeper.Game
         /// <param name="coordinates">Coordinates in minefield.</param>
         private void ExecuteFlagCellCommand(object sender, ICellPosition coordinates)
         {
-            this.game.FlagCell(coordinates);
+            this.Game.FlagCell(coordinates);
         }
         
         /// <summary>
@@ -112,7 +112,7 @@ namespace Minesweeper.Game
         /// <param name="coordinates">Coordinates in minefield.</param>
         private void ExecuteInvalidCommand(object sender, ICellPosition coordinates)
         {
-            this.game.HandleCommandError();
+            this.Game.HandleCommandError();
         }
         
         /// <summary>
@@ -122,7 +122,7 @@ namespace Minesweeper.Game
         /// <param name="coordinates">Coordinates in minefield.</param>
         private void ExecuteOpenCellCommand(object sender, ICellPosition coordinates)
         {
-            this.game.OpenCell(coordinates);
+            this.Game.OpenCell(coordinates);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Minesweeper.Game
         /// <param name="coordinates">Coordinates in minefield.</param>
         private void ExecuteRestartCommand(object sender, ICellPosition coordinates)
         {
-            this.game.GenerateMinefield();
+            this.Game.GenerateMinefield();
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Minesweeper.Game
         /// <param name="coordinates">Coordinates in minefield.</param>
         private void ExecuteShowScoresCommand(object sender, ICellPosition coordinates)
         {
-            this.game.ShowScores();
+            this.Game.ShowScores();
         }
     }
 }

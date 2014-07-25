@@ -1,22 +1,33 @@
 ﻿namespace Minesweeper.UnitTests.Game
 {
     using System;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System.Collections.Generic;
     using System.IO;
     using System.Text;
-    using System.Collections.Generic;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Minesweeper.Game;
     using Minesweeper.Game.Enums;
+    using Minesweeper.Game.Interfaces;
+    using Moq;
+    using Minesweeper.Lib;
+    using Minesweeper.Lib.Interfaces;
 
     [TestClass]
     public class UIManagerTest
     {
-        private UIConsoleManager manager;
+        private IUIManagerBridge orgManager;
+        private Mock<IRenderer> renderer;
+        Mock<IUserInputReader> inputReader;
+        private IUIManagerBridge mockedManager;
 
         [TestInitialize]
         public void TestINitialization()
         {
-            manager = new UIConsoleManager();
+            orgManager = new UIConsoleManager();
+
+            renderer = new Mock<IRenderer>();
+            inputReader = new Mock<IUserInputReader>();
+            mockedManager = new UIConsoleManager(renderer.Object, inputReader.Object);
         }
 
         [TestMethod]
@@ -36,7 +47,7 @@
             using (StringWriter sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                manager.DrawGameScreen(5, 5);
+                orgManager.DrawGameScreen(5, 5);
 
                 string expected = string.Format("{0}", message);
                 Assert.AreEqual<string>(expected, sw.ToString());
@@ -52,7 +63,7 @@
                 int openCells = 0;
                 var endState = GameEndState.Fail;
                
-                manager.DisplayEnd(endState, openCells);
+                orgManager.DisplayEnd(endState, openCells);
 
                 string expected = "Booooom! You were killed by a mine. You opened 0 cells without mines.\n" +
                                   "Please enter your name for the top scoreboard: ";
@@ -66,85 +77,80 @@
         {
             int openCells = 0;
             var fakeEnum = (GameEndState)int.MaxValue;
-            manager.DisplayEnd(fakeEnum, openCells);
+            orgManager.DisplayEnd(fakeEnum, openCells);
         }
 
         [TestMethod]
         public void TestGameExitMethodShouldReturnProperMessage()
         {
-            using (StringWriter sw = new StringWriter())
-            {
-                Console.SetOut(sw);
+            mockedManager.GameExit();
+            
+            string expected = "Good bye!";
+            renderer.Verify(ren => ren.WriteLine(), Times.Exactly(1));
 
-                manager.GameExit();
-
-                StringBuilder expected = new StringBuilder();
-                expected.Append(Environment.NewLine);
-                expected.Append("Good bye!");
-                expected.Append(Environment.NewLine);
-                Assert.AreEqual<string>(expected.ToString(), sw.ToString());
-            }
+            renderer.Verify(ren => ren.WriteLine(expected), Times.Exactly(1));
         }
-        /*
+        
         [TestMethod]
-        public void TestHandleErrorMethod()
+        public void HandleErrorMethod_CellOutOfRange_ShouldSendProperCallsToIRenderer()
         {
-            using (StringWriter sw = new StringWriter())
-                {
-                    Console.SetOut(sw);
+            var error = GameErrors.CellOutOfRange;
+            mockedManager.HandleError(error);
 
-                    var error = GameErrors.CellOutOfRange;
-                    manager.HandleError(error);
+            renderer.Verify(ren => ren.ClearLines(It.IsAny<int>(), It.IsAny<int>(), 3));
+            renderer.Verify(ren => ren.WriteAt(It.IsAny<int>(), It.IsAny<int>(), string.Empty));
+            renderer.Verify(ren => ren.WriteAt(0, It.IsAny<int>(), "Cell is out of range of the minefield!"),
+                "First call to WriteAt is not correct.");
+            renderer.Verify(ren => ren.Write(" Press any key to continue..."));
+        }
 
-                    string expected = "Cell is out of range of the minefield! Press any key to continue...";
+        [TestMethod]
+        public void HandleErrorMethod_CellAlreadyOpened_ShouldSendProperCallsToIRenderer()
+        {
+            var error = GameErrors.CellAlreadyOpened;
+            mockedManager.HandleError(error);
 
-                    Assert.AreEqual<string>(expected, sw.ToString());
-                }
-        }*/
+            renderer.Verify(ren => ren.ClearLines(It.IsAny<int>(), It.IsAny<int>(), 3));
+            renderer.Verify(ren => ren.WriteAt(It.IsAny<int>(), It.IsAny<int>(), string.Empty));
+            renderer.Verify(ren => ren.WriteAt(0, It.IsAny<int>(), "Cell already opened!"),
+                "First call to WriteAt is not correct.");
+            renderer.Verify(ren => ren.Write(" Press any key to continue..."));
+        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void TestHandleErrorWithFakeEnumShouldThrowAnException()
+        public void HandleError_WithFakeEnum_ShouldThrowAnException()
         {
             var error = (GameErrors)int.MaxValue;
-            manager.HandleError(error);
+            orgManager.HandleError(error);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
-        public void TestDisplayHighScoresWhenArgumentIsNull()
+        public void DisplayHighScores_WhenArgumentIsNull_SouldThrowAnException()
         {
-            manager.DisplayHighScores(null);
+            orgManager.DisplayHighScores(null);
         }
 
         [TestMethod]
-        public void TestDisplayHighScores()
+        public void DisplayHighScores_ShouldSendProperValuesToRenderer()
         {
-            using (StringWriter sw = new StringWriter())
+            var list = new List<KeyValuePair<string, int>>();
+            KeyValuePair<string, int> firstPlayer = new KeyValuePair<string, int>("Ivan", 20);
+            KeyValuePair<string, int> secondPlayer = new KeyValuePair<string, int>("Gosho", 10);
+            list.Add(firstPlayer);
+            list.Add(secondPlayer);
+            IEnumerable<KeyValuePair<string, int>> topScores = list;
+            mockedManager.DisplayHighScores(list);
+
+            renderer.Verify(ren => ren.ClearLines(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()));
+            renderer.Verify(ren => ren.WriteAt(0, It.IsAny<int>(), "Scoreboard:"));
+            renderer.Verify(ren => ren.WriteLine());
+            int place = 1;
+            foreach (var result in topScores)
             {
-                Console.SetOut(sw);
-
-                var list = new List<KeyValuePair<string, int>>();
-                KeyValuePair<string, int> firstPlayer = new KeyValuePair<string, int>("Ivan", 20);
-                KeyValuePair<string, int> secondPlayer = new KeyValuePair<string, int>("Goro", 10);
-                list.Add(firstPlayer);
-                list.Add(secondPlayer);
-                IEnumerable<KeyValuePair<string, int>> topScores = list;
-                manager.DisplayHighScores(list);
-
-                StringBuilder expected = new StringBuilder();
-                expected.Append(Environment.NewLine);
-                expected.Append("Scoreboard:");
-                expected.Append(Environment.NewLine);
-                int place = 1;
-
-                foreach (var result in topScores)
-                {
-                    expected.AppendFormat("{0}. {1} --> {2} cells", place++, result.Key, result.Value);
-                    expected.Append(Environment.NewLine);
-                }
-                //expected.Append(Environment.NewLine);
-                //Assert.AreEqual<string>(expected.ToString(), sw.ToString());
+                renderer.Verify(ren => ren.WriteLine("{0}. {1} --> {2} cells", place, result.Key, result.Value));
+                place++;
             }
         }
 
