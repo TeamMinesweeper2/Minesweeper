@@ -36,7 +36,6 @@
         public void TestDisplayIntroWhenMessageIsNull()
         {
             manager.DisplayIntro(null);
-
         }
 
         [TestMethod]
@@ -131,24 +130,23 @@
                 KeyValuePair<string, int> secondPlayer = new KeyValuePair<string, int>("Goro", 10);
                 list.Add(firstPlayer);
                 list.Add(secondPlayer);
-                IEnumerable<KeyValuePair<string, int>> topScores = list;
                 manager.DisplayHighScores(list);
 
                 StringBuilder expected = new StringBuilder();
-                expected.Append(Environment.NewLine);
-                expected.Append("Scoreboard:");
-                expected.Append(Environment.NewLine);
-                int place = 1;
 
-                foreach (var result in topScores)
-                {
-                    expected.AppendFormat("{0}. {1} --> {2} cells", place++, result.Key, result.Value);
-                    expected.Append(Environment.NewLine);
-                }
-                //expected.Append(Environment.NewLine);
-
-                //Assert.AreEqual<string>(expected.ToString(), sw.ToString());
+                expected.Append("Scoreboard:\r\n");
+                expected.Append("1. Ivan --> 20 cells\r\n");
+                expected.Append("2. Goro --> 10 cells");
+                
+                Assert.AreEqual<string>(expected.ToString(), sw.ToString().Trim());
             }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException), "ClearCommandLine accepted null parameter incorrectly.")]
+        public void ClearCommandLineWithNullParameterShouldThrowAnException()
+        {
+            manager.ClearCommandLine(null);
         }
 
         [Ignore]
