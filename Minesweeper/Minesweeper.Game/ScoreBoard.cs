@@ -1,4 +1,11 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="ScoreBoard.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>ScoreBoard class that stores and updates the top scores for the game.</summary>
+//-----------------------------------------------------------------------
+
+namespace Minesweeper.Game
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -29,7 +36,6 @@
             {
                 // Deep copy
                 return this.topScores.Select(item => new KeyValuePair<string, int>(item.Key, item.Value));
-
                 //// Shallow copy
                 ////return new List<KeyValuePair<string, int>>(this.topScores);
             }

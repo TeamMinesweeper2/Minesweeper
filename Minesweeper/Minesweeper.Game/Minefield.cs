@@ -1,13 +1,19 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="Minefield.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>Minefield class represents matrix of cells.</summary>
+//-----------------------------------------------------------------------
+
+namespace Minesweeper.Game
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using Minesweeper.Lib;
-
+    
     /// <summary>
-    /// Minefield class represents matrix of cells.
+    /// Minefield class represents matrix of <see cref="ICell"/>.
     /// </summary>
     public class Minefield
     {
@@ -16,9 +22,6 @@
 
         /// <summary>Exception message for null random generator provider.</summary>
         private const string IRandomGeneratorProviderNullExceptionMessage = "The constructor cannot generate mines with random generator equal to null!";
-
-        /// <summary>Minefield container of cells.</summary>
-        private readonly IList<ICell> cells;
 
         /// <summary>Random generator provider.</summary>
         private IRandomGeneratorProvider randomGenerator;
@@ -52,7 +55,7 @@
 
             // Initializations
             this.OpenedCellsCount = 0;
-            this.cells = this.GenerateMinefield(rows * cols, numberOfMines);
+            this.Cells = this.GenerateMinefield(rows * cols, numberOfMines);
             this.allNeighborMines = this.CalculateNeighborMines();
         }
 
@@ -79,19 +82,18 @@
         /// Gets a list of cells in the minefield.
         /// </summary>
         /// <value>Not accepted.</value>
-        protected IList<ICell> Cells
-        {
-            get
-            {
-                return this.cells;
-            }
-        }
+        protected IList<ICell> Cells { get; private set; }
 
         /// <summary>
-        /// Sets the value of randomGenerator.
+        /// Gets or sets the value of randomGenerator.
         /// </summary>
         private IRandomGeneratorProvider RandomGenerator
         {
+            get
+            {
+                return this.randomGenerator;
+            }
+
             set
             {
                 if (value == null)
@@ -104,10 +106,15 @@
         }
 
         /// <summary>
-        /// Sets the value of rowsCount.
+        /// Gets or sets the value of rowsCount.
         /// </summary>
         private int RowsCount
         {
+            get
+            {
+                return this.rowsCount;
+            }
+
             set
             {
                 if (value <= 0)
@@ -120,10 +127,15 @@
         }
 
         /// <summary>
-        /// Sets the value of columnsCount.
+        /// Gets or sets the value of columnsCount.
         /// </summary>
         private int ColumnsCount
         {
+            get
+            {
+                return this.columnsCount;
+            }
+
             set
             {
                 if (value <= 0)
@@ -136,10 +148,15 @@
         }
 
         /// <summary>
-        /// Sets the value of numberOfMines.
+        /// Gets or sets the value of numberOfMines.
         /// </summary>
         private int NumberOfMines
         {
+            get
+            {
+                return this.numberOfMines;
+            }
+
             set
             {
                 if (value <= 0)
@@ -179,7 +196,7 @@
         public CellImage[,] GetImage(bool showAll = false)
         {
             Func<ICell, CellImage> converter = c => this.ConvertCellToImage(c, showAll);
-            var image = this.ConvertArrayToMatrix<ICell, CellImage>(this.cells, this.columnsCount, converter);
+            var image = this.ConvertArrayToMatrix<ICell, CellImage>(this.Cells, this.ColumnsCount, converter);
 
             return image;
         }
@@ -190,7 +207,7 @@
         /// <returns>True if all non-mined cells are opened.</returns>
         public bool IsDisarmed()
         {
-            return this.OpenedCellsCount >= ((this.rowsCount * this.columnsCount) - this.numberOfMines);
+            return this.OpenedCellsCount >= ((this.RowsCount * this.ColumnsCount) - this.NumberOfMines);
         }
 
         /// <summary>
@@ -201,7 +218,7 @@
         /// <returns>Validation result.</returns>
         protected bool IsInsideMatrix(int row, int col)
         {
-            return (0 <= row && row < this.rowsCount) && (0 <= col && col < this.columnsCount);
+            return (0 <= row && row < this.RowsCount) && (0 <= col && col < this.ColumnsCount);
         }
 
         /// <summary>
@@ -211,7 +228,7 @@
         /// <returns>The index in the cell list.</returns>
         protected int GetIndex(ICellPosition cell)
         {
-            int index = (cell.Row * this.columnsCount) + cell.Col;
+            int index = (cell.Row * this.ColumnsCount) + cell.Col;
             return index;
         }
 
@@ -225,12 +242,12 @@
             bool steppedOnAMine = false;
             int currentIndex = this.GetIndex(cellPosition);
 
-            if (this.cells[currentIndex].IsMined)
+            if (this.Cells[currentIndex].IsMined)
             {
                 if (this.OpenedCellsCount == 0)
                 {
                     // If the first open cell has mine, swap the mine with an empty cell
-                    this.DisarmFirstCell(this.cells[currentIndex]);
+                    this.DisarmFirstCell(this.Cells[currentIndex]);
                 }
                 else
                 {
@@ -241,7 +258,7 @@
             if (!steppedOnAMine)
             {
                 // Open cell
-                this.cells[currentIndex].OpenCell();
+                this.Cells[currentIndex].OpenCell();
                 this.OpenedCellsCount += 1; // Counts opened cells.
             }
 
@@ -264,7 +281,7 @@
                 return CellActionResult.OutOfRange;
             }
 
-            if (this.cells[currentIndex].IsOpened)
+            if (this.Cells[currentIndex].IsOpened)
             {
                 return CellActionResult.AlreadyOpened;
             }
@@ -288,7 +305,7 @@
         {
             bool steppedOnAMine = false;
             int currentIndex = this.GetIndex(cellPosition);
-            this.cells[currentIndex].ToggleFlag();
+            this.Cells[currentIndex].ToggleFlag();
 
             return steppedOnAMine;
         }
@@ -348,7 +365,7 @@
             }
 
             // Shuffle mines.
-            var result = buffer.Shuffle(this.randomGenerator);
+            var result = buffer.Shuffle(this.RandomGenerator);
 
             return result.ToList();
         }
@@ -383,10 +400,10 @@
         /// <returns>Two dimensional array with neighbor mines count.</returns>
         private int[,] CalculateNeighborMines()
         {
-            var resultArray = new int[this.rowsCount, this.columnsCount];
-            for (int row = 0; row < this.rowsCount; row++)
+            var resultArray = new int[this.RowsCount, this.ColumnsCount];
+            for (int row = 0; row < this.RowsCount; row++)
             {
-                for (int col = 0; col < this.columnsCount; col++)
+                for (int col = 0; col < this.ColumnsCount; col++)
                 {
                     resultArray[row, col] = this.CountNeighborMinesPerCell(new CellPos(row, col));
                 }
@@ -413,11 +430,11 @@
                         continue;
                     }
 
-                    int currentIndex = ((currentPosition.Row + row) * this.columnsCount) + (currentPosition.Col + col);
+                    int currentIndex = ((currentPosition.Row + row) * this.ColumnsCount) + (currentPosition.Col + col);
                     bool isInsideMatrix = this.IsInsideMatrix(currentPosition.Row + row, currentPosition.Col + col);
                     if (isInsideMatrix)
                     {
-                        if (this.cells[currentIndex].IsMined)
+                        if (this.Cells[currentIndex].IsMined)
                         {
                             counter++;
                         }
@@ -437,11 +454,11 @@
         {
             // Store every cell without mine
             var emptyCells = new List<ICell>();
-            for (int i = 0; i < this.cells.Count; i++)
+            for (int i = 0; i < this.Cells.Count; i++)
             {
-                if (!this.cells[i].IsMined)
+                if (!this.Cells[i].IsMined)
                 {
-                    emptyCells.Add(this.cells[i]);
+                    emptyCells.Add(this.Cells[i]);
                 }
             }
 
@@ -451,7 +468,7 @@
             }
 
             // Add mine to a random empty cell
-            int j = this.randomGenerator.Next(emptyCells.Count);
+            int j = this.RandomGenerator.Next(emptyCells.Count);
             emptyCells[j].AddMine();
 
             // Disarm the first cell and recalculate the neighbor mines count

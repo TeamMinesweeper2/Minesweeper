@@ -1,4 +1,11 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="UIManager.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>User interface manager class.</summary>
+//-----------------------------------------------------------------------
+
+namespace Minesweeper.Game
 {
     using System;
     using System.Collections.Generic;
@@ -30,8 +37,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="UIManager"/> class with default ConsoleRenderer and ConsoleReader.
         /// </summary>
-        public UIManager()
-            : this(new ConsoleRenderer(), new ConsoleReader())
+        public UIManager() : this(new ConsoleRenderer(), new ConsoleReader())
         {
         }
 

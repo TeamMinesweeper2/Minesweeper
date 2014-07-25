@@ -1,4 +1,11 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="Messages.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>Static class that holds the messages to the user.</summary>
+//-----------------------------------------------------------------------
+
+namespace Minesweeper.Game
 {
     /// <summary>
     /// Static class containing game messages.

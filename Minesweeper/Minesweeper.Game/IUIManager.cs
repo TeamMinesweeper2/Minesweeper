@@ -1,4 +1,11 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="IUIManager.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>Defines UI Manager for the game.</summary>
+//-----------------------------------------------------------------------
+
+namespace Minesweeper.Game
 {
     using System;
     using System.Collections.Generic;

@@ -1,10 +1,17 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="MinefieldEasy.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>Minefield decorator for easy game play.</summary>
+//-----------------------------------------------------------------------
+
+namespace Minesweeper.Game
 {
     using System.Diagnostics;
     using Minesweeper.Lib;
 
     /// <summary>
-    /// Minefield class represents matrix of cells.
+    /// Minefield class represents matrix of <see cref="ICell"/>.
     /// </summary>
     public class MinefieldEasy : Minefield
     {
@@ -15,8 +22,7 @@
         /// <param name="cols">Number of columns.</param>
         /// <param name="numberOfMines">Number of mines.</param>
         /// <param name="rndGenerator">Random generator provider.</param>
-        public MinefieldEasy(int rows, int cols, int numberOfMines, IRandomGeneratorProvider rndGenerator)
-            : base(rows, cols, numberOfMines, rndGenerator)
+        public MinefieldEasy(int rows, int cols, int numberOfMines, IRandomGeneratorProvider rndGenerator) : base(rows, cols, numberOfMines, rndGenerator)
         {
         }
 

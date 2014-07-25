@@ -1,4 +1,11 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="CommandExecutor.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>A class which can execute commands in the game.</summary>
+//-----------------------------------------------------------------------
+
+namespace Minesweeper.Game
 {
     using System;
 

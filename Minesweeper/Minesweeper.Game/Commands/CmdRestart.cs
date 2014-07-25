@@ -1,4 +1,11 @@
-﻿namespace Minesweeper
+﻿//-----------------------------------------------------------------------
+// <copyright file="CmdRestart.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>Command to restart the current game.</summary>
+//-----------------------------------------------------------------------
+
+namespace Minesweeper
 {
     using System;
     using Minesweeper.Game;
@@ -11,7 +18,7 @@
         /// <summary>
         /// The <see cref="MinesweeperGame"/> object on which the action will be invoked.
         /// </summary>
-        private MinesweeperGame game;
+        private readonly MinesweeperGame game;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CmdRestart"/> class.

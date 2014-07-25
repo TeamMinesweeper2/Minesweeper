@@ -1,4 +1,11 @@
-﻿namespace Minesweeper
+﻿//-----------------------------------------------------------------------
+// <copyright file="CellImage.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>Defines the possible a cell can have.</summary>
+//-----------------------------------------------------------------------
+
+namespace Minesweeper
 {
     /// <summary>
     /// Defines the possible images a cell can have.

@@ -1,4 +1,11 @@
-﻿namespace Minesweeper
+﻿//-----------------------------------------------------------------------
+// <copyright file="CellActionResult.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>Defines the possible results after an open/flag cell command.</summary>
+//-----------------------------------------------------------------------
+
+namespace Minesweeper
 {
     /// <summary>
     /// Defines the possible results after an open/flag cell command.

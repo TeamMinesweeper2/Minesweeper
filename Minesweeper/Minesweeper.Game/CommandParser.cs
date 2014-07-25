@@ -1,4 +1,11 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="CommandParser.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>A class that parses string input and return command.</summary>
+//-----------------------------------------------------------------------
+
+namespace Minesweeper.Game
 {
     using System;
     using System.Collections.Generic;
@@ -16,11 +23,6 @@
         private readonly Dictionary<string, ICommand> commands;
 
         /// <summary>
-        /// The <see cref="MinesweeperGame"/> object for which commands will be parsed.
-        /// </summary>
-        private MinesweeperGame game;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="CommandParser"/> class.
         /// </summary>
         /// <param name="game">The <see cref="MinesweeperGame"/> object for which commands will be returned.</param>
@@ -31,7 +33,7 @@
                 throw new ArgumentNullException();
             }
 
-            this.game = game;
+            this.Game = game;
 
             // Create commands
             ICommand cmdRestart = new CmdRestart(game);
@@ -54,10 +56,7 @@
         /// Gets for the <see cref="MinesweeperGame"/> object for which commands will be parsed.
         /// </summary>
         /// <value>The MinesweeperGame property gets the value of the MinesweeperGame field, game.</value>
-        protected MinesweeperGame Game
-        {
-            get { return this.game; }
-        }
+        protected MinesweeperGame Game { get; private set; }
 
         /// <summary>
         /// Parses a string and returns its corresponding <see cref="ICommand"/>.
@@ -65,7 +64,7 @@
         /// <param name="input">The string to parse.</param>
         /// <returns>The parsed command.</returns>
         public virtual ICommand ParseCommand(string input)
-        {            
+        { 
             input = input.Trim();
 
             ICommand command;
@@ -115,11 +114,11 @@
             // Parsing was successful, the parsed integers are assigned to targetCell
             if (toggleFlag)
             {
-                command = new CmdFlagCell(this.game, targetCell);
+                command = new CmdFlagCell(this.Game, targetCell);
             }
             else
             {
-                command = new CmdOpenCell(this.game, targetCell);
+                command = new CmdOpenCell(this.Game, targetCell);
             }
             
             return command;

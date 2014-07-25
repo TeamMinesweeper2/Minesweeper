@@ -1,9 +1,16 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="MinesweeperGameEasy.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>Overrides the factory method to return an instance of a Minefield.</summary>
+//-----------------------------------------------------------------------
+
+namespace Minesweeper.Game
 {
     using Minesweeper.Lib;
 
     /// <summary>
-    /// Overrides the factory method to return an instance of a <see cref="Minefield"/>.
+    /// Overrides the factory method to return an instance of the <see cref="Minefield"/> class.
     /// </summary>
     public class MinesweeperGameEasy : MinesweeperGame
     {
@@ -14,8 +21,7 @@
         /// Initializes a new instance of the <see cref="Minesweeper.Game.MinesweeperGameEasy"/> class.
         /// </summary>
         /// <param name="uiManager">The <see cref="Minesweeper.Game.IUIManager"/> implementation used to read and write.</param>
-        public MinesweeperGameEasy(IUIManager uiManager)
-            : base(uiManager)
+        public MinesweeperGameEasy(IUIManager uiManager) : base(uiManager)
         {
         }
 

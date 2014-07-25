@@ -1,4 +1,11 @@
-﻿namespace Minesweeper
+﻿//-----------------------------------------------------------------------
+// <copyright file="CmdOpenCell.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>Command to open a cell in the minefield.</summary>
+//-----------------------------------------------------------------------
+
+namespace Minesweeper
 {
     using System;
     using Minesweeper.Game;
@@ -12,12 +19,12 @@
         /// <summary>
         /// The <see cref="MinesweeperGame"/> object on which the action will be invoked.
         /// </summary>
-        private MinesweeperGame game;
+        private readonly MinesweeperGame game;
 
         /// <summary>
         /// The <see cref="CellPos"/> of the target cell on which the action will be invoked.
         /// </summary>
-        private CellPos cellToOpen;
+        private readonly CellPos cellToOpen;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CmdOpenCell"/> class.

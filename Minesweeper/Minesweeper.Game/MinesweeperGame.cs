@@ -1,6 +1,12 @@
-﻿namespace Minesweeper.Game
+﻿//-----------------------------------------------------------------------
+// <copyright file="MinesweeperGame.cs" company="Telerik Academy">
+//     Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+// <summary>Main game logic.</summary>
+//-----------------------------------------------------------------------
+
+namespace Minesweeper.Game
 {
-    using System.Collections.Generic;
     using Minesweeper.Lib;
 
     /// <summary>
@@ -16,17 +22,17 @@
         /// <summary>Instance of the <see cref="Minesweeper.Game.IUIManager"/> class.</summary>
         private readonly IUIManager uiManager;
 
-        /// <summary>Instance of the <see cref="Minesweeper.Game.Minefield"/> class.</summary>
-        private Minefield minefield;
-
         /// <summary>The number of rows of the minefield.</summary>
-        private int minefieldRows;
+        private readonly int minefieldRows;
         
         /// <summary>The number of columns of the minefield.</summary>
-        private int minefieldCols;
+        private readonly int minefieldCols;
 
         /// <summary>The message which is going to prompt the user of the expected input.</summary>
-        private string prompt;
+        private readonly string prompt;
+
+        /// <summary>Instance of the <see cref="Minesweeper.Game.Minefield"/> class.</summary>
+        private Minefield minefield;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Minesweeper.Game.MinesweeperGame"/> class.
