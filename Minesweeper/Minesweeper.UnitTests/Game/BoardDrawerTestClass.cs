@@ -18,12 +18,6 @@
         {
             testBoardDrawer = new BoardDrawer(testRenderer.Object);
         }
-        /*
-        [TestInitialize]
-        public void Initialize()
-        {
-            testRenderer.Setup(tr => tr.WriteAt(3, 3, It.Is<string>(s => s == testTable))).Verifiable();
-        }*/
 
         [TestMethod]
         public void DrawTableShouldSendProperStringToRenderer()

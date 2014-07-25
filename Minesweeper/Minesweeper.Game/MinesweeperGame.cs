@@ -61,27 +61,9 @@ namespace Minesweeper.Game
         {
             var result = this.minefield.OpenCellHandler(cell);
 
-            switch (result)
-            {
-                case CellActionResult.OutOfRange:
-                    this.uiManager.DisplayError(Messages.CellOutOfRange);
-                    break;
-                case CellActionResult.AlreadyOpened:
-                    this.uiManager.DisplayError(Messages.AlreadyOpened);
-                    break;
-                case CellActionResult.Boom:
-                    this.MineBoomed();
-                    break;
-                case CellActionResult.Normal:
-                    this.UpdateGameStatus();                  
-                    break;
-                default:
-                    break;
-            }
-
-            this.uiManager.ClearCommandLine(this.prompt);
+            this.HandleCellInteractionResult(result);
         }
-
+        
         /// <summary>
         /// Flags the cell on the given coordinates.
         /// </summary>
@@ -90,22 +72,7 @@ namespace Minesweeper.Game
         {
             var result = this.minefield.FlagCellHandler(cell);
 
-            switch (result)
-            {
-                case CellActionResult.OutOfRange:
-                    this.uiManager.DisplayError(Messages.CellOutOfRange);
-                    break;
-                case CellActionResult.AlreadyOpened:
-                    this.uiManager.DisplayError(Messages.AlreadyOpened);
-                    break;
-                case CellActionResult.Normal:
-                    this.RedrawMinefield(false);
-                    break;
-                default:
-                    break;
-            }
-
-            this.uiManager.ClearCommandLine(this.prompt);
+            this.HandleCellInteractionResult(result);
         }
 
         /// <summary>
@@ -163,6 +130,33 @@ namespace Minesweeper.Game
         /// <param name="cols">Columns in the minefield.</param>
         /// <returns>Returns a new minefield.</returns>
         protected abstract Minefield CreateMinefield(int rows, int cols);
+
+        /// <summary>
+        /// Handles cell interaction result.
+        /// </summary>
+        /// <param name="result">Result from cell interaction.</param>
+        private void HandleCellInteractionResult(CellActionResult result)
+        {
+            switch (result)
+            {
+                case CellActionResult.OutOfRange:
+                    this.uiManager.DisplayError(Messages.CellOutOfRange);
+                    break;
+                case CellActionResult.AlreadyOpened:
+                    this.uiManager.DisplayError(Messages.AlreadyOpened);
+                    break;
+                case CellActionResult.Boom:
+                    this.MineBoomed();
+                    break;
+                case CellActionResult.Normal:
+                    this.UpdateGameStatus();                  
+                    break;
+                default:
+                    break;
+            }
+
+            this.uiManager.ClearCommandLine(this.prompt);
+        }
 
         /// <summary>
         /// Redraws the minefield.

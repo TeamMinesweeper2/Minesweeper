@@ -54,8 +54,7 @@ namespace Minesweeper.Game
         /// <param name="inputReader">The input reader which UIManager is going to use.</param>
         public UIManager(IRenderer renderer, IUserInputReader inputReader)
         {
-            this.Renderer = renderer;
-            
+            this.Renderer = renderer;            
             this.InputReader = inputReader;
 
             this.cmdLineRow = CmdLineRowDefault;
@@ -114,17 +113,17 @@ namespace Minesweeper.Game
         /// <summary>
         /// Displays the ending messages of the game.
         /// </summary>
-        /// <param name="msg">The ending message.</param>
+        /// <param name="message">The ending message.</param>
         /// <param name="numberOfOpenedCells">The number of cells the user opened during the game.</param>
-        public void DisplayEnd(string msg, int numberOfOpenedCells)
+        public void DisplayEnd(string message, int numberOfOpenedCells)
         {
             if (numberOfOpenedCells < 0)
             {
                 throw new ArgumentException("Number of opened cells value cannot be negative.");
             }
 
-            this.ValidateMessage(msg);
-            this.Renderer.WriteAt(0, this.cmdLineRow + 1, msg, numberOfOpenedCells);
+            this.ValidateMessage(message);
+            this.Renderer.WriteAt(0, this.cmdLineRow + 1, message, numberOfOpenedCells);
         }
 
         /// <summary>
@@ -213,9 +212,9 @@ namespace Minesweeper.Game
         /// <param name="commandPrompt">The prompt that is going to be shown to the user.</param>
         public void ClearCommandLine(string commandPrompt)
         {
-            if (string.IsNullOrEmpty(commandPrompt))
+            if (commandPrompt == null)
             {
-                throw new ArgumentNullException("Value for command prompt cannot be null ot empty!");
+                throw new ArgumentNullException("Value for command prompt cannot be null!");
             }
 
             this.Renderer.ClearLines(0, this.cmdLineRow, 3);
