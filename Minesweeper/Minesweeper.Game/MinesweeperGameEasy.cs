@@ -10,6 +10,11 @@
         /// <summary>The coefficient of how many mines to be placed on the minefield.</summary>
         private const decimal MinesCountCoeficient = 0.16m; // 0.2m -> 10 mines; 0.16m -> 8 mines
 
+        public MinesweeperGameEasy(IUIManager uiManager)
+            : base(uiManager)
+        {
+        }
+
         /// <summary>
         /// Factory Method implementation to create a new minefield.
         /// </summary>

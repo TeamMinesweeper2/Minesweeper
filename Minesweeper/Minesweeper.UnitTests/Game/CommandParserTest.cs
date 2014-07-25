@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Minesweeper.Game;
+using Minesweeper.Lib;
 
 namespace Minesweeper.UnitTests.Game
 {
@@ -13,7 +14,8 @@ namespace Minesweeper.UnitTests.Game
         [TestInitialize]
         public void TestInitialize()
         {
-            game = new MinesweeperGameEasy();
+            IUIManager consoleUIManager = new UIManager(new ConsoleRenderer(), new ConsoleReader());
+            game = new MinesweeperGameEasy(consoleUIManager);
             parser = new CommandParser(game);
         }
 

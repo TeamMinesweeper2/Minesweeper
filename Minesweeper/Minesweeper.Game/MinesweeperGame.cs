@@ -11,10 +11,10 @@
     public abstract class MinesweeperGame
     {
         /// <summary>Instance of the <see cref="Minesweeper.Game.ScoreBoard"/> class.</summary>
-        private readonly ScoreBoard scoreBoard;        
+        private readonly ScoreBoard scoreBoard;
 
-        /// <summary>Instance of the <see cref="Minesweeper.Game.UIManager"/> class.</summary>
-        private readonly UIManager uiManager;
+        /// <summary>Instance of the <see cref="Minesweeper.Game.IUIManager"/> class.</summary>
+        private readonly IUIManager uiManager;
 
         /// <summary>Instance of the <see cref="Minesweeper.Game.Minefield"/> class.</summary>
         private Minefield minefield;
@@ -31,11 +31,11 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Minesweeper.Game.MinesweeperGame"/> class.
         /// </summary>
-        public MinesweeperGame()
+        public MinesweeperGame(IUIManager uiManager)
         {
             this.minefieldRows = 5;
             this.minefieldCols = 10;
-            this.uiManager = new UIManager(new ConsoleRenderer(), new ConsoleReader());
+            this.uiManager = uiManager;
 
             this.prompt = Messages.EnterRowCol;
             this.scoreBoard = new ScoreBoard();
@@ -195,7 +195,7 @@
             this.RedrawMinefield(true);
             this.uiManager.DisplayEnd(msg, numberOfOpenedCells);
 
-            string name = this.uiManager.ReadName();
+            string name = this.uiManager.ReadInput();
             this.scoreBoard.AddScore(name, numberOfOpenedCells);
             this.ShowScores();
 
