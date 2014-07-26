@@ -1,0 +1,89 @@
+\hypertarget{class_minesweeper_1_1_game_1_1_minefield_easy}{\section{Minesweeper.\+Game.\+Minefield\+Easy Class Reference}
+\label{class_minesweeper_1_1_game_1_1_minefield_easy}\index{Minesweeper.\+Game.\+Minefield\+Easy@{Minesweeper.\+Game.\+Minefield\+Easy}}
+}
+
+
+\hyperlink{class_minesweeper_1_1_game_1_1_minefield}{Minefield} class represents matrix of I\+Cell.  
+
+
+Inheritance diagram for Minesweeper.\+Game.\+Minefield\+Easy\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_minesweeper_1_1_game_1_1_minefield_easy}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_minesweeper_1_1_game_1_1_minefield_easy_acf546e6d351031a3e4840bcfd9a1cd77}{Minefield\+Easy} (int rows, int cols, int number\+Of\+Mines, \hyperlink{interface_minesweeper_1_1_lib_1_1_i_random_generator_provider}{I\+Random\+Generator\+Provider} rnd\+Generator)
+\begin{DoxyCompactList}\small\item\em Initializes a new instance of the \hyperlink{class_minesweeper_1_1_game_1_1_minefield_easy}{Minefield\+Easy} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+override bool \hyperlink{class_minesweeper_1_1_game_1_1_minefield_easy_ad66c9eb0e3876d537f2ea7a9f548410c}{Open\+Cell} (\hyperlink{interface_minesweeper_1_1_lib_1_1_i_cell_position}{I\+Cell\+Position} cell\+Position)
+\begin{DoxyCompactList}\small\item\em Handles cell opening (recursively). Reveals cell's content and returns it's state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_minesweeper_1_1_game_1_1_minefield}{Minefield} class represents matrix of I\+Cell. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_minesweeper_1_1_game_1_1_minefield_easy_acf546e6d351031a3e4840bcfd9a1cd77}{\index{Minesweeper\+::\+Game\+::\+Minefield\+Easy@{Minesweeper\+::\+Game\+::\+Minefield\+Easy}!Minefield\+Easy@{Minefield\+Easy}}
+\index{Minefield\+Easy@{Minefield\+Easy}!Minesweeper\+::\+Game\+::\+Minefield\+Easy@{Minesweeper\+::\+Game\+::\+Minefield\+Easy}}
+\subsubsection[{Minefield\+Easy}]{\setlength{\rightskip}{0pt plus 5cm}Minesweeper.\+Game.\+Minefield\+Easy.\+Minefield\+Easy (
+\begin{DoxyParamCaption}
+\item[{int}]{rows, }
+\item[{int}]{cols, }
+\item[{int}]{number\+Of\+Mines, }
+\item[{{\bf I\+Random\+Generator\+Provider}}]{rnd\+Generator}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_minefield_easy_acf546e6d351031a3e4840bcfd9a1cd77}
+
+
+Initializes a new instance of the \hyperlink{class_minesweeper_1_1_game_1_1_minefield_easy}{Minefield\+Easy} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rows} & Number of rows.\\
+\hline
+{\em cols} & Number of columns.\\
+\hline
+{\em number\+Of\+Mines} & Number of mines.\\
+\hline
+{\em rnd\+Generator} & Random generator provider.\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_minesweeper_1_1_game_1_1_minefield_easy_ad66c9eb0e3876d537f2ea7a9f548410c}{\index{Minesweeper\+::\+Game\+::\+Minefield\+Easy@{Minesweeper\+::\+Game\+::\+Minefield\+Easy}!Open\+Cell@{Open\+Cell}}
+\index{Open\+Cell@{Open\+Cell}!Minesweeper\+::\+Game\+::\+Minefield\+Easy@{Minesweeper\+::\+Game\+::\+Minefield\+Easy}}
+\subsubsection[{Open\+Cell}]{\setlength{\rightskip}{0pt plus 5cm}override bool Minesweeper.\+Game.\+Minefield\+Easy.\+Open\+Cell (
+\begin{DoxyParamCaption}
+\item[{{\bf I\+Cell\+Position}}]{cell\+Position}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{class_minesweeper_1_1_game_1_1_minefield_easy_ad66c9eb0e3876d537f2ea7a9f548410c}
+
+
+Handles cell opening (recursively). Reveals cell's content and returns it's state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cell\+Position} & Cell's position in the minefield matrix.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+State of the minefield.
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_minesweeper_1_1_game_1_1_minefield_a5498de495abe8a57bc25e8a12babb08c}{Minesweeper.\+Game.\+Minefield}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Minesweeper/\+Minesweeper/\+Minesweeper.\+game/Minefield\+Easy.\+cs\end{DoxyCompactItemize}

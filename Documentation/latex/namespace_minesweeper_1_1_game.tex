@@ -1,0 +1,34 @@
+\hypertarget{namespace_minesweeper_1_1_game}{\section{Package Minesweeper.\+Game}
+\label{namespace_minesweeper_1_1_game}\index{Minesweeper.\+Game@{Minesweeper.\+Game}}
+}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_minesweeper_1_1_game_1_1_board_drawer}{Board\+Drawer}
+\begin{DoxyCompactList}\small\item\em Class that handles drawing of the game board. This includes the minefield and game table. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_game_1_1_command_executor}{Command\+Executor}
+\begin{DoxyCompactList}\small\item\em A class which can execute commands of type \hyperlink{interface_minesweeper_1_1_game_1_1_i_command}{Minesweeper.\+Game.\+I\+Command}. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_game_1_1_command_parser}{Command\+Parser}
+\begin{DoxyCompactList}\small\item\em A class that can parse string input and return a command of type \hyperlink{interface_minesweeper_1_1_game_1_1_i_command}{I\+Command}. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_game_1_1_engine}{Engine}
+\begin{DoxyCompactList}\small\item\em A class that runs the main game loop. \end{DoxyCompactList}\item 
+interface \hyperlink{interface_minesweeper_1_1_game_1_1_i_command}{I\+Command}
+\begin{DoxyCompactList}\small\item\em The 'Command' interface. \end{DoxyCompactList}\item 
+interface \hyperlink{interface_minesweeper_1_1_game_1_1_i_u_i_manager}{I\+U\+I\+Manager}
+\begin{DoxyCompactList}\small\item\em Defines methods for reading and writing. \end{DoxyCompactList}\item 
+class {\bfseries Messages}
+\begin{DoxyCompactList}\small\item\em Static class containing game messages. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_game_1_1_minefield}{Minefield}
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_minesweeper_1_1_game_1_1_minefield}{Minefield} class represents matrix of I\+Cell. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_game_1_1_minefield_easy}{Minefield\+Easy}
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_minesweeper_1_1_game_1_1_minefield}{Minefield} class represents matrix of I\+Cell. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_game_1_1_minesweeper_game}{Minesweeper\+Game}
+\begin{DoxyCompactList}\small\item\em The 'receiver' class in the Command pattern. Also a Facade for the \hyperlink{class_minesweeper_1_1_game_1_1_minefield}{Minefield}, \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager}{U\+I\+Manager} and \hyperlink{class_minesweeper_1_1_game_1_1_score_board}{Score\+Board} class. Uses Factory Method to create the minefield. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_game_1_1_minesweeper_game_easy}{Minesweeper\+Game\+Easy}
+\begin{DoxyCompactList}\small\item\em Overrides the factory method to return an instance of the \hyperlink{class_minesweeper_1_1_game_1_1_minefield}{Minefield} class. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_game_1_1_program}{Program}
+\begin{DoxyCompactList}\small\item\em Class for the main entry point of the program. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_game_1_1_score_board}{Score\+Board}
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_minesweeper_1_1_game_1_1_score_board}{Score\+Board} class that stores and updates the top scores for the game. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager}{U\+I\+Manager}
+\begin{DoxyCompactList}\small\item\em User Interface Manager class. \end{DoxyCompactList}\end{DoxyCompactItemize}

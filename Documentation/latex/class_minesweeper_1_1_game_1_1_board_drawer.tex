@@ -1,0 +1,96 @@
+\hypertarget{class_minesweeper_1_1_game_1_1_board_drawer}{\section{Minesweeper.\+Game.\+Board\+Drawer Class Reference}
+\label{class_minesweeper_1_1_game_1_1_board_drawer}\index{Minesweeper.\+Game.\+Board\+Drawer@{Minesweeper.\+Game.\+Board\+Drawer}}
+}
+
+
+Class that handles drawing of the game board. This includes the minefield and game table.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_minesweeper_1_1_game_1_1_board_drawer_a5aa279b32bb1d832302ff2b59acc07b2}{Board\+Drawer} (\hyperlink{interface_minesweeper_1_1_lib_1_1_i_renderer}{I\+Renderer} renderer)
+\begin{DoxyCompactList}\small\item\em Initializes a new instance of the \hyperlink{class_minesweeper_1_1_game_1_1_board_drawer}{Board\+Drawer} class. Used for drawing game table and minefield on screen. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_board_drawer_a54c0812622564c13a131ab63f6c06540}{Draw\+Table} (int left, int top, int minefield\+Rows, int minefield\+Cols)
+\begin{DoxyCompactList}\small\item\em Draw table on screen. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_board_drawer_a9fd9a820183f7ab3767451bdc01c0642}{Draw\+Game\+Field} (\hyperlink{namespace_minesweeper_adf92d608047dafd69d16008492d317bd}{Cell\+Image}\mbox{[},\mbox{]} minefield, int\mbox{[},\mbox{]} neighbor\+Mines, \hyperlink{interface_minesweeper_1_1_lib_1_1_i_cell_position}{I\+Cell\+Position} top\+Left)
+\begin{DoxyCompactList}\small\item\em Draws game minefield on screen via given I\+Renderer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class that handles drawing of the game board. This includes the minefield and game table. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_minesweeper_1_1_game_1_1_board_drawer_a5aa279b32bb1d832302ff2b59acc07b2}{\index{Minesweeper\+::\+Game\+::\+Board\+Drawer@{Minesweeper\+::\+Game\+::\+Board\+Drawer}!Board\+Drawer@{Board\+Drawer}}
+\index{Board\+Drawer@{Board\+Drawer}!Minesweeper\+::\+Game\+::\+Board\+Drawer@{Minesweeper\+::\+Game\+::\+Board\+Drawer}}
+\subsubsection[{Board\+Drawer}]{\setlength{\rightskip}{0pt plus 5cm}Minesweeper.\+Game.\+Board\+Drawer.\+Board\+Drawer (
+\begin{DoxyParamCaption}
+\item[{{\bf I\+Renderer}}]{renderer}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_board_drawer_a5aa279b32bb1d832302ff2b59acc07b2}
+
+
+Initializes a new instance of the \hyperlink{class_minesweeper_1_1_game_1_1_board_drawer}{Board\+Drawer} class. Used for drawing game table and minefield on screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & Renderer for the game.\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_minesweeper_1_1_game_1_1_board_drawer_a9fd9a820183f7ab3767451bdc01c0642}{\index{Minesweeper\+::\+Game\+::\+Board\+Drawer@{Minesweeper\+::\+Game\+::\+Board\+Drawer}!Draw\+Game\+Field@{Draw\+Game\+Field}}
+\index{Draw\+Game\+Field@{Draw\+Game\+Field}!Minesweeper\+::\+Game\+::\+Board\+Drawer@{Minesweeper\+::\+Game\+::\+Board\+Drawer}}
+\subsubsection[{Draw\+Game\+Field}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+Board\+Drawer.\+Draw\+Game\+Field (
+\begin{DoxyParamCaption}
+\item[{{\bf Cell\+Image}}]{minefield\mbox{[},\mbox{]}, }
+\item[{int}]{neighbor\+Mines\mbox{[},\mbox{]}, }
+\item[{{\bf I\+Cell\+Position}}]{top\+Left}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_board_drawer_a9fd9a820183f7ab3767451bdc01c0642}
+
+
+Draws game minefield on screen via given I\+Renderer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em minefield} & Image of the minefield represented by two dimensional array of Cell\+Image enumeration.\\
+\hline
+{\em neighbor\+Mines} & Two dimensional array of numbers representing neighbor mines for each cell.\\
+\hline
+{\em top\+Left} & Top left coordinates of the board.\\
+\hline
+\end{DoxyParams}
+\hypertarget{class_minesweeper_1_1_game_1_1_board_drawer_a54c0812622564c13a131ab63f6c06540}{\index{Minesweeper\+::\+Game\+::\+Board\+Drawer@{Minesweeper\+::\+Game\+::\+Board\+Drawer}!Draw\+Table@{Draw\+Table}}
+\index{Draw\+Table@{Draw\+Table}!Minesweeper\+::\+Game\+::\+Board\+Drawer@{Minesweeper\+::\+Game\+::\+Board\+Drawer}}
+\subsubsection[{Draw\+Table}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+Board\+Drawer.\+Draw\+Table (
+\begin{DoxyParamCaption}
+\item[{int}]{left, }
+\item[{int}]{top, }
+\item[{int}]{minefield\+Rows, }
+\item[{int}]{minefield\+Cols}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_board_drawer_a54c0812622564c13a131ab63f6c06540}
+
+
+Draw table on screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em left} & Left coordinate on screen.\\
+\hline
+{\em top} & Top coordinate on screen.\\
+\hline
+{\em minefield\+Rows} & Number of rows of the minefield.\\
+\hline
+{\em minefield\+Cols} & Number of columns of the minefield.\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Minesweeper/\+Minesweeper/\+Minesweeper.\+game/Board\+Drawer.\+cs\end{DoxyCompactItemize}

@@ -1,0 +1,272 @@
+\hypertarget{class_minesweeper_1_1_game_1_1_u_i_manager}{\section{Minesweeper.\+Game.\+U\+I\+Manager Class Reference}
+\label{class_minesweeper_1_1_game_1_1_u_i_manager}\index{Minesweeper.\+Game.\+U\+I\+Manager@{Minesweeper.\+Game.\+U\+I\+Manager}}
+}
+
+
+User Interface Manager class.  
+
+
+Inheritance diagram for Minesweeper.\+Game.\+U\+I\+Manager\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_minesweeper_1_1_game_1_1_u_i_manager}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager_a424a2a585050b3c85d119d84c4ba2b80}{U\+I\+Manager} ()
+\begin{DoxyCompactList}\small\item\em Initializes a new instance of the \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager}{U\+I\+Manager} class with default Console\+Renderer and Console\+Reader. \end{DoxyCompactList}\item 
+\hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager_a996444e4a3c298158ab07d21f48c7307}{U\+I\+Manager} (\hyperlink{interface_minesweeper_1_1_lib_1_1_i_renderer}{I\+Renderer} renderer, \hyperlink{interface_minesweeper_1_1_lib_1_1_i_user_input_reader}{I\+User\+Input\+Reader} input\+Reader)
+\begin{DoxyCompactList}\small\item\em Initializes a new instance of the \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager}{U\+I\+Manager} class. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager_a854a5ddce1304981c194c0a98d1d9f8c}{Display\+Intro} (string msg)
+\begin{DoxyCompactList}\small\item\em Displays the introduction text of the game. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager_a32460cc4c19947d1b2f0724a11c1d47c}{Display\+End} (string message, int number\+Of\+Opened\+Cells)
+\begin{DoxyCompactList}\small\item\em Displays the ending messages of the game. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager_a8ff1e458e0f14038b0abb9a44fa078a6}{Good\+Bye} (string good\+Bye\+Msg)
+\begin{DoxyCompactList}\small\item\em Displays the messages when the user quits the game. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager_a2f3537e693d8efc90cbef90a0a63d34b}{Display\+High\+Scores} (I\+Enumerable$<$ Key\+Value\+Pair$<$ string, int $>$$>$ top\+Scores)
+\begin{DoxyCompactList}\small\item\em Displays the high scores. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager_a67f57db959d9eff2829e1c3c64fb726f}{Display\+Error} (string error\+Msg)
+\begin{DoxyCompactList}\small\item\em Displays error messages. \end{DoxyCompactList}\item 
+string \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager_abf069aaf0ff743c8b5f27ea3dba46be4}{Read\+Input} ()
+\begin{DoxyCompactList}\small\item\em Reads input from the user. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager_a4e433f59e1f0787aa4d69683b381dcfe}{Draw\+Table} (int minefield\+Rows, int minefield\+Cols)
+\begin{DoxyCompactList}\small\item\em Draws the game table. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager_acc84e19d875400108a4026cf2861c5d9}{Clear\+Command\+Line} (string command\+Prompt)
+\begin{DoxyCompactList}\small\item\em Clears the command line. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager_af1af79047deb6ba4ec6902a481df1c3e}{Draw\+Game\+Field} (\hyperlink{namespace_minesweeper_adf92d608047dafd69d16008492d317bd}{Cell\+Image}\mbox{[},\mbox{]} minefield, int\mbox{[},\mbox{]} neighbor\+Mines)
+\begin{DoxyCompactList}\small\item\em Draws the game field. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+User Interface Manager class. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_minesweeper_1_1_game_1_1_u_i_manager_a424a2a585050b3c85d119d84c4ba2b80}{\index{Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}!U\+I\+Manager@{U\+I\+Manager}}
+\index{U\+I\+Manager@{U\+I\+Manager}!Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}}
+\subsubsection[{U\+I\+Manager}]{\setlength{\rightskip}{0pt plus 5cm}Minesweeper.\+Game.\+U\+I\+Manager.\+U\+I\+Manager (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_u_i_manager_a424a2a585050b3c85d119d84c4ba2b80}
+
+
+Initializes a new instance of the \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager}{U\+I\+Manager} class with default Console\+Renderer and Console\+Reader. 
+
+\hypertarget{class_minesweeper_1_1_game_1_1_u_i_manager_a996444e4a3c298158ab07d21f48c7307}{\index{Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}!U\+I\+Manager@{U\+I\+Manager}}
+\index{U\+I\+Manager@{U\+I\+Manager}!Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}}
+\subsubsection[{U\+I\+Manager}]{\setlength{\rightskip}{0pt plus 5cm}Minesweeper.\+Game.\+U\+I\+Manager.\+U\+I\+Manager (
+\begin{DoxyParamCaption}
+\item[{{\bf I\+Renderer}}]{renderer, }
+\item[{{\bf I\+User\+Input\+Reader}}]{input\+Reader}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_u_i_manager_a996444e4a3c298158ab07d21f48c7307}
+
+
+Initializes a new instance of the \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager}{U\+I\+Manager} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & The renderer which is going to be used by the \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager}{U\+I\+Manager}.\\
+\hline
+{\em input\+Reader} & The input reader which \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager}{U\+I\+Manager} is going to use.\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_minesweeper_1_1_game_1_1_u_i_manager_acc84e19d875400108a4026cf2861c5d9}{\index{Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}!Clear\+Command\+Line@{Clear\+Command\+Line}}
+\index{Clear\+Command\+Line@{Clear\+Command\+Line}!Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}}
+\subsubsection[{Clear\+Command\+Line}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+U\+I\+Manager.\+Clear\+Command\+Line (
+\begin{DoxyParamCaption}
+\item[{string}]{command\+Prompt}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_u_i_manager_acc84e19d875400108a4026cf2861c5d9}
+
+
+Clears the command line. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command\+Prompt} & The prompt that is going to be shown to the user.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{interface_minesweeper_1_1_game_1_1_i_u_i_manager_aafbe4485c18fe5dd0269a1a54599d1fc}{Minesweeper.\+Game.\+I\+U\+I\+Manager}.
+
+\hypertarget{class_minesweeper_1_1_game_1_1_u_i_manager_a32460cc4c19947d1b2f0724a11c1d47c}{\index{Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}!Display\+End@{Display\+End}}
+\index{Display\+End@{Display\+End}!Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}}
+\subsubsection[{Display\+End}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+U\+I\+Manager.\+Display\+End (
+\begin{DoxyParamCaption}
+\item[{string}]{message, }
+\item[{int}]{number\+Of\+Opened\+Cells}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_u_i_manager_a32460cc4c19947d1b2f0724a11c1d47c}
+
+
+Displays the ending messages of the game. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & The ending message.\\
+\hline
+{\em number\+Of\+Opened\+Cells} & The number of cells the user opened during the game.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{interface_minesweeper_1_1_game_1_1_i_u_i_manager_a7df49d712d01db2b9e9b36218667cc23}{Minesweeper.\+Game.\+I\+U\+I\+Manager}.
+
+\hypertarget{class_minesweeper_1_1_game_1_1_u_i_manager_a67f57db959d9eff2829e1c3c64fb726f}{\index{Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}!Display\+Error@{Display\+Error}}
+\index{Display\+Error@{Display\+Error}!Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}}
+\subsubsection[{Display\+Error}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+U\+I\+Manager.\+Display\+Error (
+\begin{DoxyParamCaption}
+\item[{string}]{error\+Msg}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_u_i_manager_a67f57db959d9eff2829e1c3c64fb726f}
+
+
+Displays error messages. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em error\+Msg} & The error message to be displayed.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{interface_minesweeper_1_1_game_1_1_i_u_i_manager_afa8d49b68057b38c302d945c829e1856}{Minesweeper.\+Game.\+I\+U\+I\+Manager}.
+
+\hypertarget{class_minesweeper_1_1_game_1_1_u_i_manager_a2f3537e693d8efc90cbef90a0a63d34b}{\index{Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}!Display\+High\+Scores@{Display\+High\+Scores}}
+\index{Display\+High\+Scores@{Display\+High\+Scores}!Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}}
+\subsubsection[{Display\+High\+Scores}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+U\+I\+Manager.\+Display\+High\+Scores (
+\begin{DoxyParamCaption}
+\item[{I\+Enumerable$<$ Key\+Value\+Pair$<$ string, int $>$$>$}]{top\+Scores}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_u_i_manager_a2f3537e693d8efc90cbef90a0a63d34b}
+
+
+Displays the high scores. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em top\+Scores} & The top scores to be displayed.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{interface_minesweeper_1_1_game_1_1_i_u_i_manager_a562c29c1904a923494c26511e0a6a3d8}{Minesweeper.\+Game.\+I\+U\+I\+Manager}.
+
+\hypertarget{class_minesweeper_1_1_game_1_1_u_i_manager_a854a5ddce1304981c194c0a98d1d9f8c}{\index{Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}!Display\+Intro@{Display\+Intro}}
+\index{Display\+Intro@{Display\+Intro}!Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}}
+\subsubsection[{Display\+Intro}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+U\+I\+Manager.\+Display\+Intro (
+\begin{DoxyParamCaption}
+\item[{string}]{msg}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_u_i_manager_a854a5ddce1304981c194c0a98d1d9f8c}
+
+
+Displays the introduction text of the game. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & The introduction message.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{interface_minesweeper_1_1_game_1_1_i_u_i_manager_a0a8ff25e5b1a5013bdbf2c5b7a5f82c3}{Minesweeper.\+Game.\+I\+U\+I\+Manager}.
+
+\hypertarget{class_minesweeper_1_1_game_1_1_u_i_manager_af1af79047deb6ba4ec6902a481df1c3e}{\index{Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}!Draw\+Game\+Field@{Draw\+Game\+Field}}
+\index{Draw\+Game\+Field@{Draw\+Game\+Field}!Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}}
+\subsubsection[{Draw\+Game\+Field}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+U\+I\+Manager.\+Draw\+Game\+Field (
+\begin{DoxyParamCaption}
+\item[{{\bf Cell\+Image}}]{minefield\mbox{[},\mbox{]}, }
+\item[{int}]{neighbor\+Mines\mbox{[},\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_u_i_manager_af1af79047deb6ba4ec6902a481df1c3e}
+
+
+Draws the game field. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em minefield} & The minefield to be drawn.\\
+\hline
+{\em neighbor\+Mines} & The minefield with all values of neighboring mines.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{interface_minesweeper_1_1_game_1_1_i_u_i_manager_acae1778c1bdc80065c2b18afb1d11a70}{Minesweeper.\+Game.\+I\+U\+I\+Manager}.
+
+\hypertarget{class_minesweeper_1_1_game_1_1_u_i_manager_a4e433f59e1f0787aa4d69683b381dcfe}{\index{Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}!Draw\+Table@{Draw\+Table}}
+\index{Draw\+Table@{Draw\+Table}!Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}}
+\subsubsection[{Draw\+Table}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+U\+I\+Manager.\+Draw\+Table (
+\begin{DoxyParamCaption}
+\item[{int}]{minefield\+Rows, }
+\item[{int}]{minefield\+Cols}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_u_i_manager_a4e433f59e1f0787aa4d69683b381dcfe}
+
+
+Draws the game table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em minefield\+Rows} & The count of the minefield rows.\\
+\hline
+{\em minefield\+Cols} & The count of the minefield columns.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{interface_minesweeper_1_1_game_1_1_i_u_i_manager_a0dd9d9e47eba3707562cf1493a9bf6aa}{Minesweeper.\+Game.\+I\+U\+I\+Manager}.
+
+\hypertarget{class_minesweeper_1_1_game_1_1_u_i_manager_a8ff1e458e0f14038b0abb9a44fa078a6}{\index{Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}!Good\+Bye@{Good\+Bye}}
+\index{Good\+Bye@{Good\+Bye}!Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}}
+\subsubsection[{Good\+Bye}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+U\+I\+Manager.\+Good\+Bye (
+\begin{DoxyParamCaption}
+\item[{string}]{good\+Bye\+Msg}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_u_i_manager_a8ff1e458e0f14038b0abb9a44fa078a6}
+
+
+Displays the messages when the user quits the game. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em good\+Bye\+Msg} & The goodbye message.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{interface_minesweeper_1_1_game_1_1_i_u_i_manager_a61f1153446f2f52f258363ccd9008c20}{Minesweeper.\+Game.\+I\+U\+I\+Manager}.
+
+\hypertarget{class_minesweeper_1_1_game_1_1_u_i_manager_abf069aaf0ff743c8b5f27ea3dba46be4}{\index{Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}!Read\+Input@{Read\+Input}}
+\index{Read\+Input@{Read\+Input}!Minesweeper\+::\+Game\+::\+U\+I\+Manager@{Minesweeper\+::\+Game\+::\+U\+I\+Manager}}
+\subsubsection[{Read\+Input}]{\setlength{\rightskip}{0pt plus 5cm}string Minesweeper.\+Game.\+U\+I\+Manager.\+Read\+Input (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_u_i_manager_abf069aaf0ff743c8b5f27ea3dba46be4}
+
+
+Reads input from the user. 
+
+\begin{DoxyReturn}{Returns}
+The user input.
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_minesweeper_1_1_game_1_1_i_u_i_manager_ac2d51aed7d1d677c899fa596becc6afb}{Minesweeper.\+Game.\+I\+U\+I\+Manager}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Minesweeper/\+Minesweeper/\+Minesweeper.\+game/U\+I\+Manager.\+cs\end{DoxyCompactItemize}

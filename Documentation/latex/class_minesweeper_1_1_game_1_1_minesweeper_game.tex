@@ -1,0 +1,183 @@
+\hypertarget{class_minesweeper_1_1_game_1_1_minesweeper_game}{\section{Minesweeper.\+Game.\+Minesweeper\+Game Class Reference}
+\label{class_minesweeper_1_1_game_1_1_minesweeper_game}\index{Minesweeper.\+Game.\+Minesweeper\+Game@{Minesweeper.\+Game.\+Minesweeper\+Game}}
+}
+
+
+The 'receiver' class in the Command pattern. Also a Facade for the \hyperlink{class_minesweeper_1_1_game_1_1_minefield}{Minefield}, \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager}{U\+I\+Manager} and \hyperlink{class_minesweeper_1_1_game_1_1_score_board}{Score\+Board} class. Uses Factory Method to create the minefield.  
+
+
+Inheritance diagram for Minesweeper.\+Game.\+Minesweeper\+Game\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_minesweeper_1_1_game_1_1_minesweeper_game}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_minesweeper_1_1_game_1_1_minesweeper_game_a116b494ade82eea0125efb4541f22b23}{Minesweeper\+Game} (\hyperlink{interface_minesweeper_1_1_game_1_1_i_u_i_manager}{I\+U\+I\+Manager} ui\+Manager)
+\begin{DoxyCompactList}\small\item\em Initializes a new instance of the \hyperlink{class_minesweeper_1_1_game_1_1_minesweeper_game}{Minesweeper.\+Game.\+Minesweeper\+Game} class. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_minesweeper_game_ab5b0c6535ef107b31e141fa6462f9b4c}{Open\+Cell} (\hyperlink{interface_minesweeper_1_1_lib_1_1_i_cell_position}{I\+Cell\+Position} cell)
+\begin{DoxyCompactList}\small\item\em Opens the selected Cell \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_minesweeper_game_a5c45da023c4d58c4c5cfc78336012b02}{Flag\+Cell} (\hyperlink{interface_minesweeper_1_1_lib_1_1_i_cell_position}{I\+Cell\+Position} cell)
+\begin{DoxyCompactList}\small\item\em Flags the cell on the given coordinates. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_minesweeper_game_a53e6276fccb916310cece3d6ab9b3306}{Mine\+Boomed} ()
+\begin{DoxyCompactList}\small\item\em When the mine explodes finishes the game and shows the appropriate message to the user. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_minesweeper_game_afb4bac8d31b4477b70e9618e9d28a621}{Exit\+Game} ()
+\begin{DoxyCompactList}\small\item\em Method for quitting the game. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_minesweeper_game_a327c14748c81e511c4156c3e96290668}{Show\+Scores} ()
+\begin{DoxyCompactList}\small\item\em Shows the high scores of the game. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_minesweeper_game_aa0a9944c0b3d78a2a322b1c8ecd2c19a}{Generate\+Minefield} ()
+\begin{DoxyCompactList}\small\item\em Generates randomly mined minefield. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_game_1_1_minesweeper_game_aff1f0ecbb453fcdec86d441a3a56f834}{Display\+Error} ()
+\begin{DoxyCompactList}\small\item\em Displays error message if the user enters invalid command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+abstract \hyperlink{class_minesweeper_1_1_game_1_1_minefield}{Minefield} \hyperlink{class_minesweeper_1_1_game_1_1_minesweeper_game_a44c9074e398f608490fa956a59c8e366}{Create\+Minefield} (int rows, int cols)
+\begin{DoxyCompactList}\small\item\em Factory Method to create a new minefield. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The 'receiver' class in the Command pattern. Also a Facade for the \hyperlink{class_minesweeper_1_1_game_1_1_minefield}{Minefield}, \hyperlink{class_minesweeper_1_1_game_1_1_u_i_manager}{U\+I\+Manager} and \hyperlink{class_minesweeper_1_1_game_1_1_score_board}{Score\+Board} class. Uses Factory Method to create the minefield. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_minesweeper_1_1_game_1_1_minesweeper_game_a116b494ade82eea0125efb4541f22b23}{\index{Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}!Minesweeper\+Game@{Minesweeper\+Game}}
+\index{Minesweeper\+Game@{Minesweeper\+Game}!Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}}
+\subsubsection[{Minesweeper\+Game}]{\setlength{\rightskip}{0pt plus 5cm}Minesweeper.\+Game.\+Minesweeper\+Game.\+Minesweeper\+Game (
+\begin{DoxyParamCaption}
+\item[{{\bf I\+U\+I\+Manager}}]{ui\+Manager}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_minesweeper_game_a116b494ade82eea0125efb4541f22b23}
+
+
+Initializes a new instance of the \hyperlink{class_minesweeper_1_1_game_1_1_minesweeper_game}{Minesweeper.\+Game.\+Minesweeper\+Game} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ui\+Manager} & The \hyperlink{interface_minesweeper_1_1_game_1_1_i_u_i_manager}{Minesweeper.\+Game.\+I\+U\+I\+Manager} implementation used to read and write.\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_minesweeper_1_1_game_1_1_minesweeper_game_a44c9074e398f608490fa956a59c8e366}{\index{Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}!Create\+Minefield@{Create\+Minefield}}
+\index{Create\+Minefield@{Create\+Minefield}!Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}}
+\subsubsection[{Create\+Minefield}]{\setlength{\rightskip}{0pt plus 5cm}abstract {\bf Minefield} Minesweeper.\+Game.\+Minesweeper\+Game.\+Create\+Minefield (
+\begin{DoxyParamCaption}
+\item[{int}]{rows, }
+\item[{int}]{cols}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}}\label{class_minesweeper_1_1_game_1_1_minesweeper_game_a44c9074e398f608490fa956a59c8e366}
+
+
+Factory Method to create a new minefield. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rows} & Rows in the minefield.\\
+\hline
+{\em cols} & Columns in the minefield.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a new minefield.
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{class_minesweeper_1_1_game_1_1_minesweeper_game_easy_a9f01271eaaabb3d027d00b2677d6995c}{Minesweeper.\+Game.\+Minesweeper\+Game\+Easy}.
+
+\hypertarget{class_minesweeper_1_1_game_1_1_minesweeper_game_aff1f0ecbb453fcdec86d441a3a56f834}{\index{Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}!Display\+Error@{Display\+Error}}
+\index{Display\+Error@{Display\+Error}!Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}}
+\subsubsection[{Display\+Error}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+Minesweeper\+Game.\+Display\+Error (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_minesweeper_game_aff1f0ecbb453fcdec86d441a3a56f834}
+
+
+Displays error message if the user enters invalid command. 
+
+\hypertarget{class_minesweeper_1_1_game_1_1_minesweeper_game_afb4bac8d31b4477b70e9618e9d28a621}{\index{Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}!Exit\+Game@{Exit\+Game}}
+\index{Exit\+Game@{Exit\+Game}!Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}}
+\subsubsection[{Exit\+Game}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+Minesweeper\+Game.\+Exit\+Game (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_minesweeper_game_afb4bac8d31b4477b70e9618e9d28a621}
+
+
+Method for quitting the game. 
+
+\hypertarget{class_minesweeper_1_1_game_1_1_minesweeper_game_a5c45da023c4d58c4c5cfc78336012b02}{\index{Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}!Flag\+Cell@{Flag\+Cell}}
+\index{Flag\+Cell@{Flag\+Cell}!Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}}
+\subsubsection[{Flag\+Cell}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+Minesweeper\+Game.\+Flag\+Cell (
+\begin{DoxyParamCaption}
+\item[{{\bf I\+Cell\+Position}}]{cell}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_minesweeper_game_a5c45da023c4d58c4c5cfc78336012b02}
+
+
+Flags the cell on the given coordinates. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cell} & The position of the cell.\\
+\hline
+\end{DoxyParams}
+\hypertarget{class_minesweeper_1_1_game_1_1_minesweeper_game_aa0a9944c0b3d78a2a322b1c8ecd2c19a}{\index{Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}!Generate\+Minefield@{Generate\+Minefield}}
+\index{Generate\+Minefield@{Generate\+Minefield}!Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}}
+\subsubsection[{Generate\+Minefield}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+Minesweeper\+Game.\+Generate\+Minefield (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_minesweeper_game_aa0a9944c0b3d78a2a322b1c8ecd2c19a}
+
+
+Generates randomly mined minefield. 
+
+\hypertarget{class_minesweeper_1_1_game_1_1_minesweeper_game_a53e6276fccb916310cece3d6ab9b3306}{\index{Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}!Mine\+Boomed@{Mine\+Boomed}}
+\index{Mine\+Boomed@{Mine\+Boomed}!Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}}
+\subsubsection[{Mine\+Boomed}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+Minesweeper\+Game.\+Mine\+Boomed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_minesweeper_game_a53e6276fccb916310cece3d6ab9b3306}
+
+
+When the mine explodes finishes the game and shows the appropriate message to the user. 
+
+\hypertarget{class_minesweeper_1_1_game_1_1_minesweeper_game_ab5b0c6535ef107b31e141fa6462f9b4c}{\index{Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}!Open\+Cell@{Open\+Cell}}
+\index{Open\+Cell@{Open\+Cell}!Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}}
+\subsubsection[{Open\+Cell}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+Minesweeper\+Game.\+Open\+Cell (
+\begin{DoxyParamCaption}
+\item[{{\bf I\+Cell\+Position}}]{cell}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_minesweeper_game_ab5b0c6535ef107b31e141fa6462f9b4c}
+
+
+Opens the selected Cell 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cell} & The position of the cell on the minefield.\\
+\hline
+\end{DoxyParams}
+\hypertarget{class_minesweeper_1_1_game_1_1_minesweeper_game_a327c14748c81e511c4156c3e96290668}{\index{Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}!Show\+Scores@{Show\+Scores}}
+\index{Show\+Scores@{Show\+Scores}!Minesweeper\+::\+Game\+::\+Minesweeper\+Game@{Minesweeper\+::\+Game\+::\+Minesweeper\+Game}}
+\subsubsection[{Show\+Scores}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Game.\+Minesweeper\+Game.\+Show\+Scores (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_minesweeper_game_a327c14748c81e511c4156c3e96290668}
+
+
+Shows the high scores of the game. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Minesweeper/\+Minesweeper/\+Minesweeper.\+game/Minesweeper\+Game.\+cs\end{DoxyCompactItemize}

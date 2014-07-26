@@ -1,0 +1,147 @@
+\hypertarget{class_minesweeper_1_1_lib_1_1_cell}{\section{Minesweeper.\+Lib.\+Cell Class Reference}
+\label{class_minesweeper_1_1_lib_1_1_cell}\index{Minesweeper.\+Lib.\+Cell@{Minesweeper.\+Lib.\+Cell}}
+}
+
+
+\hyperlink{class_minesweeper_1_1_lib_1_1_cell}{Cell} class which represents the minefield's single cell states.  
+
+
+Inheritance diagram for Minesweeper.\+Lib.\+Cell\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_minesweeper_1_1_lib_1_1_cell}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_minesweeper_1_1_lib_1_1_cell_a2dd45aa4466e64696feb140d13cf0899}{Cell} ()
+\begin{DoxyCompactList}\small\item\em Initializes a new instance of the \hyperlink{class_minesweeper_1_1_lib_1_1_cell}{Cell} class. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_lib_1_1_cell_a5fa36c247bd91a482ac46ebf7d2f38b8}{Open\+Cell} ()
+\begin{DoxyCompactList}\small\item\em Marks the current cell as opened and removes flags. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_lib_1_1_cell_a0f959eea2ba69dfa8fcb0ee72e8b33ca}{Toggle\+Flag} ()
+\begin{DoxyCompactList}\small\item\em Changes the state of the flag. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_lib_1_1_cell_a64366640c2cb5425cc73817827d291c4}{Add\+Mine} ()
+\begin{DoxyCompactList}\small\item\em Marks the current cell as mined. \end{DoxyCompactList}\item 
+void \hyperlink{class_minesweeper_1_1_lib_1_1_cell_ad69f61697ceb611c855f3c4e48f60eb4}{Disarm} ()
+\begin{DoxyCompactList}\small\item\em Removes the mine from the current cell. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_minesweeper_1_1_lib_1_1_cell_a78511856244d5f3ed2c876b94d55fcd3}{Is\+Opened}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a value indicating whether the current cell is opened. \end{DoxyCompactList}\item 
+bool \hyperlink{class_minesweeper_1_1_lib_1_1_cell_ad0b6f5feaeb0f065246e450f853ada61}{Is\+Flagged}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a value indicating whether the current cell is flagged. \end{DoxyCompactList}\item 
+bool \hyperlink{class_minesweeper_1_1_lib_1_1_cell_a900f81faa7bcc6021be178401b57763c}{Is\+Mined}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a value indicating whether the current cell is mined. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_minesweeper_1_1_lib_1_1_cell}{Cell} class which represents the minefield's single cell states. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_minesweeper_1_1_lib_1_1_cell_a2dd45aa4466e64696feb140d13cf0899}{\index{Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}!Cell@{Cell}}
+\index{Cell@{Cell}!Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}}
+\subsubsection[{Cell}]{\setlength{\rightskip}{0pt plus 5cm}Minesweeper.\+Lib.\+Cell.\+Cell (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_lib_1_1_cell_a2dd45aa4466e64696feb140d13cf0899}
+
+
+Initializes a new instance of the \hyperlink{class_minesweeper_1_1_lib_1_1_cell}{Cell} class. 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_minesweeper_1_1_lib_1_1_cell_a64366640c2cb5425cc73817827d291c4}{\index{Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}!Add\+Mine@{Add\+Mine}}
+\index{Add\+Mine@{Add\+Mine}!Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}}
+\subsubsection[{Add\+Mine}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Lib.\+Cell.\+Add\+Mine (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_lib_1_1_cell_a64366640c2cb5425cc73817827d291c4}
+
+
+Marks the current cell as mined. 
+
+
+
+Implements \hyperlink{interface_minesweeper_1_1_lib_1_1_i_cell_a0befb554376beed982e468052e7c0ed6}{Minesweeper.\+Lib.\+I\+Cell}.
+
+\hypertarget{class_minesweeper_1_1_lib_1_1_cell_ad69f61697ceb611c855f3c4e48f60eb4}{\index{Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}!Disarm@{Disarm}}
+\index{Disarm@{Disarm}!Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}}
+\subsubsection[{Disarm}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Lib.\+Cell.\+Disarm (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_lib_1_1_cell_ad69f61697ceb611c855f3c4e48f60eb4}
+
+
+Removes the mine from the current cell. 
+
+
+
+Implements \hyperlink{interface_minesweeper_1_1_lib_1_1_i_cell_a12556fc759e102491c7ce2c432bd0dec}{Minesweeper.\+Lib.\+I\+Cell}.
+
+\hypertarget{class_minesweeper_1_1_lib_1_1_cell_a5fa36c247bd91a482ac46ebf7d2f38b8}{\index{Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}!Open\+Cell@{Open\+Cell}}
+\index{Open\+Cell@{Open\+Cell}!Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}}
+\subsubsection[{Open\+Cell}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Lib.\+Cell.\+Open\+Cell (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_lib_1_1_cell_a5fa36c247bd91a482ac46ebf7d2f38b8}
+
+
+Marks the current cell as opened and removes flags. 
+
+
+
+Implements \hyperlink{interface_minesweeper_1_1_lib_1_1_i_cell_aa7b5d6db30495f23c0aa595e95aa16ae}{Minesweeper.\+Lib.\+I\+Cell}.
+
+\hypertarget{class_minesweeper_1_1_lib_1_1_cell_a0f959eea2ba69dfa8fcb0ee72e8b33ca}{\index{Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}!Toggle\+Flag@{Toggle\+Flag}}
+\index{Toggle\+Flag@{Toggle\+Flag}!Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}}
+\subsubsection[{Toggle\+Flag}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Lib.\+Cell.\+Toggle\+Flag (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_lib_1_1_cell_a0f959eea2ba69dfa8fcb0ee72e8b33ca}
+
+
+Changes the state of the flag. 
+
+
+
+Implements \hyperlink{interface_minesweeper_1_1_lib_1_1_i_cell_acb11d64a47cb3176d2fe42a093958e49}{Minesweeper.\+Lib.\+I\+Cell}.
+
+
+
+\subsection{Property Documentation}
+\hypertarget{class_minesweeper_1_1_lib_1_1_cell_ad0b6f5feaeb0f065246e450f853ada61}{\index{Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}!Is\+Flagged@{Is\+Flagged}}
+\index{Is\+Flagged@{Is\+Flagged}!Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}}
+\subsubsection[{Is\+Flagged}]{\setlength{\rightskip}{0pt plus 5cm}bool Minesweeper.\+Lib.\+Cell.\+Is\+Flagged\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}}\label{class_minesweeper_1_1_lib_1_1_cell_ad0b6f5feaeb0f065246e450f853ada61}
+
+
+Gets a value indicating whether the current cell is flagged. 
+
+True if the current cell is flagged.\hypertarget{class_minesweeper_1_1_lib_1_1_cell_a900f81faa7bcc6021be178401b57763c}{\index{Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}!Is\+Mined@{Is\+Mined}}
+\index{Is\+Mined@{Is\+Mined}!Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}}
+\subsubsection[{Is\+Mined}]{\setlength{\rightskip}{0pt plus 5cm}bool Minesweeper.\+Lib.\+Cell.\+Is\+Mined\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}}\label{class_minesweeper_1_1_lib_1_1_cell_a900f81faa7bcc6021be178401b57763c}
+
+
+Gets a value indicating whether the current cell is mined. 
+
+True if the current cell has a mine.\hypertarget{class_minesweeper_1_1_lib_1_1_cell_a78511856244d5f3ed2c876b94d55fcd3}{\index{Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}!Is\+Opened@{Is\+Opened}}
+\index{Is\+Opened@{Is\+Opened}!Minesweeper\+::\+Lib\+::\+Cell@{Minesweeper\+::\+Lib\+::\+Cell}}
+\subsubsection[{Is\+Opened}]{\setlength{\rightskip}{0pt plus 5cm}bool Minesweeper.\+Lib.\+Cell.\+Is\+Opened\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}}\label{class_minesweeper_1_1_lib_1_1_cell_a78511856244d5f3ed2c876b94d55fcd3}
+
+
+Gets a value indicating whether the current cell is opened. 
+
+True if the current cell is opened.
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Minesweeper/\+Minesweeper/\+Minesweeper.\+Lib/Cell.\+cs\end{DoxyCompactItemize}

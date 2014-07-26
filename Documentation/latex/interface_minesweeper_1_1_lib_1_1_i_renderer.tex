@@ -1,0 +1,156 @@
+\hypertarget{interface_minesweeper_1_1_lib_1_1_i_renderer}{\section{Minesweeper.\+Lib.\+I\+Renderer Interface Reference}
+\label{interface_minesweeper_1_1_lib_1_1_i_renderer}\index{Minesweeper.\+Lib.\+I\+Renderer@{Minesweeper.\+Lib.\+I\+Renderer}}
+}
+
+
+Defines methods for rendering text.  
+
+
+Inheritance diagram for Minesweeper.\+Lib.\+I\+Renderer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{interface_minesweeper_1_1_lib_1_1_i_renderer}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{interface_minesweeper_1_1_lib_1_1_i_renderer_a150b8784f5e36e60321bde94eee5547d}{Write\+Line} ()
+\begin{DoxyCompactList}\small\item\em Writes the current line terminator to the output stream. \end{DoxyCompactList}\item 
+void \hyperlink{interface_minesweeper_1_1_lib_1_1_i_renderer_a70b1435fe82e94c6b97367b374b70d05}{Write\+Line} (string format, params object\mbox{[}$\,$\mbox{]} args)
+\begin{DoxyCompactList}\small\item\em Writes the text representation of the specified array of objects to the output stream using the specified format information, followed by the current line terminator. \end{DoxyCompactList}\item 
+void \hyperlink{interface_minesweeper_1_1_lib_1_1_i_renderer_a05ea2257710476341378ee29f6f7762b}{Write} (string format, params object\mbox{[}$\,$\mbox{]} args)
+\begin{DoxyCompactList}\small\item\em Writes the text representation of the specified array of objects to the output stream using the specified format information. \end{DoxyCompactList}\item 
+void \hyperlink{interface_minesweeper_1_1_lib_1_1_i_renderer_a1f08c5c282e4ce3d59f0e6734c90bdf7}{Write\+At} (int left, int top, string format, params object\mbox{[}$\,$\mbox{]} args)
+\begin{DoxyCompactList}\small\item\em Writes the text representation of the specified array of objects to the output stream using the specified format information at a specific position. \end{DoxyCompactList}\item 
+void \hyperlink{interface_minesweeper_1_1_lib_1_1_i_renderer_ab9daae4f93263816808f642cba7e9875}{Clear\+Lines} (int left, int top, int num\+Lines)
+\begin{DoxyCompactList}\small\item\em Clear specific number of lines. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Defines methods for rendering text. 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{interface_minesweeper_1_1_lib_1_1_i_renderer_ab9daae4f93263816808f642cba7e9875}{\index{Minesweeper\+::\+Lib\+::\+I\+Renderer@{Minesweeper\+::\+Lib\+::\+I\+Renderer}!Clear\+Lines@{Clear\+Lines}}
+\index{Clear\+Lines@{Clear\+Lines}!Minesweeper\+::\+Lib\+::\+I\+Renderer@{Minesweeper\+::\+Lib\+::\+I\+Renderer}}
+\subsubsection[{Clear\+Lines}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Lib.\+I\+Renderer.\+Clear\+Lines (
+\begin{DoxyParamCaption}
+\item[{int}]{left, }
+\item[{int}]{top, }
+\item[{int}]{num\+Lines}
+\end{DoxyParamCaption}
+)}}\label{interface_minesweeper_1_1_lib_1_1_i_renderer_ab9daae4f93263816808f642cba7e9875}
+
+
+Clear specific number of lines. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em left} & Start column position of the clearing.\\
+\hline
+{\em top} & Start row position of the clearing.\\
+\hline
+{\em num\+Lines} & Number of lines that must be cleared.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{class_minesweeper_1_1_lib_1_1_console_renderer_a4968ccf049f1704753728368a2519fe2}{Minesweeper.\+Lib.\+Console\+Renderer}.
+
+\hypertarget{interface_minesweeper_1_1_lib_1_1_i_renderer_a05ea2257710476341378ee29f6f7762b}{\index{Minesweeper\+::\+Lib\+::\+I\+Renderer@{Minesweeper\+::\+Lib\+::\+I\+Renderer}!Write@{Write}}
+\index{Write@{Write}!Minesweeper\+::\+Lib\+::\+I\+Renderer@{Minesweeper\+::\+Lib\+::\+I\+Renderer}}
+\subsubsection[{Write}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Lib.\+I\+Renderer.\+Write (
+\begin{DoxyParamCaption}
+\item[{string}]{format, }
+\item[{params object\mbox{[}$\,$\mbox{]}}]{args}
+\end{DoxyParamCaption}
+)}}\label{interface_minesweeper_1_1_lib_1_1_i_renderer_a05ea2257710476341378ee29f6f7762b}
+
+
+Writes the text representation of the specified array of objects to the output stream using the specified format information. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em format} & A composite format string.\\
+\hline
+{\em args} & An array of objects to write using format.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{class_minesweeper_1_1_lib_1_1_console_renderer_a14f9db3445bb4f3921eada8463617e35}{Minesweeper.\+Lib.\+Console\+Renderer}.
+
+\hypertarget{interface_minesweeper_1_1_lib_1_1_i_renderer_a1f08c5c282e4ce3d59f0e6734c90bdf7}{\index{Minesweeper\+::\+Lib\+::\+I\+Renderer@{Minesweeper\+::\+Lib\+::\+I\+Renderer}!Write\+At@{Write\+At}}
+\index{Write\+At@{Write\+At}!Minesweeper\+::\+Lib\+::\+I\+Renderer@{Minesweeper\+::\+Lib\+::\+I\+Renderer}}
+\subsubsection[{Write\+At}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Lib.\+I\+Renderer.\+Write\+At (
+\begin{DoxyParamCaption}
+\item[{int}]{left, }
+\item[{int}]{top, }
+\item[{string}]{format, }
+\item[{params object\mbox{[}$\,$\mbox{]}}]{args}
+\end{DoxyParamCaption}
+)}}\label{interface_minesweeper_1_1_lib_1_1_i_renderer_a1f08c5c282e4ce3d59f0e6734c90bdf7}
+
+
+Writes the text representation of the specified array of objects to the output stream using the specified format information at a specific position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em left} & The column position.\\
+\hline
+{\em top} & The row position.\\
+\hline
+{\em format} & A composite format string.\\
+\hline
+{\em args} & An array of objects to write using format.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{class_minesweeper_1_1_lib_1_1_console_renderer_aa8ccd90c8c5a4e6bb02da7b546ef9c26}{Minesweeper.\+Lib.\+Console\+Renderer}.
+
+\hypertarget{interface_minesweeper_1_1_lib_1_1_i_renderer_a150b8784f5e36e60321bde94eee5547d}{\index{Minesweeper\+::\+Lib\+::\+I\+Renderer@{Minesweeper\+::\+Lib\+::\+I\+Renderer}!Write\+Line@{Write\+Line}}
+\index{Write\+Line@{Write\+Line}!Minesweeper\+::\+Lib\+::\+I\+Renderer@{Minesweeper\+::\+Lib\+::\+I\+Renderer}}
+\subsubsection[{Write\+Line}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Lib.\+I\+Renderer.\+Write\+Line (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{interface_minesweeper_1_1_lib_1_1_i_renderer_a150b8784f5e36e60321bde94eee5547d}
+
+
+Writes the current line terminator to the output stream. 
+
+
+
+Implemented in \hyperlink{class_minesweeper_1_1_lib_1_1_console_renderer_a0a9b86365042b44de6c5b9da7b40dafe}{Minesweeper.\+Lib.\+Console\+Renderer}.
+
+\hypertarget{interface_minesweeper_1_1_lib_1_1_i_renderer_a70b1435fe82e94c6b97367b374b70d05}{\index{Minesweeper\+::\+Lib\+::\+I\+Renderer@{Minesweeper\+::\+Lib\+::\+I\+Renderer}!Write\+Line@{Write\+Line}}
+\index{Write\+Line@{Write\+Line}!Minesweeper\+::\+Lib\+::\+I\+Renderer@{Minesweeper\+::\+Lib\+::\+I\+Renderer}}
+\subsubsection[{Write\+Line}]{\setlength{\rightskip}{0pt plus 5cm}void Minesweeper.\+Lib.\+I\+Renderer.\+Write\+Line (
+\begin{DoxyParamCaption}
+\item[{string}]{format, }
+\item[{params object\mbox{[}$\,$\mbox{]}}]{args}
+\end{DoxyParamCaption}
+)}}\label{interface_minesweeper_1_1_lib_1_1_i_renderer_a70b1435fe82e94c6b97367b374b70d05}
+
+
+Writes the text representation of the specified array of objects to the output stream using the specified format information, followed by the current line terminator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em format} & A composite format string.\\
+\hline
+{\em args} & An array of objects to write using format.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{class_minesweeper_1_1_lib_1_1_console_renderer_afe92f94092a0a7876ec1c845ee7d78cf}{Minesweeper.\+Lib.\+Console\+Renderer}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Minesweeper/\+Minesweeper/\+Minesweeper.\+Lib/\+Interfaces/I\+Renderer.\+cs\end{DoxyCompactItemize}

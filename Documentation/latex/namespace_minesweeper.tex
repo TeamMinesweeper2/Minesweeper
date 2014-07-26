@@ -1,0 +1,92 @@
+\hypertarget{namespace_minesweeper}{\section{Package Minesweeper}
+\label{namespace_minesweeper}\index{Minesweeper@{Minesweeper}}
+}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+package \hyperlink{namespace_minesweeper_1_1_game}{Game}
+\item 
+package \hyperlink{namespace_minesweeper_1_1_lib}{Lib}
+\item 
+package \hyperlink{namespace_minesweeper_1_1_unit_tests}{Unit\+Tests}
+\end{DoxyCompactItemize}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_minesweeper_1_1_cmd_boom}{Cmd\+Boom}
+\begin{DoxyCompactList}\small\item\em Implements the Execute method by invoking an action on Minesweeper\+Game. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_cmd_exit}{Cmd\+Exit}
+\begin{DoxyCompactList}\small\item\em Implements the Execute method by invoking an action on Minesweeper\+Game. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_cmd_flag_cell}{Cmd\+Flag\+Cell}
+\begin{DoxyCompactList}\small\item\em Implements the Execute method by invoking an action on Minesweeper\+Game. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_cmd_invalid}{Cmd\+Invalid}
+\begin{DoxyCompactList}\small\item\em Implements the Execute method by invoking an action on Minesweeper\+Game. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_cmd_open_cell}{Cmd\+Open\+Cell}
+\begin{DoxyCompactList}\small\item\em Implements the Execute method by invoking an action on Minesweeper\+Game. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_cmd_restart}{Cmd\+Restart}
+\begin{DoxyCompactList}\small\item\em Implements the Execute method by invoking an action on Minesweeper\+Game. \end{DoxyCompactList}\item 
+class \hyperlink{class_minesweeper_1_1_cmd_show_scores}{Cmd\+Show\+Scores}
+\begin{DoxyCompactList}\small\item\em Implements the Execute method by invoking an action on Minesweeper\+Game. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93}{Cell\+Action\+Result} \{ \hyperlink{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93a365b2699d38b61ef4b4c8a1066c8468f}{Cell\+Action\+Result.\+Out\+Of\+Range}, 
+\hyperlink{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93ae8154ce477091bcf77405eee73b14feb}{Cell\+Action\+Result.\+Already\+Opened}, 
+\hyperlink{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93ae68a20cce237a139d82cc2dd85b7d917}{Cell\+Action\+Result.\+Boom}, 
+\hyperlink{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93a960b44c579bc2f6818d2daaf9e4c16f0}{Cell\+Action\+Result.\+Normal}
+ \}
+\begin{DoxyCompactList}\small\item\em Defines the possible results after an open/flag cell command. \end{DoxyCompactList}\item 
+enum \hyperlink{namespace_minesweeper_adf92d608047dafd69d16008492d317bd}{Cell\+Image} \{ \\*
+\hyperlink{namespace_minesweeper_adf92d608047dafd69d16008492d317bda2f7683c80079a6b0ba066fecc3f55fb5}{Cell\+Image.\+Not\+Flagged}, 
+\hyperlink{namespace_minesweeper_adf92d608047dafd69d16008492d317bda72d68acd07c783e657e2d2a9c50f16df}{Cell\+Image.\+Flagged}, 
+\hyperlink{namespace_minesweeper_adf92d608047dafd69d16008492d317bdacd3abfc2f377a4c3fd9181f919d9de82}{Cell\+Image.\+Bomb}, 
+\hyperlink{namespace_minesweeper_adf92d608047dafd69d16008492d317bda3332eae8860836ce9554811a48beb464}{Cell\+Image.\+No\+Bomb}, 
+\\*
+\hyperlink{namespace_minesweeper_adf92d608047dafd69d16008492d317bdab3e3076d9b3c53bede50d468b647b109}{Cell\+Image.\+Num}
+ \}
+\begin{DoxyCompactList}\small\item\em Defines the possible images a cell can have. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93}{\index{Minesweeper@{Minesweeper}!Cell\+Action\+Result@{Cell\+Action\+Result}}
+\index{Cell\+Action\+Result@{Cell\+Action\+Result}!Minesweeper@{Minesweeper}}
+\subsubsection[{Cell\+Action\+Result}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Minesweeper.\+Cell\+Action\+Result}}}\label{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93}
+
+
+Defines the possible results after an open/flag cell command. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{Out\+Of\+Range@{Out\+Of\+Range}!Minesweeper@{Minesweeper}}\index{Minesweeper@{Minesweeper}!Out\+Of\+Range@{Out\+Of\+Range}}\item[{\em 
+\hypertarget{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93a365b2699d38b61ef4b4c8a1066c8468f}{Out\+Of\+Range}\label{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93a365b2699d38b61ef4b4c8a1066c8468f}
+}]Cell out of range.\index{Already\+Opened@{Already\+Opened}!Minesweeper@{Minesweeper}}\index{Minesweeper@{Minesweeper}!Already\+Opened@{Already\+Opened}}\item[{\em 
+\hypertarget{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93ae8154ce477091bcf77405eee73b14feb}{Already\+Opened}\label{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93ae8154ce477091bcf77405eee73b14feb}
+}]Cell already opened.\index{Boom@{Boom}!Minesweeper@{Minesweeper}}\index{Minesweeper@{Minesweeper}!Boom@{Boom}}\item[{\em 
+\hypertarget{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93ae68a20cce237a139d82cc2dd85b7d917}{Boom}\label{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93ae68a20cce237a139d82cc2dd85b7d917}
+}]Cell has a mine.\index{Normal@{Normal}!Minesweeper@{Minesweeper}}\index{Minesweeper@{Minesweeper}!Normal@{Normal}}\item[{\em 
+\hypertarget{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93a960b44c579bc2f6818d2daaf9e4c16f0}{Normal}\label{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93a960b44c579bc2f6818d2daaf9e4c16f0}
+}]Cell has no mine and can be safely opened.\end{description}
+\end{Desc}
+\hypertarget{namespace_minesweeper_adf92d608047dafd69d16008492d317bd}{\index{Minesweeper@{Minesweeper}!Cell\+Image@{Cell\+Image}}
+\index{Cell\+Image@{Cell\+Image}!Minesweeper@{Minesweeper}}
+\subsubsection[{Cell\+Image}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Minesweeper.\+Cell\+Image}}}\label{namespace_minesweeper_adf92d608047dafd69d16008492d317bd}
+
+
+Defines the possible images a cell can have. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{Not\+Flagged@{Not\+Flagged}!Minesweeper@{Minesweeper}}\index{Minesweeper@{Minesweeper}!Not\+Flagged@{Not\+Flagged}}\item[{\em 
+\hypertarget{namespace_minesweeper_adf92d608047dafd69d16008492d317bda2f7683c80079a6b0ba066fecc3f55fb5}{Not\+Flagged}\label{namespace_minesweeper_adf92d608047dafd69d16008492d317bda2f7683c80079a6b0ba066fecc3f55fb5}
+}]Closed\+: not flagged.\index{Flagged@{Flagged}!Minesweeper@{Minesweeper}}\index{Minesweeper@{Minesweeper}!Flagged@{Flagged}}\item[{\em 
+\hypertarget{namespace_minesweeper_adf92d608047dafd69d16008492d317bda72d68acd07c783e657e2d2a9c50f16df}{Flagged}\label{namespace_minesweeper_adf92d608047dafd69d16008492d317bda72d68acd07c783e657e2d2a9c50f16df}
+}]Closed\+: flagged.\index{Bomb@{Bomb}!Minesweeper@{Minesweeper}}\index{Minesweeper@{Minesweeper}!Bomb@{Bomb}}\item[{\em 
+\hypertarget{namespace_minesweeper_adf92d608047dafd69d16008492d317bdacd3abfc2f377a4c3fd9181f919d9de82}{Bomb}\label{namespace_minesweeper_adf92d608047dafd69d16008492d317bdacd3abfc2f377a4c3fd9181f919d9de82}
+}]Opened\+: has mine (exploded).\index{No\+Bomb@{No\+Bomb}!Minesweeper@{Minesweeper}}\index{Minesweeper@{Minesweeper}!No\+Bomb@{No\+Bomb}}\item[{\em 
+\hypertarget{namespace_minesweeper_adf92d608047dafd69d16008492d317bda3332eae8860836ce9554811a48beb464}{No\+Bomb}\label{namespace_minesweeper_adf92d608047dafd69d16008492d317bda3332eae8860836ce9554811a48beb464}
+}]Opened\+: no mine (exploded).\index{Num@{Num}!Minesweeper@{Minesweeper}}\index{Minesweeper@{Minesweeper}!Num@{Num}}\item[{\em 
+\hypertarget{namespace_minesweeper_adf92d608047dafd69d16008492d317bdab3e3076d9b3c53bede50d468b647b109}{Num}\label{namespace_minesweeper_adf92d608047dafd69d16008492d317bdab3e3076d9b3c53bede50d468b647b109}
+}]Opened\+: shows the number of adjacent mines.\end{description}
+\end{Desc}

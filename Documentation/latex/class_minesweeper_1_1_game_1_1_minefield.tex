@@ -1,0 +1,245 @@
+\hypertarget{class_minesweeper_1_1_game_1_1_minefield}{\section{Minesweeper.\+Game.\+Minefield Class Reference}
+\label{class_minesweeper_1_1_game_1_1_minefield}\index{Minesweeper.\+Game.\+Minefield@{Minesweeper.\+Game.\+Minefield}}
+}
+
+
+\hyperlink{class_minesweeper_1_1_game_1_1_minefield}{Minefield} class represents matrix of I\+Cell.  
+
+
+Inheritance diagram for Minesweeper.\+Game.\+Minefield\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_minesweeper_1_1_game_1_1_minefield}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_minesweeper_1_1_game_1_1_minefield_ae13f75c03811d1808701a96b0daac034}{Minefield} (int rows, int cols, int number\+Of\+Mines, \hyperlink{interface_minesweeper_1_1_lib_1_1_i_random_generator_provider}{I\+Random\+Generator\+Provider} rnd\+Generator)
+\begin{DoxyCompactList}\small\item\em Initializes a new instance of the \hyperlink{class_minesweeper_1_1_game_1_1_minefield}{Minefield} class. \end{DoxyCompactList}\item 
+\hyperlink{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93}{Cell\+Action\+Result} \hyperlink{class_minesweeper_1_1_game_1_1_minefield_a4238ded437c9cdf9fdfa5efb9be0e48f}{Open\+Cell\+Handler} (\hyperlink{interface_minesweeper_1_1_lib_1_1_i_cell_position}{I\+Cell\+Position} cell\+Position)
+\begin{DoxyCompactList}\small\item\em Handles cell opening. Reveals cell's content and returns it's state. \end{DoxyCompactList}\item 
+\hyperlink{namespace_minesweeper_af85e37deff295959aea34f4226d8ba93}{Cell\+Action\+Result} \hyperlink{class_minesweeper_1_1_game_1_1_minefield_a78fbb274c5004164c1eaf03564d5a8aa}{Flag\+Cell\+Handler} (\hyperlink{interface_minesweeper_1_1_lib_1_1_i_cell_position}{I\+Cell\+Position} cell\+Position)
+\begin{DoxyCompactList}\small\item\em Handles cell flagging. \end{DoxyCompactList}\item 
+\hyperlink{namespace_minesweeper_adf92d608047dafd69d16008492d317bd}{Cell\+Image}\mbox{[},\mbox{]} \hyperlink{class_minesweeper_1_1_game_1_1_minefield_a8bcfdd40f65d4c1c5e00565c880c8aa9}{Get\+Image} (bool show\+All=false)
+\begin{DoxyCompactList}\small\item\em Gets an 'image' of the minefield as a matrix of type Cell\+Image. \end{DoxyCompactList}\item 
+bool \hyperlink{class_minesweeper_1_1_game_1_1_minefield_a41bbc89242ced88cca3171e0c57fb50e}{Is\+Disarmed} ()
+\begin{DoxyCompactList}\small\item\em Checks if all cells are opened without explosion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_minesweeper_1_1_game_1_1_minefield_a1675fa664921d1110b8e2443645ce737}{Is\+Inside\+Matrix} (int row, int col)
+\begin{DoxyCompactList}\small\item\em Validates if given coordinates are inside the minefield matrix. \end{DoxyCompactList}\item 
+int \hyperlink{class_minesweeper_1_1_game_1_1_minefield_a18c96bbc37166965dcb92284f86cac0f}{Get\+Index} (\hyperlink{interface_minesweeper_1_1_lib_1_1_i_cell_position}{I\+Cell\+Position} cell)
+\begin{DoxyCompactList}\small\item\em Converts (row,col) coordinates to index in the cell list. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{class_minesweeper_1_1_game_1_1_minefield_a5498de495abe8a57bc25e8a12babb08c}{Open\+Cell} (\hyperlink{interface_minesweeper_1_1_lib_1_1_i_cell_position}{I\+Cell\+Position} cell\+Position)
+\begin{DoxyCompactList}\small\item\em Handles cell opening. Reveals cell's content and returns it's state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+int\mbox{[},\mbox{]} \hyperlink{class_minesweeper_1_1_game_1_1_minefield_a6b62b86faae0edee06d71b14790661f1}{All\+Neighbor\+Mines}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the number of neighbor mines for each cell. Returns copy of the all\+Neighbor\+Mines matrix. \end{DoxyCompactList}\item 
+int \hyperlink{class_minesweeper_1_1_game_1_1_minefield_a3fabf570d9045ea288bb06fd1ecea287}{Opened\+Cells\+Count}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets or sets the number of opened cells in the minefield. \end{DoxyCompactList}\item 
+I\+List$<$ \hyperlink{interface_minesweeper_1_1_lib_1_1_i_cell}{I\+Cell} $>$ \hyperlink{class_minesweeper_1_1_game_1_1_minefield_a6308163a3dc8ed1f5681de4bbd184788}{Cells}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a list of cells in the minefield. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_minesweeper_1_1_game_1_1_minefield}{Minefield} class represents matrix of I\+Cell. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_minesweeper_1_1_game_1_1_minefield_ae13f75c03811d1808701a96b0daac034}{\index{Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}!Minefield@{Minefield}}
+\index{Minefield@{Minefield}!Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}}
+\subsubsection[{Minefield}]{\setlength{\rightskip}{0pt plus 5cm}Minesweeper.\+Game.\+Minefield.\+Minefield (
+\begin{DoxyParamCaption}
+\item[{int}]{rows, }
+\item[{int}]{cols, }
+\item[{int}]{number\+Of\+Mines, }
+\item[{{\bf I\+Random\+Generator\+Provider}}]{rnd\+Generator}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_minefield_ae13f75c03811d1808701a96b0daac034}
+
+
+Initializes a new instance of the \hyperlink{class_minesweeper_1_1_game_1_1_minefield}{Minefield} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rows} & Number of rows.\\
+\hline
+{\em cols} & Number of columns.\\
+\hline
+{\em number\+Of\+Mines} & Number of mines.\\
+\hline
+{\em rnd\+Generator} & Random generator provider.\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_minesweeper_1_1_game_1_1_minefield_a78fbb274c5004164c1eaf03564d5a8aa}{\index{Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}!Flag\+Cell\+Handler@{Flag\+Cell\+Handler}}
+\index{Flag\+Cell\+Handler@{Flag\+Cell\+Handler}!Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}}
+\subsubsection[{Flag\+Cell\+Handler}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Cell\+Action\+Result} Minesweeper.\+Game.\+Minefield.\+Flag\+Cell\+Handler (
+\begin{DoxyParamCaption}
+\item[{{\bf I\+Cell\+Position}}]{cell\+Position}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_minefield_a78fbb274c5004164c1eaf03564d5a8aa}
+
+
+Handles cell flagging. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cell\+Position} & Cell's position in the minefield matrix.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+State of the minefield.
+\end{DoxyReturn}
+\hypertarget{class_minesweeper_1_1_game_1_1_minefield_a8bcfdd40f65d4c1c5e00565c880c8aa9}{\index{Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}!Get\+Image@{Get\+Image}}
+\index{Get\+Image@{Get\+Image}!Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}}
+\subsubsection[{Get\+Image}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Cell\+Image} \mbox{[},\mbox{]} Minesweeper.\+Game.\+Minefield.\+Get\+Image (
+\begin{DoxyParamCaption}
+\item[{bool}]{show\+All = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_minefield_a8bcfdd40f65d4c1c5e00565c880c8aa9}
+
+
+Gets an 'image' of the minefield as a matrix of type Cell\+Image. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em show\+All} & Set to 'true' to uncover all mines.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A matrix of cells of type Cell\+Image.
+\end{DoxyReturn}
+\hypertarget{class_minesweeper_1_1_game_1_1_minefield_a18c96bbc37166965dcb92284f86cac0f}{\index{Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}!Get\+Index@{Get\+Index}}
+\index{Get\+Index@{Get\+Index}!Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}}
+\subsubsection[{Get\+Index}]{\setlength{\rightskip}{0pt plus 5cm}int Minesweeper.\+Game.\+Minefield.\+Get\+Index (
+\begin{DoxyParamCaption}
+\item[{{\bf I\+Cell\+Position}}]{cell}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_minesweeper_1_1_game_1_1_minefield_a18c96bbc37166965dcb92284f86cac0f}
+
+
+Converts (row,col) coordinates to index in the cell list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cell} & The cell position.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index in the cell list.
+\end{DoxyReturn}
+\hypertarget{class_minesweeper_1_1_game_1_1_minefield_a41bbc89242ced88cca3171e0c57fb50e}{\index{Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}!Is\+Disarmed@{Is\+Disarmed}}
+\index{Is\+Disarmed@{Is\+Disarmed}!Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}}
+\subsubsection[{Is\+Disarmed}]{\setlength{\rightskip}{0pt plus 5cm}bool Minesweeper.\+Game.\+Minefield.\+Is\+Disarmed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_minefield_a41bbc89242ced88cca3171e0c57fb50e}
+
+
+Checks if all cells are opened without explosion. 
+
+\begin{DoxyReturn}{Returns}
+True if all non-\/mined cells are opened.
+\end{DoxyReturn}
+\hypertarget{class_minesweeper_1_1_game_1_1_minefield_a1675fa664921d1110b8e2443645ce737}{\index{Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}!Is\+Inside\+Matrix@{Is\+Inside\+Matrix}}
+\index{Is\+Inside\+Matrix@{Is\+Inside\+Matrix}!Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}}
+\subsubsection[{Is\+Inside\+Matrix}]{\setlength{\rightskip}{0pt plus 5cm}bool Minesweeper.\+Game.\+Minefield.\+Is\+Inside\+Matrix (
+\begin{DoxyParamCaption}
+\item[{int}]{row, }
+\item[{int}]{col}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_minesweeper_1_1_game_1_1_minefield_a1675fa664921d1110b8e2443645ce737}
+
+
+Validates if given coordinates are inside the minefield matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & Current position by row.\\
+\hline
+{\em col} & Current position by column.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Validation result.
+\end{DoxyReturn}
+\hypertarget{class_minesweeper_1_1_game_1_1_minefield_a5498de495abe8a57bc25e8a12babb08c}{\index{Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}!Open\+Cell@{Open\+Cell}}
+\index{Open\+Cell@{Open\+Cell}!Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}}
+\subsubsection[{Open\+Cell}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Minesweeper.\+Game.\+Minefield.\+Open\+Cell (
+\begin{DoxyParamCaption}
+\item[{{\bf I\+Cell\+Position}}]{cell\+Position}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{class_minesweeper_1_1_game_1_1_minefield_a5498de495abe8a57bc25e8a12babb08c}
+
+
+Handles cell opening. Reveals cell's content and returns it's state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cell\+Position} & Cell's position in the minefield matrix.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+State of the minefield.
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_minesweeper_1_1_game_1_1_minefield_easy_ad66c9eb0e3876d537f2ea7a9f548410c}{Minesweeper.\+Game.\+Minefield\+Easy}.
+
+\hypertarget{class_minesweeper_1_1_game_1_1_minefield_a4238ded437c9cdf9fdfa5efb9be0e48f}{\index{Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}!Open\+Cell\+Handler@{Open\+Cell\+Handler}}
+\index{Open\+Cell\+Handler@{Open\+Cell\+Handler}!Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}}
+\subsubsection[{Open\+Cell\+Handler}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Cell\+Action\+Result} Minesweeper.\+Game.\+Minefield.\+Open\+Cell\+Handler (
+\begin{DoxyParamCaption}
+\item[{{\bf I\+Cell\+Position}}]{cell\+Position}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_game_1_1_minefield_a4238ded437c9cdf9fdfa5efb9be0e48f}
+
+
+Handles cell opening. Reveals cell's content and returns it's state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cell\+Position} & Cell's position in the minefield matrix.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+State of the minefield.
+\end{DoxyReturn}
+
+
+\subsection{Property Documentation}
+\hypertarget{class_minesweeper_1_1_game_1_1_minefield_a6b62b86faae0edee06d71b14790661f1}{\index{Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}!All\+Neighbor\+Mines@{All\+Neighbor\+Mines}}
+\index{All\+Neighbor\+Mines@{All\+Neighbor\+Mines}!Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}}
+\subsubsection[{All\+Neighbor\+Mines}]{\setlength{\rightskip}{0pt plus 5cm}int \mbox{[},\mbox{]} Minesweeper.\+Game.\+Minefield.\+All\+Neighbor\+Mines\hspace{0.3cm}{\ttfamily [get]}}}\label{class_minesweeper_1_1_game_1_1_minefield_a6b62b86faae0edee06d71b14790661f1}
+
+
+Gets the number of neighbor mines for each cell. Returns copy of the all\+Neighbor\+Mines matrix. 
+
+Not accepted.\hypertarget{class_minesweeper_1_1_game_1_1_minefield_a6308163a3dc8ed1f5681de4bbd184788}{\index{Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}!Cells@{Cells}}
+\index{Cells@{Cells}!Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}}
+\subsubsection[{Cells}]{\setlength{\rightskip}{0pt plus 5cm}I\+List$<${\bf I\+Cell}$>$ Minesweeper.\+Game.\+Minefield.\+Cells\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}, {\ttfamily [protected]}}}\label{class_minesweeper_1_1_game_1_1_minefield_a6308163a3dc8ed1f5681de4bbd184788}
+
+
+Gets a list of cells in the minefield. 
+
+Not accepted.\hypertarget{class_minesweeper_1_1_game_1_1_minefield_a3fabf570d9045ea288bb06fd1ecea287}{\index{Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}!Opened\+Cells\+Count@{Opened\+Cells\+Count}}
+\index{Opened\+Cells\+Count@{Opened\+Cells\+Count}!Minesweeper\+::\+Game\+::\+Minefield@{Minesweeper\+::\+Game\+::\+Minefield}}
+\subsubsection[{Opened\+Cells\+Count}]{\setlength{\rightskip}{0pt plus 5cm}int Minesweeper.\+Game.\+Minefield.\+Opened\+Cells\+Count\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}}\label{class_minesweeper_1_1_game_1_1_minefield_a3fabf570d9045ea288bb06fd1ecea287}
+
+
+Gets or sets the number of opened cells in the minefield. 
+
+The number of opened cells.
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Minesweeper/\+Minesweeper/\+Minesweeper.\+game/Minefield.\+cs\end{DoxyCompactItemize}

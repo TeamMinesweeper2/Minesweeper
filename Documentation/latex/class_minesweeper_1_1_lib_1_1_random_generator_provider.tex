@@ -1,0 +1,102 @@
+\hypertarget{class_minesweeper_1_1_lib_1_1_random_generator_provider}{\section{Minesweeper.\+Lib.\+Random\+Generator\+Provider Class Reference}
+\label{class_minesweeper_1_1_lib_1_1_random_generator_provider}\index{Minesweeper.\+Lib.\+Random\+Generator\+Provider@{Minesweeper.\+Lib.\+Random\+Generator\+Provider}}
+}
+
+
+Random generator singleton.  
+
+
+Inheritance diagram for Minesweeper.\+Lib.\+Random\+Generator\+Provider\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_minesweeper_1_1_lib_1_1_random_generator_provider}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{class_minesweeper_1_1_lib_1_1_random_generator_provider_a53e1e507758a05548dd09e14c81af8d4}{Next} (int min\+Number, int max\+Number)
+\begin{DoxyCompactList}\small\item\em Generates random number through Random class. \end{DoxyCompactList}\item 
+int \hyperlink{class_minesweeper_1_1_lib_1_1_random_generator_provider_afabb9a038955a531abcb19cb0c6b77a3}{Next} (int max\+Number)
+\begin{DoxyCompactList}\small\item\em Overload with minimal range 0. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_minesweeper_1_1_lib_1_1_random_generator_provider}{Random\+Generator\+Provider} \hyperlink{class_minesweeper_1_1_lib_1_1_random_generator_provider_ab8f03e8ad898e70caa96d13e80f750b4}{Get\+Instance} ()
+\begin{DoxyCompactList}\small\item\em Returns the only instance of \hyperlink{class_minesweeper_1_1_lib_1_1_random_generator_provider}{Random\+Generator\+Provider}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Random generator singleton. 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_minesweeper_1_1_lib_1_1_random_generator_provider_ab8f03e8ad898e70caa96d13e80f750b4}{\index{Minesweeper\+::\+Lib\+::\+Random\+Generator\+Provider@{Minesweeper\+::\+Lib\+::\+Random\+Generator\+Provider}!Get\+Instance@{Get\+Instance}}
+\index{Get\+Instance@{Get\+Instance}!Minesweeper\+::\+Lib\+::\+Random\+Generator\+Provider@{Minesweeper\+::\+Lib\+::\+Random\+Generator\+Provider}}
+\subsubsection[{Get\+Instance}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf Random\+Generator\+Provider} Minesweeper.\+Lib.\+Random\+Generator\+Provider.\+Get\+Instance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_minesweeper_1_1_lib_1_1_random_generator_provider_ab8f03e8ad898e70caa96d13e80f750b4}
+
+
+Returns the only instance of \hyperlink{class_minesweeper_1_1_lib_1_1_random_generator_provider}{Random\+Generator\+Provider}. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_minesweeper_1_1_lib_1_1_random_generator_provider}{Random\+Generator\+Provider} only instance.
+\end{DoxyReturn}
+\hypertarget{class_minesweeper_1_1_lib_1_1_random_generator_provider_a53e1e507758a05548dd09e14c81af8d4}{\index{Minesweeper\+::\+Lib\+::\+Random\+Generator\+Provider@{Minesweeper\+::\+Lib\+::\+Random\+Generator\+Provider}!Next@{Next}}
+\index{Next@{Next}!Minesweeper\+::\+Lib\+::\+Random\+Generator\+Provider@{Minesweeper\+::\+Lib\+::\+Random\+Generator\+Provider}}
+\subsubsection[{Next}]{\setlength{\rightskip}{0pt plus 5cm}int Minesweeper.\+Lib.\+Random\+Generator\+Provider.\+Next (
+\begin{DoxyParamCaption}
+\item[{int}]{min\+Number, }
+\item[{int}]{max\+Number}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_lib_1_1_random_generator_provider_a53e1e507758a05548dd09e14c81af8d4}
+
+
+Generates random number through Random class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em min\+Number} & Minimal range.\\
+\hline
+{\em max\+Number} & Maximal range.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Integer random number.
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_minesweeper_1_1_lib_1_1_i_random_generator_provider_a0f49fa42c327f257a83bfb9264cb9124}{Minesweeper.\+Lib.\+I\+Random\+Generator\+Provider}.
+
+\hypertarget{class_minesweeper_1_1_lib_1_1_random_generator_provider_afabb9a038955a531abcb19cb0c6b77a3}{\index{Minesweeper\+::\+Lib\+::\+Random\+Generator\+Provider@{Minesweeper\+::\+Lib\+::\+Random\+Generator\+Provider}!Next@{Next}}
+\index{Next@{Next}!Minesweeper\+::\+Lib\+::\+Random\+Generator\+Provider@{Minesweeper\+::\+Lib\+::\+Random\+Generator\+Provider}}
+\subsubsection[{Next}]{\setlength{\rightskip}{0pt plus 5cm}int Minesweeper.\+Lib.\+Random\+Generator\+Provider.\+Next (
+\begin{DoxyParamCaption}
+\item[{int}]{max\+Number}
+\end{DoxyParamCaption}
+)}}\label{class_minesweeper_1_1_lib_1_1_random_generator_provider_afabb9a038955a531abcb19cb0c6b77a3}
+
+
+Overload with minimal range 0. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em max\+Number} & Maximal range.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Integer random number.
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_minesweeper_1_1_lib_1_1_i_random_generator_provider_a582bbebd6de2ecdded37c76b35c74a66}{Minesweeper.\+Lib.\+I\+Random\+Generator\+Provider}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Minesweeper/\+Minesweeper/\+Minesweeper.\+Lib/Random\+Generator\+Provider.\+cs\end{DoxyCompactItemize}
