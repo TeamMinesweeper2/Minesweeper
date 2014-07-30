@@ -1,4 +1,4 @@
-## Minesweeper Presentation
+## Code Walkthrough
 
 * Program : entry point
 * Engine: creates the main game components and runs the game loop
