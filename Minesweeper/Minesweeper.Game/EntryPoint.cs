@@ -10,7 +10,7 @@ namespace Minesweeper.Game
     /// <summary>
     /// Class for the main entry point of the program.
     /// </summary>
-    public class Program
+    public class EntryPoint
     {
         /// <summary>
         /// The entry point of the console application.
