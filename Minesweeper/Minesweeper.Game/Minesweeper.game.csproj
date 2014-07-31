@@ -63,7 +63,7 @@
     <Compile Include="Enums\CellActionResult.cs" />
     <Compile Include="Minefield.cs" />
     <Compile Include="Engine.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="EntryPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
